@@ -1,87 +1,121 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import java.sql.*;
 
 public class Main extends Application {
     Stage window;
-    Scene loginPage;
-    Button loginButton;
+    Scene loginPage, homepage;
+    Button loginButton,logout;
 
-    public static Connection getConnection() throws Exception {
-        try {
-            String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/atsdb";
-            String username = "root";
-            String password = "admin";
-            Connection conn = DriverManager.getConnection(url,username,password);
-            return conn;
-        } catch(Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    public static String getData(String match, String field, String table) throws Exception {
-        try {
-            String data = "";
-            Connection con = getConnection();
-
-            PreparedStatement statement = con.prepareStatement("SELECT " + field + " FROM " + table + " WHERE " + field + " = '" + match + "'");
-            ResultSet result = statement.executeQuery();
-            while (result.next())
-                data = result.getString(field);
-            return data;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public void start(Stage primaryStage) throws Exception{
+
+        //Creating window
+
         window = primaryStage;
         window.setTitle("ATS System");
+
+        //GridPane Layout
+
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10,10,10,75));
+        grid.setVgap(8);
+        grid.setHgap(10);
+
+        //adding image
+
+        Image img = new Image("Images/TeamLogo.png");
+        HBox logo = new HBox();
+        ImageView imageView = new ImageView(img);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(400);
+        logo.getChildren().add(imageView);
+
+        //Username Label
+
+        Label usernameLabel = new Label("Username:");
+        GridPane.setConstraints(usernameLabel,0,0);
+
+        //Password label
+
+        Label passwordLabel = new Label("Password:");
+        GridPane.setConstraints(passwordLabel,0,1);
+
         Label loginText = new Label("ATS System Login");
+
+        //Login Textfield
+
         TextField usernameTextBox = new TextField();
+        GridPane.setConstraints(usernameTextBox,1,0);
+
+        //Passoword Textfield
+
         PasswordField passwordTextBox = new PasswordField();
+        GridPane.setConstraints(passwordTextBox,1,1);
+
+        //Login button
+
         loginButton = new Button();
         loginButton.setText("Login");
+        GridPane.setConstraints(loginButton, 1, 2);
         loginButton.setOnAction(e -> {
-            try {
-                if (getData(usernameTextBox.getText(),"username","officemanager").equals(usernameTextBox.getText())
-                                    && getData(passwordTextBox.getText(),"password","officemanager").equals(passwordTextBox.getText())
-                                    && !usernameTextBox.getText().equals("") && !passwordTextBox.getText().equals("")) {
-                    window.setScene(OfficeManagerHomepage.getScene());
-                } else if (getData(usernameTextBox.getText(),"username","systemadmin").equals(usernameTextBox.getText())
-                                    && getData(passwordTextBox.getText(),"password","systemadmin").equals(passwordTextBox.getText())
-                                    && !usernameTextBox.getText().equals("") && !passwordTextBox.getText().equals("")) {
-                    window.setScene(SystemAdminHomepage.getScene());
-                } else if (getData(usernameTextBox.getText(),"username","traveladvisor").equals(usernameTextBox.getText())
-                                    && getData(passwordTextBox.getText(),"password","traveladvisor").equals(passwordTextBox.getText())
-                                    && !usernameTextBox.getText().equals("") && !passwordTextBox.getText().equals("")) {
-                    window.setScene(TravelAdvisorHomepage.getScene());
-                } else {
-                    System.out.println("username unmatched");
-                }
+            try
+            {
+                // Login check
+                    if (SQL.getLoginDetails(usernameTextBox.getText(),"username").equals(usernameTextBox.getText())
+                            && SQL.getLoginDetails((passwordTextBox.getText()),"password").equals(passwordTextBox.getText())
+                            && !usernameTextBox.getText().equals("") && !passwordTextBox.getText().equals("")) {
+
+                        //role check
+
+                        //checking if manager
+                        if (SQL.getRole(usernameTextBox.getText()).equals("m")) {
+                            window.setScene(OfficeManagerHomepage.getScene());
+
+                            //checking if travel advisor
+                        } else if (SQL.getRole(usernameTextBox.getText()).equals("t")) {
+                            window.setScene(TravelAdvisorHomepage.getScene());
+
+                            //checking if administrator
+                        } else if (SQL.getRole(usernameTextBox.getText()).equals("a")) {
+                            window.setScene(SystemAdminHomepage.getScene());
+                        }
+                    }
+
+                    // login does not exist in database
+                    else {
+                        System.out.println("wrong login");
+                    }
             } catch (Exception el) {
                 el.printStackTrace();
-            } {
-
             }
         });
 
-        HBox loginLayout = new HBox(10);
-        loginLayout.getChildren().addAll(loginText,usernameTextBox,passwordTextBox,loginButton);
-        loginPage = new Scene(loginLayout, 500, 100);
+        //Adding objects to gridPane
 
+        grid.getChildren().addAll(usernameLabel, usernameTextBox, passwordLabel,passwordTextBox, loginButton);
+
+
+        // Using borderPane for layout
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(logo);
+        borderPane.setBottom(grid);
+
+        //Adding borderPane to scene
+        //also setting size to window
+
+        loginPage = new Scene(borderPane, 400, 225);
         window.setScene(loginPage);
         window.show();
     }
