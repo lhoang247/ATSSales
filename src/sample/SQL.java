@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQL {
 
@@ -45,6 +47,24 @@ public class SQL {
             ResultSet result = statement.executeQuery();
             while (result.next())
                 data = result.getString("role");
+            return data;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    public static List<String> getFandSname(String match, String field) throws Exception {
+        List<String> data = new ArrayList();
+        try {
+            Connection con = getConnection();
+
+            PreparedStatement statement = con.prepareStatement("SELECT firstname, surname FROM staff WHERE " + field + " = '" + match + "'");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                data.add(result.getString("firstname"));
+                data.add(result.getString("surname"));
+            }
             return data;
         } catch (Exception e) {
             return null;
