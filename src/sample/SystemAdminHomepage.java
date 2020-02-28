@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -50,9 +50,10 @@ public class SystemAdminHomepage {
                 });
 
         //top border
-        HBox homeLayout = new HBox(10);
+        VBox homeLayout = new VBox(10);
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
-        homeLayout.getChildren().addAll(welcome);
+        Label email = new Label("Email: " + fullname.get(2));
+        homeLayout.getChildren().addAll(welcome,email);
 
 
         //middle border
@@ -60,7 +61,7 @@ public class SystemAdminHomepage {
 
         //Creating border
         BorderPane borderPane = new BorderPane();
-        borderPane.setTop(welcome);
+        borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);
         Scene homepage = new Scene(borderPane, 300, 300);
         window.setTitle("System Admin Homepage");

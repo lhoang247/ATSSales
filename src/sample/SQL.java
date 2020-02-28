@@ -59,11 +59,12 @@ public class SQL {
         try {
             Connection con = getConnection();
 
-            PreparedStatement statement = con.prepareStatement("SELECT firstname, surname FROM staff WHERE " + field + " = '" + match + "'");
+            PreparedStatement statement = con.prepareStatement("SELECT firstname, surname, email FROM staff WHERE " + field + " = '" + match + "'");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 data.add(result.getString("firstname"));
                 data.add(result.getString("surname"));
+                data.add(result.getString("email"));
             }
             return data;
         } catch (Exception e) {

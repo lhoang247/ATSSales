@@ -93,7 +93,7 @@ public class LoginPage {
 
                 // login does not exist in database
                 else {
-                    System.out.println("wrong login");
+                    ErrorBox.display("Wrong Login", "Wrong Login. Please try again.");
                 }
             } catch (Exception el) {
                 el.printStackTrace();
