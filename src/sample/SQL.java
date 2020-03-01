@@ -1,5 +1,9 @@
 package sample;
 
+import Entities.Data;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -71,6 +75,7 @@ public class SQL {
             return null;
         }
     }
+
 
     public void addTravelAdvisor() throws Exception {
 

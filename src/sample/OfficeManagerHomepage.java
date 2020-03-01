@@ -26,10 +26,24 @@ public class OfficeManagerHomepage {
         grid.setVgap(8);
         grid.setHgap(10);
 
+        //Buttons
+
+        Button button1 = new Button();
+        button1.setMinSize(200,1);
+        button1.setText("View Reports");
+        GridPane.setConstraints(button1, 0, 0);
+        button1.setOnAction(e -> {
+            try {
+                ReportPage.display();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+
+        });
 
         HBox homeLayout = new HBox(10);
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
-        homeLayout.getChildren().addAll(welcome);
+        homeLayout.getChildren().addAll(welcome ,button1);
         Scene homepage = new Scene(homeLayout, 300, 300);
         window.setTitle("Office Manager Homepage");
         return homepage;
