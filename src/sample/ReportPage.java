@@ -5,10 +5,7 @@ import Entities.Data2;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -22,7 +19,7 @@ public class ReportPage {
 
     public static void display() throws Exception {
         Stage window = new Stage();
-        window.setMinWidth(1800);
+        window.setMaxWidth(500);
         BorderPane borderPane = new BorderPane();
         Button button1 = new Button();
         button1.setOnAction(e -> {
@@ -49,7 +46,11 @@ public class ReportPage {
         gridInfo.getChildren().addAll(labelTitle, labelAgent, labelAgentNumber, labelAgentPlace, labelReportPeriod,button1);
 
         borderPane.setTop(gridInfo);
-        borderPane.setCenter(InterlineReport.interlineGrid());
+        ScrollPane sp = new ScrollPane(TurnoverReport.turnoverGrid());
+        sp.setFitToHeight(true);
+        sp.fitToHeightProperty();
+        borderPane.setCenter(sp);
+
             Scene scene = new Scene(borderPane);
             window.setScene(scene);
             window.show();

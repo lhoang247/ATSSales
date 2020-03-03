@@ -5,11 +5,13 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 public class TurnoverReport {
 
@@ -286,7 +288,12 @@ public class TurnoverReport {
             HBox hBox = new HBox();
             hBox.getChildren().addAll(table1,table2,table3);
 
-
+            grid.setHgrow(table1, Priority.ALWAYS);
+            grid.setHgrow(table2, Priority.ALWAYS);
+            grid.setHgrow(table3, Priority.ALWAYS);
+            grid.setHgrow(table4, Priority.ALWAYS);
+            grid.setHgrow(table5, Priority.ALWAYS);
+            grid.setHgrow(table6, Priority.ALWAYS);
             grid.getChildren().addAll(label1,label2,label3,label4,label5,label6,label7,label8,labelt,label9,label10,label11,label12,label13,label14,table1,table2,table3,table4,table5,table6);
             return grid;
 
