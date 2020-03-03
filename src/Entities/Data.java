@@ -7,6 +7,7 @@ public class Data {
     private String data4;
     private String data5;
     private String data6;
+    private String data7;
 
     public Data(String data1) {
         this.data1 = data1;
@@ -24,19 +25,37 @@ public class Data {
     }
 
     public Data(String data1, String data2, String data3, String data4) {
-        this.data1 = data1;
-        this.data2 = data2;
-        this.data3 = data3;
-        this.data4 = data4;
+        try {
+
+            this.data1 = data1;
+            this.data2 = String.format("%08d", Integer.parseInt(data2));
+            this.data3 = String.format("%08d", Integer.parseInt(data3));
+            this.data4 = data4;
+
+        } catch (Exception e) {
+            this.data1 = data1;
+            this.data2 = data2;
+            this.data3 = data3;
+            this.data4 = data4;
+        }
     }
+
 
     public Data(String data1, String data2, String data3, String data4, String data5)
     {
+        try {
         this.data1 = data1;
         this.data2 = data2;
-        this.data3 = data3;
-        this.data4 = data4;
+        this.data3 = String.format("%08d", Integer.parseInt(data3));
+        this.data4 = String.format("%08d", Integer.parseInt(data4));
         this.data5 = data5;
+        } catch (Exception e) {
+            this.data1 = data1;
+            this.data2 = data2;
+            this.data3 = data3;
+            this.data4 = data4;
+            this.data5 = data5;
+        }
     }
 
     public Data(String data1, String data2, String data3, String data4, String data5, String data6)
@@ -47,6 +66,17 @@ public class Data {
         this.data4 = data4;
         this.data5 = data5;
         this.data6 = data6;
+    }
+
+    public Data(String data1, String data2, String data3, String data4, String data5, String data6, String data7)
+    {
+        this.data1 = data1;
+        this.data2 = String.format("%08d", Integer.parseInt(data2));
+        this.data3 = data3;
+        this.data4 = data4;
+        this.data5 = data5;
+        this.data6 = data6;
+        this.data7 = data7;
     }
 
     public String getData1() {
@@ -95,5 +125,13 @@ public class Data {
 
     public void setData6(String data6) {
         this.data6 = data6;
+    }
+
+    public String getData7() {
+        return data7;
+    }
+
+    public void setData7(String data7) {
+        this.data7 = data7;
     }
 }
