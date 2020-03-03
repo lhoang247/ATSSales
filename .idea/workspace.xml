@@ -459,7 +459,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="AirTicketsSales" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;D:\Users\LeeHoang\Desktop\New folder\javafx-sdk-13.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;D:\Users\LeeHoang\Desktop\New folder\javafx-sdk-13.0.2\lb&quot; --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
