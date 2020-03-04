@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class InterlineReport {
 
     public static GridPane interlineGrid(int type, int staffNumber) {
-        System.out.println(type);
         TableView<Data> table1;
         TableView<Data2> table2, table3;
 

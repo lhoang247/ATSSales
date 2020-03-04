@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.AssignBlanks;
 import sample.LoginPage;
 import sample.ReportPage;
 
@@ -49,12 +50,21 @@ public class OfficeManagerHomepage {
 
         Button button2 = new Button();
         button2.setMinSize(200,1);
-        button2.setText("View Staff");
+        button2.setText("Assign Blanks");
         GridPane.setConstraints(button2, 0, 1);
+
+        button2.setOnAction(e -> {
+
+            try {
+                AssignBlanks.display(staffNumber, fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         Button button3 = new Button();
         button3.setMinSize(200,1);
-        button3.setText("Backup");
+        button3.setText("Report Sales");
         GridPane.setConstraints(button3, 0, 2);
 
         Button button4 = new Button();
