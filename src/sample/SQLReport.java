@@ -45,7 +45,6 @@ public class SQLReport {
                         result.getString("bundle"),
                         result.getString("COUNT(*)")
                 );
-                System.out.println();
                 table.add(data);
             }
             return table;
@@ -53,7 +52,6 @@ public class SQLReport {
             return null;
         }
     }
-
 
     public static ObservableList<Data> getReport3() throws Exception {
         try {
@@ -70,7 +68,6 @@ public class SQLReport {
                         result.getString(1),
                         result.getString("COUNT(*)")
                 );
-                System.out.println();
                 table.add(data);
             }
             return table;
@@ -94,7 +91,6 @@ public class SQLReport {
                         result.getString(3),
                         result.getString("COUNT(*)")
                 );
-                System.out.println();
                 table.add(data);
             }
             return table;
@@ -118,7 +114,6 @@ public class SQLReport {
                         result.getString(3),
                         result.getString("COUNT(*)")
                 );
-                System.out.println();
                 table.add(data);
             }
             return table;
@@ -144,7 +139,6 @@ public class SQLReport {
                         result.getString(4),
                         result.getString("COUNT(*)")
                 );
-                System.out.println();
                 table.add(data);
             }
             return table;
@@ -186,7 +180,6 @@ public class SQLReport {
             return null;
         }
     }
-
 
     public static ObservableList<Data2> getReport8(int type, int staffID) throws Exception {
         try {
@@ -269,7 +262,6 @@ public class SQLReport {
             return null;
         }
     }
-
 
     public static ObservableList<Data2> getReport9(int type, int staffID) throws Exception {
         try {
@@ -396,7 +388,6 @@ public class SQLReport {
                         result.getString(3),
                         result.getString(4)
                 );
-                System.out.println("xd");
                 table.add(data);
             }
             return table;
@@ -404,7 +395,6 @@ public class SQLReport {
             return null;
         }
     }
-
 
     public static ObservableList<Data2> getReport11(int type, int staffID) throws Exception {
         try {
@@ -433,7 +423,7 @@ public class SQLReport {
                         "\tWHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
                         "\tend as 'Card number', \n" +
                         "\tsalesamount+tax\n" +
-                        "\tFROM atsdb.sales\n" +
+                        "\tFROM atsdb.sales, atsdb.blanks" +
                         "    WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = "+ staffID +" AND blanks.status = 'sold';");
             }
 

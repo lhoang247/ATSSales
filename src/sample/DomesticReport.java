@@ -3,6 +3,7 @@ package sample;
 import Entities.Data;
 import Entities.Data2;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,6 +22,32 @@ public class DomesticReport {
         grid.setVgap(8);
         grid.setHgap(0);
 
+        GridPane gridInfo = new GridPane();
+        Label labelTitle = new Label();
+        if (type == 0) {
+            labelTitle.setText("Global Domestic Sales Report");
+        } else {
+            labelTitle.setText("Individual Domestic Sales Report");
+        }
+
+        labelTitle.setStyle("-fx-font: 24 arial;");
+        GridPane.setConstraints(labelTitle,0,0);
+
+        Label labelAgent = new Label("Agent: AIR LINK");
+        GridPane.setConstraints(labelAgent,0,1);
+
+        Label labelAgentNumber = new Label("Number: /");
+        GridPane.setConstraints(labelAgentNumber,0,2);
+
+        Label labelAgentPlace = new Label("Sales Office Place: ");
+        GridPane.setConstraints(labelAgentPlace,0,3);
+
+        Label labelReportPeriod = new Label("Report Period: ");
+        GridPane.setConstraints(labelReportPeriod,0,4);
+
+        gridInfo.getChildren().addAll(labelTitle, labelAgent, labelAgentNumber, labelAgentPlace, labelReportPeriod);
+        GridPane.setConstraints(gridInfo,0,0);
+        GridPane.setColumnSpan(gridInfo,2);
 
         try {
             //table1
@@ -82,7 +109,7 @@ public class DomesticReport {
             table3.setMaxSize(1000,200);
             GridPane.setConstraints(table3,2,2);
 
-            grid.getChildren().addAll(table1,table2,table3);
+            grid.getChildren().addAll(gridInfo,table1,table2,table3);
 
             return grid;
 

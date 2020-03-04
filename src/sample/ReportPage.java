@@ -43,7 +43,7 @@ public class ReportPage {
         sp4.setFitToHeight(true);
         sp4.fitToHeightProperty();
 
-        ScrollPane sp5 = new ScrollPane(DomesticReport.domesticGrid(0, staffNumber));
+        ScrollPane sp5 = new ScrollPane(DomesticReport.domesticGrid(1, staffNumber));
         sp5.setFitToHeight(true);
         sp5.fitToHeightProperty();
 
