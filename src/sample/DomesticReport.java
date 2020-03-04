@@ -1,6 +1,5 @@
 package sample;
 
-import Entities.Data;
 import Entities.Data2;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -8,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import sample.SQLReport;
+import SQLqueries.SQLReport;
 
 import static sample.InterlineReport.getColumns;
 
@@ -114,7 +113,6 @@ public class DomesticReport {
             return grid;
 
         } catch (Exception e) {
-            System.out.println("error");
             return null;
         }
     }

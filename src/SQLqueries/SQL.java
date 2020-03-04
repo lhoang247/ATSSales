@@ -1,4 +1,4 @@
-package sample;
+package SQLqueries;
 
 import Entities.Data;
 import javafx.collections.FXCollections;
@@ -63,12 +63,13 @@ public class SQL {
         try {
             Connection con = getConnection();
 
-            PreparedStatement statement = con.prepareStatement("SELECT firstname, surname, idstaff FROM staff WHERE " + field + " = '" + match + "'");
+            PreparedStatement statement = con.prepareStatement("SELECT firstname, surname, idstaff, role FROM staff WHERE " + field + " = '" + match + "'");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 data.add(result.getString("firstname"));
                 data.add(result.getString("surname"));
                 data.add(result.getString("idstaff"));
+                data.add(result.getString("role"));
             }
             return data;
         } catch (Exception e) {

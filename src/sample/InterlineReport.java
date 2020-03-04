@@ -2,6 +2,8 @@ package sample;
 
 import Entities.Data;
 import Entities.Data2;
+import SQLqueries.SQLReport;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -10,8 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
-
-import static sample.SQLReport.getUniqueCommissions;
 
 public class InterlineReport {
 
@@ -90,6 +90,14 @@ public class InterlineReport {
 
             GridPane.setConstraints(table1,0,3);
 
+            int total = 0;
+            for (Data item : table1.getItems()) {
+                total = total + Integer.parseInt(item.getData7());
+            }
+
+            Label table1Total = new Label("" + total);
+            GridPane.setConstraints(table1Total,0,4);
+            GridPane.setHalignment(table1Total, HPos.RIGHT);
 
             //table2
 
@@ -127,7 +135,7 @@ public class InterlineReport {
 
 
 
-            grid.getChildren().addAll(gridInfo,table1,table2,table3);
+            grid.getChildren().addAll(gridInfo,table1Total,table1,table2,table3);
             return grid;
 
         } catch (Exception e) {
@@ -140,14 +148,16 @@ public class InterlineReport {
         try {
             TableView<Data2> table = new TableView<>();
             ArrayList<String> array = SQLReport.getUniqueCommissions(type, staffNumber);
-            for (int i = 0; i < array.size() ; i++) {
-                TableColumn<Data2 ,String> column = new TableColumn<>(array.get(i) + "%\n ");
-                column.setMinWidth(40);
-                column.setCellValueFactory(new PropertyValueFactory<>("data2" + (i+1)));
-                System.out.println("data2" + (i+1));
-                table.getColumns().add(column);
-            }
+            if (array.size() != 0) {
+                for (int i = 0; i < array.size(); i++) {
+                    TableColumn<Data2, String> column = new TableColumn<>(array.get(i) + "%\n ");
+                    column.setMinWidth(40);
+                    column.setCellValueFactory(new PropertyValueFactory<>("data2" + (i + 1)));
+                    table.getColumns().add(column);
+                }
+            } else {
 
+            }
             return table;
         } catch (Exception e) {
             return null;

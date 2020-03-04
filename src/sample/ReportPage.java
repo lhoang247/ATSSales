@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class ReportPage {
 
 
-    public static void display(int staffNumber) throws Exception {
+    public static void display(int staffNumber ,String role) throws Exception {
         Stage window = new Stage();
         window.setMaxWidth(700);
         window.setMinWidth(700);
@@ -51,12 +51,17 @@ public class ReportPage {
         //ChoiceBox
 
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
+if (role.equals("m")) {
+    choiceBox.getItems().add("Turnover Report");
+    choiceBox.getItems().add("Global Interline Report");
+    choiceBox.getItems().add("Individual Interline Report");
+    choiceBox.getItems().add("Global Domestic Report");
+    choiceBox.getItems().add("Individual Domestic Report");
+} else {
+    choiceBox.getItems().add("Individual Interline Report");
+    choiceBox.getItems().add("Individual Domestic Report");
+}
 
-        choiceBox.getItems().add("Turnover Report");
-        choiceBox.getItems().add("Global Interline Report");
-        choiceBox.getItems().add("Individual Interline Report");
-        choiceBox.getItems().add("Global Domestic Report");
-        choiceBox.getItems().add("Individual Domestic Report");
 
         choiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             if (newValue == "Turnover Report") {
@@ -82,9 +87,9 @@ public class ReportPage {
         HBox box = new HBox();
         box.setSpacing(10);
         box.setPadding(new Insets(15,15,15,15));
-        Label choiceBoxLabel = new Label("Report type: ");
+        Label choiceBoxLabel = new Label("SELECT Report type: ");
         box.getChildren().addAll(choiceBoxLabel,choiceBox);
-        box.setAlignment(Pos.TOP_RIGHT);
+        box.setAlignment(Pos.CENTER_RIGHT);
         borderPane.setTop(box);
             Scene scene = new Scene(borderPane);
             window.setScene(scene);

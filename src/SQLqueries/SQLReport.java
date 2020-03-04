@@ -1,4 +1,4 @@
-package sample;
+package SQLqueries;
 
 import Entities.Data;
 import Entities.Data2;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import static sample.SQL.getConnection;
+import static SQLqueries.SQL.getConnection;
 
 public class SQLReport {
 
