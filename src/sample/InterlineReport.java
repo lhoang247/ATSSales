@@ -52,6 +52,13 @@ public class InterlineReport {
         GridPane.setConstraints(gridInfo,0,0);
         GridPane.setColumnSpan(gridInfo,2);
 
+        Label labelPaymentType = new Label("FORMS OF PAYMENTS");
+        GridPane.setHalignment(labelPaymentType, HPos.CENTER);
+        GridPane.setConstraints(labelPaymentType,1,1);
+
+        Label labelCommission = new Label("COMMISSIONS");
+        GridPane.setHalignment(labelCommission, HPos.CENTER);
+        GridPane.setConstraints(labelCommission,2,1);
 
 
         try {
@@ -193,7 +200,7 @@ public class InterlineReport {
             GridPane.setHalignment(table2Total, HPos.RIGHT);
 
 
-            grid.getChildren().addAll(gridInfo,table1Total,table2Total,table1,table2,table3);
+            grid.getChildren().addAll(labelCommission,labelPaymentType,gridInfo,table1Total,table2Total,table1,table2,table3);
             return grid;
 
         } catch (Exception e) {

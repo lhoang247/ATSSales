@@ -2,6 +2,7 @@ package sample;
 
 import Entities.Data;
 import Entities.Data2;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -48,6 +49,14 @@ public class DomesticReport {
         gridInfo.getChildren().addAll(labelTitle, labelAgent, labelAgentNumber, labelAgentPlace, labelReportPeriod);
         GridPane.setConstraints(gridInfo,0,0);
         GridPane.setColumnSpan(gridInfo,2);
+
+        Label labelPaymentType = new Label("FORMS OF PAYMENTS");
+        GridPane.setHalignment(labelPaymentType, HPos.CENTER);
+        GridPane.setConstraints(labelPaymentType,1,1);
+
+        Label labelCommission = new Label("COMMISSIONS");
+        GridPane.setHalignment(labelCommission, HPos.CENTER);
+        GridPane.setConstraints(labelCommission,2,1);
 
         try {
             //table1
@@ -117,7 +126,7 @@ public class DomesticReport {
             table3.setMaxSize(1000,200);
             GridPane.setConstraints(table3,2,2);
 
-            grid.getChildren().addAll(gridInfo,table1,table2,table3);
+            grid.getChildren().addAll(labelPaymentType,labelCommission,gridInfo,table1,table2,table3);
 
             return grid;
 

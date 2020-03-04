@@ -54,7 +54,7 @@ public class TurnoverReport {
         GridPane.setHalignment(label1, HPos.CENTER);
 
         Label label2 = new Label("SUB AGENTS");
-        GridPane.setConstraints(label2,1,3);
+        GridPane.setConstraints(label2,1,2);
         GridPane.setHalignment(label2, HPos.CENTER);
 
         Label label4 = new Label("ASSIGNED/USED BLANKS");
@@ -62,10 +62,13 @@ public class TurnoverReport {
         GridPane.setHalignment(label4, HPos.CENTER);
         GridPane.setColumnSpan(label4,2);
 
-        Label label5 = new Label("USED AGENTS");
+        Label label5 = new Label("A S S I G N E D");
         GridPane.setConstraints(label5,2,2);
         GridPane.setHalignment(label5, HPos.CENTER);
-        GridPane.setColumnSpan(label5,2);
+
+        Label labelused = new Label("U S E D");
+        GridPane.setConstraints(labelused,3,2);
+        GridPane.setHalignment(labelused, HPos.CENTER);
 
         Label label6 = new Label("FINAL AMOUNTS");
         GridPane.setConstraints(label6,4,1);
@@ -313,7 +316,7 @@ public class TurnoverReport {
             grid.setHgrow(table4, Priority.ALWAYS);
             grid.setHgrow(table5, Priority.ALWAYS);
             grid.setHgrow(table6, Priority.ALWAYS);
-            grid.getChildren().addAll(gridInfo,label1,label2,label3,label4,label5,label6,label7,label8,labelt,label9,label10,label11,label12,label13,label14,table1,table2,table3,table4,table5,table6);
+            grid.getChildren().addAll(gridInfo,label1,label2,label3,label4,label5, labelused,label6,label7,label8,labelt,label9,label10,label11,label12,label13,label14,table1,table2,table3,table4,table5,table6);
             return grid;
 
 
