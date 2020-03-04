@@ -153,13 +153,21 @@ public class SQLReport {
         }
     }
 
-    public static ObservableList<Data> getReport7() throws Exception {
+    public static ObservableList<Data> getReport7(int type, int staffID) throws Exception {
         try {
             Connection con = getConnection();
             ObservableList<Data> table = FXCollections.observableArrayList();
-            PreparedStatement statement = con.prepareStatement("SELECT  blanktype,ticketnumber,salesamount,exchangerate, salesamount*exchangerate, tax, (salesamount*exchangerate+tax) " +
-                    "FROM sales " +
-                    "WHERE blanktype = 444 OR blanktype = 440 OR blanktype = 420;");
+            PreparedStatement statement;
+            if (type == 0) {
+                statement = con.prepareStatement("SELECT  blanktype,ticketnumber,salesamount/exchangerate,exchangerate, salesamount, tax, (salesamount+tax) " +
+                        "FROM sales " +
+                        "WHERE blanktype = 444 OR blanktype = 440 OR blanktype = 420;");
+            } else {
+                statement = con.prepareStatement("SELECT  sales.blanktype,sales.ticketnumber,salesamount/exchangerate,exchangerate, salesamount, tax, (salesamount+tax)\n" +
+                        "FROM atsdb.sales , atsdb.blanks\n" +
+                        "WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = "+ staffID +" AND blanks.status = 'sold';");
+            }
+
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Data data = new Data(
@@ -171,7 +179,6 @@ public class SQLReport {
                         result.getString(6),
                         result.getString(7)
                 );
-                System.out.println();
                 table.add(data);
             }
             return table;
@@ -181,21 +188,38 @@ public class SQLReport {
     }
 
 
-    public static ObservableList<Data2> getReport8() throws Exception {
+    public static ObservableList<Data2> getReport8(int type, int staffID) throws Exception {
         try {
             Connection con = getConnection();
             ObservableList<Data2> table = FXCollections.observableArrayList();
-            PreparedStatement statement = con.prepareStatement("SELECT q.paymentmethod , " +
-                    "case when paymentmethod = 'cash' then salesamount*exchangerate+tax else '' end as 'cash', " +
-                    "case when paymentmethod = 'card' then salesamount*exchangerate+tax else '' end as 'card', " +
-                    "case when paymentmethod = 'card' then " +
+            PreparedStatement statement;
+            if (type == 0) {
+                statement = con.prepareStatement("SELECT sales.paymentmethod , " +
+                        "case when paymentmethod = 'cash' then salesamount+tax else '' end as 'cash', " +
+                        "case when paymentmethod = 'card' then salesamount+tax else '' end as 'card', " +
+                        "case when paymentmethod = 'card' then " +
                         " (SELECT cardnumber " +
-                        "FROM creditcard C " +
-                        "WHERE c.email = q.customeremail and c.ticketnumber = q.ticketnumber) else '' " +
+                        "FROM creditcard " +
+                        "WHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else '' " +
                         "end as 'Card number', " +
-                    "salesamount*exchangerate+tax " +
-                    "FROM sales q"
-            );
+                        "salesamount+tax " +
+                        "FROM atsdb.sales " +
+                        "WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420);"
+                );
+            } else {
+                statement = con.prepareStatement("SELECT sales.paymentmethod , case when paymentmethod = 'cash' then salesamount+tax else '' end as 'cash',\n" +
+                        "                        case when paymentmethod = 'card' then salesamount+tax else '' end as 'card',\n" +
+                        "                        case when paymentmethod = 'card' then \n" +
+                        "                       (SELECT cardnumber \n" +
+                        "                        FROM atsdb.creditcard \n" +
+                        "                        WHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
+                        "                        end as 'Card number',\n" +
+                        "                        salesamount+tax\n" +
+                        "                        FROM atsdb.sales , atsdb.blanks\n" +
+                        "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold';"
+                );
+            }
+
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Data2 data = new Data2(result.getString(1),
@@ -204,7 +228,6 @@ public class SQLReport {
                         result.getString(4),
                         result.getString(5)
                 );
-                System.out.println();
                 table.add(data);
             }
             return table;
@@ -214,13 +237,29 @@ public class SQLReport {
         }
     }
 
-    public static ArrayList<String> getUniqueCommissions() throws Exception {
+    public static ArrayList<String> getUniqueCommissions(int type, int staffID) throws Exception {
         try {
             ArrayList<String> data = new ArrayList<>();
             Connection con = getConnection();
 
-            PreparedStatement statement = con.prepareStatement("SELECT DISTINCT(commissionrate)  \n" +
-                    "FROM atsdb.sales ORDER BY commissionrate;");
+            PreparedStatement statement;
+            if (type == 0) {
+                statement = con.prepareStatement("SELECT DISTINCT(commissionrate)  \n" +
+                        "FROM atsdb.sales WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) ORDER BY commissionrate;");
+            } else if (type == 1){
+                statement = con.prepareStatement("SELECT DISTINCT(commissionrate)\n" +
+                        "FROM atsdb.sales, atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND\n" +
+                        "sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold'\n" +
+                        " ORDER BY commissionrate;");
+            } else if (type == 2) {
+                statement = con.prepareStatement("SELECT DISTINCT(commissionrate)  \n" +
+                        "FROM atsdb.sales WHERE (sales.blanktype = 201 OR sales.blanktype = 101) ORDER BY commissionrate;");
+            } else {
+                statement = con.prepareStatement("SELECT DISTINCT(commissionrate)\n" +
+                        "FROM atsdb.sales, atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND\n" +
+                        "sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold'\n" +
+                        " ORDER BY commissionrate;");
+            }
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 data.add(result.getString(1));
@@ -232,20 +271,32 @@ public class SQLReport {
     }
 
 
-    public static ObservableList<Data2> getReport9() throws Exception {
+    public static ObservableList<Data2> getReport9(int type, int staffID) throws Exception {
         try {
             Connection con = getConnection();
             ObservableList<Data2> table = FXCollections.observableArrayList();
 
             //jank
 
-            ArrayList<String> array = getUniqueCommissions();
-            String sqlString = "case when commissionrate = " + array.get(0) +  " then (salesamount*exchangerate+tax) * (1 - (commissionrate/100)) end as 'example'";
+            ArrayList<String> array = getUniqueCommissions(type, staffID);
+            String sqlString = "case when commissionrate = " + array.get(0) +  " then (salesamount+tax) * (1 - (commissionrate/100)) end as 'example'";
             for (int i = 1 ; i < array.size() ; i ++) {
-                sqlString += ", case when commissionrate = " + array.get(i) +  " then (salesamount*exchangerate+tax) * (1 - (commissionrate/100)) end as 'example' ";
+                sqlString += ", case when commissionrate = " + array.get(i) +  " then (salesamount+tax) * (1 - (commissionrate/100)) end as 'example' ";
+            }
+            PreparedStatement statement;
+            if (type == 0) {
+                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420);");
+            } else if (type == 1) {
+                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND " +
+                        "  sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold';");
+            } else if (type == 2) {
+                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND " +
+                        "  sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold';");
+            } else {
+                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND " +
+                        "  sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold';");
             }
 
-            PreparedStatement statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Data2 data = null;
@@ -322,4 +373,84 @@ public class SQLReport {
         }
     }
 
+    public static ObservableList<Data2> getReport10(int type, int staffID) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement;
+            if (type == 0) {
+                statement = con.prepareStatement("SELECT  sales.blanktype,sales.ticketnumber,sales.salesamount,sales.tax " +
+                        "FROM atsdb.sales " +
+                        "WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND sales.refunded != 'y';");
+            } else {
+                statement = con.prepareStatement("SELECT  sales.blanktype,sales.ticketnumber,sales.salesamount, sales.tax " +
+                        "FROM atsdb.sales, atsdb.blanks " +
+                        "WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = "+ staffID +" AND blanks.status = 'sold';");
+            }
+
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Data2 data = new Data2(
+                        result.getString(1),
+                        result.getString(2),
+                        result.getString(3),
+                        result.getString(4)
+                );
+                System.out.println("xd");
+                table.add(data);
+            }
+            return table;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    public static ObservableList<Data2> getReport11(int type, int staffID) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement;
+            if (type == 0) {
+                statement = con.prepareStatement("SELECT paymentmethod,\n" +
+                        "case when paymentmethod = 'cash' then salesamount+tax else '' end as 'cash', \n" +
+                        "case when paymentmethod = 'card' then salesamount+tax else '' end as 'card',\n" +
+                        "case when paymentmethod = 'card' then\n" +
+                        "     (SELECT cardnumber\n" +
+                        "\tFROM atsdb.creditcard\n" +
+                        "\tWHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
+                        "\tend as 'Card number', \n" +
+                        "\tsalesamount+tax\n" +
+                        "\tFROM atsdb.sales\n" +
+                        "    WHERE (sales.blanktype = 201 OR sales.blanktype = 101);");
+            } else {
+                statement = con.prepareStatement("SELECT paymentmethod,\n" +
+                        "case when paymentmethod = 'cash' then salesamount+tax else '' end as 'cash', \n" +
+                        "case when paymentmethod = 'card' then salesamount+tax else '' end as 'card',\n" +
+                        "case when paymentmethod = 'card' then\n" +
+                        "     (SELECT cardnumber\n" +
+                        "\tFROM atsdb.creditcard\n" +
+                        "\tWHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
+                        "\tend as 'Card number', \n" +
+                        "\tsalesamount+tax\n" +
+                        "\tFROM atsdb.sales\n" +
+                        "    WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = "+ staffID +" AND blanks.status = 'sold';");
+            }
+
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Data2 data = new Data2(
+                        result.getString(1),
+                        result.getString(2),
+                        result.getString(3),
+                        result.getString(4),
+                        result.getString(5)
+                );
+                table.add(data);
+            }
+            return table;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

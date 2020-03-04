@@ -4,6 +4,7 @@ import Entities.Data;
 import Entities.Data2;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,42 +16,76 @@ import javafx.stage.Stage;
 
 
 public class ReportPage {
-    //Windows
 
-    public static void display() throws Exception {
+
+    public static void display(int staffNumber) throws Exception {
         Stage window = new Stage();
-        window.setMaxWidth(500);
+        window.setMaxWidth(700);
+        window.setMinWidth(700);
+        window.setMaxHeight(500);
+        window.setMinHeight(500);
         BorderPane borderPane = new BorderPane();
         Button button1 = new Button();
+
+        ScrollPane sp1 = new ScrollPane(TurnoverReport.turnoverGrid());
+        sp1.setFitToHeight(true);
+        sp1.fitToHeightProperty();
+
+        ScrollPane sp2 = new ScrollPane(InterlineReport.interlineGrid(0,staffNumber));
+        sp2.setFitToHeight(true);
+        sp2.fitToHeightProperty();
+
+        ScrollPane sp3 = new ScrollPane(InterlineReport.interlineGrid(1,staffNumber));
+        sp3.setFitToHeight(true);
+        sp3.fitToHeightProperty();
+
+        ScrollPane sp4 = new ScrollPane(DomesticReport.domesticGrid(0, staffNumber));
+        sp4.setFitToHeight(true);
+        sp4.fitToHeightProperty();
+
+        ScrollPane sp5 = new ScrollPane(DomesticReport.domesticGrid(0, staffNumber));
+        sp5.setFitToHeight(true);
+        sp5.fitToHeightProperty();
+
+
+        //ChoiceBox
+
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+
+        choiceBox.getItems().add("Turnover Report");
+        choiceBox.getItems().add("Global Interline Report");
+        choiceBox.getItems().add("Individual Interline Report");
+        choiceBox.getItems().add("Global Domestic Report");
+        choiceBox.getItems().add("Individual Domestic Report");
+
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue == "Turnover Report") {
+                borderPane.getChildren().remove(borderPane.getCenter());;
+                borderPane.setCenter(sp1);
+            } else if (newValue == "Global Interline Report") {
+                borderPane.getChildren().remove(borderPane.getCenter());;
+                borderPane.setCenter(sp2);
+            } else if (newValue == "Individual Interline Report") {
+                borderPane.getChildren().remove(borderPane.getCenter());;
+                borderPane.setCenter(sp3);
+            } else if (newValue == "Global Domestic Report") {
+                borderPane.getChildren().remove(borderPane.getCenter());;
+                borderPane.setCenter(sp4);
+            } else if (newValue == "Individual Domestic Report") {
+                borderPane.getChildren().remove(borderPane.getCenter());;
+                borderPane.setCenter(sp5);
+            }
+        }) ;
+
         button1.setOnAction(e -> {
-            borderPane.getChildren().remove(borderPane.getCenter());;
-            borderPane.setCenter(TurnoverReport.turnoverGrid());
         });
-        GridPane gridInfo = new GridPane();
-        Label labelTitle = new Label("Ticket Stock Turnover Report");
-        labelTitle.setStyle("-fx-font: 24 arial;");
-        GridPane.setConstraints(labelTitle,0,0);
-
-        Label labelAgent = new Label("Agent: AIR LINK");
-        GridPane.setConstraints(labelAgent,0,1);
-
-        Label labelAgentNumber = new Label("Number: /");
-        GridPane.setConstraints(labelAgentNumber,0,2);
-
-        Label labelAgentPlace = new Label("Sales Office Place: ");
-        GridPane.setConstraints(labelAgentPlace,0,3);
-
-        Label labelReportPeriod = new Label("Report Period: ");
-        GridPane.setConstraints(labelReportPeriod,0,4);
-
-        gridInfo.getChildren().addAll(labelTitle, labelAgent, labelAgentNumber, labelAgentPlace, labelReportPeriod,button1);
-
-        borderPane.setTop(gridInfo);
-        ScrollPane sp = new ScrollPane(TurnoverReport.turnoverGrid());
-        sp.setFitToHeight(true);
-        sp.fitToHeightProperty();
-        borderPane.setCenter(sp);
-
+        HBox box = new HBox();
+        box.setSpacing(10);
+        box.setPadding(new Insets(15,15,15,15));
+        Label choiceBoxLabel = new Label("Report type: ");
+        box.getChildren().addAll(choiceBoxLabel,choiceBox);
+        box.setAlignment(Pos.TOP_RIGHT);
+        borderPane.setTop(box);
             Scene scene = new Scene(borderPane);
             window.setScene(scene);
             window.show();

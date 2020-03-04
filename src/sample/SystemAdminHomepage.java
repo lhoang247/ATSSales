@@ -52,8 +52,8 @@ public class SystemAdminHomepage {
         //top border
         VBox homeLayout = new VBox(10);
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
-        Label email = new Label("Email: " + fullname.get(2));
-        homeLayout.getChildren().addAll(welcome,email);
+        Label staffID = new Label("Staff ID: " + fullname.get(2));
+        homeLayout.getChildren().addAll(welcome,staffID);
 
 
         //middle border

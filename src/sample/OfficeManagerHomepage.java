@@ -19,6 +19,8 @@ public class OfficeManagerHomepage {
     static Scene getScene(List<String> fullname) {
         Stage window = new Stage();
 
+        int staffNumber = Integer.parseInt(fullname.get(2));
+
         //GridPane Layout
 
         GridPane grid = new GridPane();
@@ -31,19 +33,20 @@ public class OfficeManagerHomepage {
         Button button1 = new Button();
         button1.setMinSize(200,1);
         button1.setText("View Reports");
-        GridPane.setConstraints(button1, 0, 0);
+        GridPane.setConstraints(button1, 0, 1);
         button1.setOnAction(e -> {
             try {
-                ReportPage.display();
+                ReportPage.display(staffNumber);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
 
         });
 
-        HBox homeLayout = new HBox(10);
+        VBox homeLayout = new VBox(10);
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
-        homeLayout.getChildren().addAll(welcome ,button1);
+        Label staffID = new Label("Staff ID: " + fullname.get(2));
+        homeLayout.getChildren().addAll(welcome ,staffID ,button1);
         Scene homepage = new Scene(homeLayout, 300, 300);
         window.setTitle("Office Manager Homepage");
         return homepage;

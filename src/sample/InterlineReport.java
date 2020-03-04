@@ -14,7 +14,7 @@ import static sample.SQLReport.getUniqueCommissions;
 
 public class InterlineReport {
 
-    public static GridPane interlineGrid() {
+    public static GridPane interlineGrid(int type, int staffNumber) {
         TableView<Data> table1;
         TableView<Data2> table2, table3;
 
@@ -55,7 +55,7 @@ public class InterlineReport {
 
             table1 = new TableView<>();
             table1.setMaxSize(405,200);
-            table1.setItems(SQLReport.getReport7());
+            table1.setItems(SQLReport.getReport7(type, staffNumber));
             table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1,taxColumn1,totalAmountColumn1);
 
             GridPane.setConstraints(table1,0,2);
@@ -85,13 +85,13 @@ public class InterlineReport {
 
             table2 = new TableView<>();
             table2.getColumns().addAll(pmColumn2,cashColumn2,cardColumn2,cardNumberColumn2,totalColumn2);
-            table2.setItems(SQLReport.getReport8());
+            table2.setItems(SQLReport.getReport8(type, staffNumber));
             table2.setMaxSize(307,200);
 
             GridPane.setConstraints(table2,1,2);
 
-            table3 = getColumns();
-            table3.setItems(SQLReport.getReport9());
+            table3 = getColumns(type, staffNumber);
+            table3.setItems(SQLReport.getReport9(type, staffNumber));
             table3.setMaxSize(1000,200);
             GridPane.setConstraints(table3,2,2);
 
@@ -106,10 +106,10 @@ public class InterlineReport {
         }
     }
 
-    public static TableView getColumns() throws Exception {
+    public static TableView getColumns(int type, int staffNumber) throws Exception {
         try {
             TableView<Data2> table = new TableView<>();
-            ArrayList<String> array = SQLReport.getUniqueCommissions();
+            ArrayList<String> array = SQLReport.getUniqueCommissions(type, staffNumber);
             for (int i = 0; i < array.size() ; i++) {
                 TableColumn<Data2 ,String> column = new TableColumn<>(array.get(i) + "%\n ");
                 column.setMinWidth(40);
