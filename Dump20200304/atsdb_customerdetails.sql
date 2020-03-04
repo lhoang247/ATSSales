@@ -16,36 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `sales`
+-- Table structure for table `customerdetails`
 --
 
-DROP TABLE IF EXISTS `sales`;
+DROP TABLE IF EXISTS `customerdetails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sales` (
-  `ticketnumber` int(8) unsigned zerofill NOT NULL,
-  `blanktype` int DEFAULT NULL,
-  `salesamount` int DEFAULT NULL,
-  `paybydate` varchar(15) DEFAULT NULL,
-  `paid` varchar(4) DEFAULT NULL,
-  `refunded` varchar(4) DEFAULT NULL,
-  `tax` int DEFAULT NULL,
-  `exchangerate` float DEFAULT NULL,
-  `customeremail` varchar(45) DEFAULT NULL,
-  `paymentmethod` varchar(4) DEFAULT NULL,
-  `commissionrate` double DEFAULT NULL,
-  PRIMARY KEY (`ticketnumber`)
+CREATE TABLE `customerdetails` (
+  `email` varchar(45) NOT NULL,
+  `firstname` varchar(45) DEFAULT NULL,
+  `surname` varchar(45) DEFAULT NULL,
+  `customerType` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sales`
+-- Dumping data for table `customerdetails`
 --
 
-LOCK TABLES `sales` WRITE;
-/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-INSERT INTO `sales` VALUES (00000001,440,500,'2020/02/15','y','n',400,150,'bob@gmail.com','cash',10),(00000002,440,450,'2020/02/15','y','n',400,150,'bob@gmail.com','cash',8),(00000003,440,400,'2020/02/15','y','n',400,150,'qwe@gmail.com','cash',13),(00000004,440,150,'2020/02/15','y','n',400,150,'lee@gmail.com','card',1),(00000005,440,200,'2020/02/15','y','n',400,150,'123@gmail.com','card',2),(00000006,420,300,'2020/02/15','y','n',400,150,'lee@gmail.com','cash',1);
-/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
+LOCK TABLES `customerdetails` WRITE;
+/*!40000 ALTER TABLE `customerdetails` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customerdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-23 13:51:16
+-- Dump completed on 2020-03-04 14:19:24

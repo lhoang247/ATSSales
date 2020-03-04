@@ -41,7 +41,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (1,'Bob','Build','qwe','123','m','emailhere',NULL),(2,'Mike','John','abc','xyz','t','example',NULL),(3,'Lee','Hoang','hello','world','a','o',NULL);
+INSERT INTO `staff` VALUES (1,'Bob','Build','qwe','123','m','emailhere',NULL),(2,'Mike','John','abc','xyz','t','example',NULL),(3,'Lee','Hoang','hello','world','a','o.gmail.com',NULL);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-23 13:51:15
+-- Dump completed on 2020-03-04 14:19:23

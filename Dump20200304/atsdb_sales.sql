@@ -16,28 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `creditcard`
+-- Table structure for table `sales`
 --
 
-DROP TABLE IF EXISTS `creditcard`;
+DROP TABLE IF EXISTS `sales`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `creditcard` (
-  `email` varchar(45) NOT NULL,
-  `cardnumber` varchar(45) DEFAULT NULL,
-  `ticketnumber` int(8) unsigned zerofill DEFAULT NULL,
-  PRIMARY KEY (`email`)
+CREATE TABLE `sales` (
+  `ticketnumber` int(8) unsigned zerofill NOT NULL,
+  `blanktype` int DEFAULT NULL,
+  `salesamount` int DEFAULT NULL,
+  `paybydate` varchar(15) DEFAULT NULL,
+  `paid` varchar(4) DEFAULT NULL,
+  `refunded` varchar(4) DEFAULT NULL,
+  `tax` int DEFAULT NULL,
+  `exchangerate` float DEFAULT NULL,
+  `customeremail` varchar(45) DEFAULT NULL,
+  `paymentmethod` varchar(4) DEFAULT NULL,
+  `commissionrate` double DEFAULT NULL,
+  PRIMARY KEY (`ticketnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `creditcard`
+-- Dumping data for table `sales`
 --
 
-LOCK TABLES `creditcard` WRITE;
-/*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-INSERT INTO `creditcard` VALUES ('123@gmail.com','21455',00000005),('lee@gmail.com','93285',00000004);
-/*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
+LOCK TABLES `sales` WRITE;
+/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
+INSERT INTO `sales` VALUES (00000001,440,75000,'2020/02/15','y','n',400,150,'bob@gmail.com','cash',10),(00000002,440,67500,'2020/02/15','y','n',400,150,'bob@gmail.com','cash',8),(00000004,440,22500,'2020/02/15','y','n',400,150,'lee@gmail.com','card',10),(00000006,101,45000,'2020/02/15','y','n',400,150,'lee@gmail.com','cash',10);
+/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-23 13:51:16
+-- Dump completed on 2020-03-04 14:19:24

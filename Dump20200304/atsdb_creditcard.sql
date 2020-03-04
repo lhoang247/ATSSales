@@ -16,31 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `blanks`
+-- Table structure for table `creditcard`
 --
 
-DROP TABLE IF EXISTS `blanks`;
+DROP TABLE IF EXISTS `creditcard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `blanks` (
-  `ticketnumber` int(8) unsigned zerofill NOT NULL,
-  `blanktype` int DEFAULT NULL,
-  `idstaff` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  `bundle` varchar(45) DEFAULT NULL,
-  `receivedDate` date DEFAULT NULL,
-  PRIMARY KEY (`ticketnumber`)
+CREATE TABLE `creditcard` (
+  `email` varchar(45) NOT NULL,
+  `cardnumber` varchar(45) DEFAULT NULL,
+  `ticketnumber` int(8) unsigned zerofill DEFAULT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `blanks`
+-- Dumping data for table `creditcard`
 --
 
-LOCK TABLES `blanks` WRITE;
-/*!40000 ALTER TABLE `blanks` DISABLE KEYS */;
-INSERT INTO `blanks` VALUES (00000001,444,'001','sold','00000001 - 00000003','2019-10-31'),(00000002,444,'001','assigned','00000001 - 00000003','2019-10-31'),(00000003,444,'001','assigned','00000001 - 00000003','2019-10-31'),(00000004,201,'002','assigned','00000004 - 00000005','2020-01-03'),(00000005,201,'002','assigned','00000004 - 00000005','2020-01-03'),(00000006,101,'001','sold','00000006 - 00000007','2020-02-05'),(00000007,101,'001','assigned','00000006 - 00000007','2020-02-05'),(00000008,440,NULL,'stock','00000008 - 00000012','2020-02-06'),(00000009,440,NULL,'stock','00000008 - 00000012','2020-02-06'),(00000010,440,NULL,'stock','00000008 - 00000012','2020-02-06'),(00000011,440,NULL,'stock','00000008 - 00000012','2020-02-06'),(00000012,440,NULL,'stock','00000008 - 00000012','2020-02-06');
-/*!40000 ALTER TABLE `blanks` ENABLE KEYS */;
+LOCK TABLES `creditcard` WRITE;
+/*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
+INSERT INTO `creditcard` VALUES ('lee@gmail.com','93285',00000004);
+/*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-23 13:51:16
+-- Dump completed on 2020-03-04 14:19:23
