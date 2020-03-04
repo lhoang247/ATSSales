@@ -1,5 +1,6 @@
 package sample;
 
+import Entities.Data;
 import Entities.Data2;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -50,11 +51,19 @@ public class DomesticReport {
 
         try {
             //table1
-            TableColumn<Data2, String> blanktypeColumn1 = new TableColumn<>("TYPE");
+            TableColumn<Data2,String> blanktypeColumn1;
+            TableColumn<Data2, String> blankColumn1;
+            if (type == 0) {
+                blanktypeColumn1 = new TableColumn<>("STAFFID");
+                blankColumn1 = new TableColumn<>("TTL TKT\nNMBR");
+            } else {
+                blanktypeColumn1 = new TableColumn<>("TYPE");
+                blankColumn1 = new TableColumn<>("TICKET\nNUMBER");
+            }
+
             blanktypeColumn1.setMinWidth(50);
             blanktypeColumn1.setCellValueFactory(new PropertyValueFactory<>("data21"));
 
-            TableColumn<Data2, String> blankColumn1 = new TableColumn<>("TICKET\nNUMBER");
             blankColumn1.setMinWidth(10);
             blankColumn1.setCellValueFactory(new PropertyValueFactory<>("data22"));
 

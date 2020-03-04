@@ -22,8 +22,8 @@ public class ReportPage {
         Stage window = new Stage();
         window.setMaxWidth(700);
         window.setMinWidth(700);
-        window.setMaxHeight(500);
-        window.setMinHeight(500);
+        window.setMaxHeight(600);
+        window.setMinHeight(600);
         BorderPane borderPane = new BorderPane();
         Button button1 = new Button();
 
@@ -90,7 +90,16 @@ if (role.equals("m")) {
         Label choiceBoxLabel = new Label("SELECT Report type: ");
         box.getChildren().addAll(choiceBoxLabel,choiceBox);
         box.setAlignment(Pos.CENTER_RIGHT);
+
+        HBox box2 = new HBox();
+        box2.setSpacing(10);
+        box2.setPadding(new Insets(15,15,15,15));
+        Button closeButton = new Button("Exit");
+        closeButton.setOnAction(e -> window.close());
+        box2.getChildren().addAll(closeButton);
+
         borderPane.setTop(box);
+        borderPane.setBottom(box2);
             Scene scene = new Scene(borderPane);
             window.setScene(scene);
             window.show();

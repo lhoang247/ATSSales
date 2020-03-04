@@ -153,9 +153,9 @@ public class SQLReport {
             ObservableList<Data> table = FXCollections.observableArrayList();
             PreparedStatement statement;
             if (type == 0) {
-                statement = con.prepareStatement("SELECT  blanktype,ticketnumber,salesamount/exchangerate,exchangerate, salesamount, tax, (salesamount+tax) " +
-                        "FROM sales " +
-                        "WHERE blanktype = 444 OR blanktype = 440 OR blanktype = 420;");
+                statement = con.prepareStatement("SELECT  blanks.idstaff, count(*),sum(sales.salesamount),sum(sales.tax) ,sum(sales.salesamount) + sum(sales.tax)\n" +
+                        "FROM atsdb.sales, atsdb.blanks where (sales.blanktype = 440 OR sales.blanktype = 444 OR sales.blanktype = 420) and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber\n" +
+                        "group by blanks.bundle;");
             } else {
                 statement = con.prepareStatement("SELECT  sales.blanktype,sales.ticketnumber,salesamount/exchangerate,exchangerate, salesamount, tax, (salesamount+tax)\n" +
                         "FROM atsdb.sales , atsdb.blanks\n" +
@@ -164,16 +164,29 @@ public class SQLReport {
 
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Data data = new Data(
-                        result.getString(1),
-                        result.getString(2),
-                        result.getString(3),
-                        result.getString(4),
-                        result.getString(5),
-                        result.getString(6),
-                        result.getString(7)
-                );
-                table.add(data);
+                if (type == 0) {
+                    Data data = new Data(
+                            result.getString(1),
+                            result.getString(2),
+                            result.getString(3),
+                            result.getString(4),
+                            result.getString(5)
+                    );
+                    table.add(data);
+                } else {
+                    Data data = new Data(
+                            result.getString(1),
+                            result.getString(2),
+                            result.getString(3),
+                            result.getString(4),
+                            result.getString(5),
+                            result.getString(6),
+                            result.getString(7)
+                    );
+                    table.add(data);
+                }
+
+
             }
             return table;
         } catch (Exception e) {
@@ -371,9 +384,9 @@ public class SQLReport {
             ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement;
             if (type == 0) {
-                statement = con.prepareStatement("SELECT  sales.blanktype,sales.ticketnumber,sales.salesamount,sales.tax " +
-                        "FROM atsdb.sales " +
-                        "WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND sales.refunded != 'y';");
+                statement = con.prepareStatement("SELECT  blanks.idstaff, count(*),sum(sales.salesamount),sales.tax\n" +
+                        "FROM atsdb.sales, atsdb.blanks where (sales.blanktype = 201 OR sales.blanktype = 101) and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber\n" +
+                        "group by blanks.bundle;");
             } else {
                 statement = con.prepareStatement("SELECT  sales.blanktype,sales.ticketnumber,sales.salesamount, sales.tax " +
                         "FROM atsdb.sales, atsdb.blanks " +
