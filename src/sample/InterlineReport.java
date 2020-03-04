@@ -16,8 +16,10 @@ import java.util.ArrayList;
 public class InterlineReport {
 
     public static GridPane interlineGrid(int type, int staffNumber) {
+        System.out.println(type);
         TableView<Data> table1;
         TableView<Data2> table2, table3;
+
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
@@ -55,73 +57,89 @@ public class InterlineReport {
 
         try {
             //table1
-            if (type == 1) {
-                TableColumn<Data ,String> blanktypeColumn1 = new TableColumn<>("TYPE");
+            TableColumn<Data ,String> blanktypeColumn1;
+            TableColumn<Data ,String> blankColumn1;
+            TableColumn<Data ,String> fareAmountColumn1;
+            TableColumn<Data ,String> exchangeRateColumn1;
+            TableColumn<Data ,String> localFareAmountColumn1;
+            TableColumn<Data ,String> taxColumn1;
+            TableColumn<Data ,String> totalAmountColumn1;
+            table1 = new TableView<>();
+            int total = 0;
+            if (type == 0) {
+
+                blanktypeColumn1 = new TableColumn<>("StaffID");
                 blanktypeColumn1.setMinWidth(50);
                 blanktypeColumn1.setCellValueFactory(new PropertyValueFactory<>("data1"));
 
-                TableColumn<Data ,String> blankColumn1 = new TableColumn<>("TICKET\nNUMBER");
+                blankColumn1 = new TableColumn<>("TTL TK\nNUMR");
                 blankColumn1.setMinWidth(10);
                 blankColumn1.setCellValueFactory(new PropertyValueFactory<>("data2"));
 
-                TableColumn<Data ,String> fareAmountColumn1 = new TableColumn<>("USD");
+                fareAmountColumn1 = new TableColumn<>("FARE");
                 fareAmountColumn1.setMinWidth(40);
                 fareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data3"));
 
-                TableColumn<Data ,String> exchangeRateColumn1 = new TableColumn<>("USD/BGL");
+                exchangeRateColumn1 = new TableColumn<>("TAX");
                 exchangeRateColumn1.setMinWidth(40);
                 exchangeRateColumn1.setCellValueFactory(new PropertyValueFactory<>("data4"));
 
-                TableColumn<Data ,String> localFareAmountColumn1 = new TableColumn<>("BGL");
+                localFareAmountColumn1 = new TableColumn<>("TOTAL");
                 localFareAmountColumn1.setMinWidth(40);
                 localFareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data5"));
 
-                TableColumn<Data ,String> taxColumn1 = new TableColumn<>("TAX");
+                table1.setMaxSize(275,200);
+                table1.setItems(SQLReport.getReport7(type, staffNumber));
+                table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1);
+
+                total = 0;
+                for (Data item : table1.getItems()) {
+                    total = total + Integer.parseInt(item.getData5());
+                }
+
+            } else {
+
+                blanktypeColumn1 = new TableColumn<>("TYPE");
+                blanktypeColumn1.setMinWidth(50);
+                blanktypeColumn1.setCellValueFactory(new PropertyValueFactory<>("data1"));
+
+                blankColumn1 = new TableColumn<>("TICKET\nNUMBER");
+                blankColumn1.setMinWidth(10);
+                blankColumn1.setCellValueFactory(new PropertyValueFactory<>("data2"));
+
+                fareAmountColumn1 = new TableColumn<>("USD");
+                fareAmountColumn1.setMinWidth(40);
+                fareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data3"));
+
+                exchangeRateColumn1 = new TableColumn<>("USD/BGL");
+                exchangeRateColumn1.setMinWidth(40);
+                exchangeRateColumn1.setCellValueFactory(new PropertyValueFactory<>("data4"));
+
+                localFareAmountColumn1 = new TableColumn<>("BGL");
+                localFareAmountColumn1.setMinWidth(40);
+                localFareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data5"));
+
+                taxColumn1 = new TableColumn<>("TAX");
                 taxColumn1.setMinWidth(40);
                 taxColumn1.setCellValueFactory(new PropertyValueFactory<>("data6"));
 
-                TableColumn<Data ,String> totalAmountColumn1 = new TableColumn<>("TOTAL\nAMOUNT");
+                totalAmountColumn1 = new TableColumn<>("TOTAL\nAMOUNT");
                 totalAmountColumn1.setMinWidth(40);
                 totalAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data7"));
 
-                table1 = new TableView<>();
                 table1.setMaxSize(405,200);
                 table1.setItems(SQLReport.getReport7(type, staffNumber));
                 table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1,taxColumn1,totalAmountColumn1);
-            } else {
-                TableColumn<Data ,String> blanktypeColumn1 = new TableColumn<>("StaffID");
-                blanktypeColumn1.setMinWidth(50);
-                blanktypeColumn1.setCellValueFactory(new PropertyValueFactory<>("data1"));
 
-                TableColumn<Data ,String> blankColumn1 = new TableColumn<>("TTL TK\nNUMR");
-                blankColumn1.setMinWidth(10);
-                blankColumn1.setCellValueFactory(new PropertyValueFactory<>("data2"));
-
-                TableColumn<Data ,String> fareAmountColumn1 = new TableColumn<>("USD");
-                fareAmountColumn1.setMinWidth(40);
-                fareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data3"));
-
-                TableColumn<Data ,String> exchangeRateColumn1 = new TableColumn<>("USD/BGL");
-                exchangeRateColumn1.setMinWidth(40);
-                exchangeRateColumn1.setCellValueFactory(new PropertyValueFactory<>("data4"));
-
-                TableColumn<Data ,String> localFareAmountColumn1 = new TableColumn<>("BGL");
-                localFareAmountColumn1.setMinWidth(40);
-                localFareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data5"));
-
-                table1 = new TableView<>();
-                table1.setMaxSize(405,200);
-                table1.setItems(SQLReport.getReport7(type, staffNumber));
-                table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1);
+                total = 0;
+                for (Data item : table1.getItems()) {
+                    total = total + Integer.parseInt(item.getData7());
+                }
             }
 
 
             GridPane.setConstraints(table1,0,3);
 
-            int total = 0;
-            for (Data item : table1.getItems()) {
-                total = total + Integer.parseInt(item.getData7());
-            }
 
             Label table1Total = new Label("" + total);
             GridPane.setConstraints(table1Total,0,4);
