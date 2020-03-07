@@ -7,11 +7,9 @@ import SQLqueries.SQLReport;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -27,7 +25,8 @@ public class AssignBlanks {
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(30,30,30,30));
-        grid.setHgap(60);
+        grid.setHgap(40);
+        grid.setVgap(8);
 
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(10,10,10,10));
@@ -37,6 +36,10 @@ public class AssignBlanks {
         labelTitle.setStyle("-fx-font: 24 arial;");
         vBox.getChildren().addAll(labelTitle);
 
+        Label table1Label = new Label("Current stocks available: ");
+        GridPane.setConstraints(table1Label,0,0);
+        Label table2Label = new Label("Current staff: ");
+        GridPane.setConstraints(table2Label,1,0);
         try {
             //table1
 
@@ -48,20 +51,28 @@ public class AssignBlanks {
             bundleColumn1.setMinWidth(50);
             bundleColumn1.setCellValueFactory(new PropertyValueFactory<>("data22"));
 
+            TableColumn<Data2,String> bundleminColumn1 = new TableColumn<>("From");
+            bundleminColumn1.setMinWidth(50);
+            bundleminColumn1.setCellValueFactory(new PropertyValueFactory<>("data23"));
+
+            TableColumn<Data2,String> bundlemaxColumn1 = new TableColumn<>("To");
+            bundlemaxColumn1.setMinWidth(50);
+            bundlemaxColumn1.setCellValueFactory(new PropertyValueFactory<>("data24"));
+
             TableColumn<Data2 ,String> idstaffColumn1 = new TableColumn<>("Staff ID");
             idstaffColumn1.setMinWidth(40);
-            idstaffColumn1.setCellValueFactory(new PropertyValueFactory<>("data23"));
+            idstaffColumn1.setCellValueFactory(new PropertyValueFactory<>("data25"));
 
             TableColumn<Data2 ,String> receivedDateColumn1 = new TableColumn<>("Date Received");
             receivedDateColumn1.setMinWidth(125);
-            receivedDateColumn1.setCellValueFactory(new PropertyValueFactory<>("data24"));
+            receivedDateColumn1.setCellValueFactory(new PropertyValueFactory<>("data26"));
 
             table1 = new TableView<>();
-            table1.setMaxSize(500,400);
+            table1.setMaxSize(500,300);
             table1.setItems(SQLBlanks.getReport1());
-            table1.getColumns().addAll(typeColumn1,bundleColumn1,idstaffColumn1,receivedDateColumn1);
+            table1.getColumns().addAll(typeColumn1,bundleColumn1,bundleminColumn1,bundlemaxColumn1,idstaffColumn1,receivedDateColumn1);
 
-            GridPane.setConstraints(table1,0,0);
+            GridPane.setConstraints(table1,0,1);
 
             //table2
 
@@ -82,13 +93,20 @@ public class AssignBlanks {
             surnameColumn2.setCellValueFactory(new PropertyValueFactory<>("data24"));
 
             table2 = new TableView<>();
-            table2.setMaxSize(300,400);
+            table2.setMaxSize(300,300);
             table2.setItems(SQLBlanks.getReport2());
             table2.getColumns().addAll(idstaffColumn2,emailColumn2,firstnameColumn2,surnameColumn2);
 
-            GridPane.setConstraints(table2,1,0);
+            GridPane.setConstraints(table2,1,1);
 
-
+            HBox selection = new HBox();
+            selection.setSpacing(5);
+            Label assignLabel = new Label("Assign: ");
+            selection.setAlignment(Pos.CENTER);
+            TextField assignField = new TextField();
+            Label toLabel = new Label("TO: ");
+            TextField toField = new TextField();
+            selection.getChildren().addAll(assignLabel,assignField,toLabel,toField);
 
             HBox hBox = new HBox();
             hBox.setPadding(new Insets(10,10,10,10));
@@ -97,7 +115,18 @@ public class AssignBlanks {
             assignButton.setMinSize(130,0);
             Button unassignButton = new Button("Unassign Blanks");
             unassignButton.setMinSize(130,0);
-            hBox.getChildren().addAll(assignButton, unassignButton);
+            hBox.getChildren().addAll(selection,assignButton, unassignButton);
+            hBox.setAlignment(Pos.CENTER);
+
+            table1.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                Data2 assignSelection = table1.getSelectionModel().getSelectedItems().get(0);
+                assignField.setText(assignSelection.getData23() + " - " + assignSelection.getData24());
+            });
+
+            table2.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                Data2 toOnClickSelection = table2.getSelectionModel().getSelectedItems().get(0);
+                toField.setText(toOnClickSelection.getData21());
+            });
 
 
             assignButton.setOnAction( e -> {
@@ -124,7 +153,7 @@ public class AssignBlanks {
             });
 
 
-            grid.getChildren().addAll(table1,table2);
+            grid.getChildren().addAll(table1,table2,table1Label,table2Label);
             BorderPane borderPane = new BorderPane();
             borderPane.setTop(vBox);
             borderPane.setCenter(grid);

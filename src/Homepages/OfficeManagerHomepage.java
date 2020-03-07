@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import sample.AssignBlanks;
 import sample.LoginPage;
 import sample.ReportPage;
+import sample.SalesPage;
 
 import java.util.List;
 
@@ -66,6 +67,14 @@ public class OfficeManagerHomepage {
         button3.setMinSize(200,1);
         button3.setText("Report Sales");
         GridPane.setConstraints(button3, 0, 2);
+        button3.setOnAction(e -> {
+            try {
+                SalesPage.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
 
         Button button4 = new Button();
         button4.setMinSize(200,1);

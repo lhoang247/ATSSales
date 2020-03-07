@@ -413,7 +413,7 @@ public class SQLReport {
             while (result.next()) {
                 Data2 data = new Data2(
                         result.getString(1),
-                        result.getString(2),
+                        String.format("%08d", Integer.parseInt(result.getString(2))),
                         result.getString(3),
                         result.getString(4)
                 );
