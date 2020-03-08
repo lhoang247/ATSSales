@@ -2,15 +2,21 @@ package sample;
 
 import Entities.Data2;
 import SQLqueries.SQLBlanks;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class SalesPage {
@@ -72,38 +78,51 @@ public class SalesPage {
             GridPane.setConstraints(table2, 0, 1);
 
             GridPane gridInfo = new GridPane();
-            gridInfo.setPadding(new Insets(30,30,30,30));
             gridInfo.setHgap(10);
             gridInfo.setVgap(8);
             GridPane.setConstraints(gridInfo, 1, 0);
 
+
+
             Label ticketTypeLabel = new Label ("Ticket Type: ");
             GridPane.setConstraints(ticketTypeLabel, 0, 0);
+            GridPane.setHalignment(ticketTypeLabel,HPos.RIGHT);
 
             Label ticketNumberLabel = new Label ("Ticket Number: ");
             GridPane.setConstraints(ticketNumberLabel, 0, 1);
+            GridPane.setHalignment(ticketNumberLabel,HPos.RIGHT);
 
             Label ticketPriceLabel = new Label ("Ticket Price: ");
             GridPane.setConstraints(ticketPriceLabel, 0, 2);
+            GridPane.setHalignment(ticketPriceLabel,HPos.RIGHT);
 
             Label taxLabel = new Label ("Tax: ");
             GridPane.setConstraints(taxLabel, 0, 3);
+            GridPane.setHalignment(taxLabel,HPos.RIGHT);
 
             Label exchangeRateLabel = new Label ("Exchange Rate: ");
             GridPane.setConstraints(exchangeRateLabel, 0, 4);
+            GridPane.setHalignment(exchangeRateLabel,HPos.RIGHT);
 
             Label customerEmailLabel = new Label ("Customer Email: ");
             GridPane.setConstraints(customerEmailLabel, 0, 5);
+            GridPane.setHalignment(customerEmailLabel,HPos.RIGHT);
 
-            Label customerPaymentAmountLabel = new Label ("Customer Email: ");
+            Label paymentMethodLabel = new Label ("Payment Method: ");
+            GridPane.setConstraints(paymentMethodLabel, 0, 7);
+            GridPane.setHalignment(paymentMethodLabel,HPos.RIGHT);
+
+            Label customerPaymentAmountLabel = new Label ("Customer Payment Amount: ");
             GridPane.setConstraints(customerPaymentAmountLabel, 0, 6);
+            GridPane.setHalignment(customerPaymentAmountLabel,HPos.RIGHT);
 
-            Label paymentMethodAmountLabel = new Label ("Payment Method: ");
-            GridPane.setConstraints(paymentMethodAmountLabel, 0, 7);
+            Label creditCardLabel = new Label ("Credit Card: ");
+            GridPane.setConstraints(creditCardLabel, 0, 8);
+            GridPane.setHalignment(creditCardLabel,HPos.RIGHT);
 
-            Label dateLabel = new Label ("Customer Email: ");
-            GridPane.setConstraints(dateLabel, 0, 8);
-
+            Label dateLabel = new Label ("Date: ");
+            GridPane.setConstraints(dateLabel, 0, 9);
+            GridPane.setHalignment(dateLabel,HPos.RIGHT);
 
             TextField typeField = new TextField();
             GridPane.setConstraints(typeField, 1, 0);
@@ -124,21 +143,72 @@ public class SalesPage {
             TextField customerEmailField = new TextField();
             GridPane.setConstraints(customerEmailField, 1, 5);
 
+            ComboBox paymentMethodBox = new ComboBox();
+            paymentMethodBox.getItems().add("cash");
+            paymentMethodBox.getItems().add("card");
+            GridPane.setConstraints(paymentMethodBox, 1, 7);
+
             TextField customerPaidAmountField = new TextField();
             GridPane.setConstraints(customerPaidAmountField, 1, 6);
 
-            HBox checkH = new HBox();
-            checkH.setSpacing(10);
-            CheckBox checkBox1 = new CheckBox("Cash");
-            CheckBox checkBox2 = new CheckBox("Card");
-            checkH.getChildren().addAll(checkBox1,checkBox2);
-            GridPane.setConstraints(checkH, 1, 7);
+            TextField creditCardField = new TextField();
+            GridPane.setConstraints(creditCardField, 1, 8);
 
+            DateFormat df = new SimpleDateFormat("dd/MM/yy");
+            Calendar calobj = Calendar.getInstance();
+            TextField dateField = new TextField(df.format(calobj.getTime()));
+            GridPane.setConstraints(dateField, 1, 9);
+
+            Button reportSalesButton = new Button("Record Sale");
+            reportSalesButton.setMinSize(130,0);
+            Button voidButton = new Button("Void blank");
+            voidButton.setMinSize(130,0);
+
+            HBox hBoxButton = new HBox();
+            hBoxButton.getChildren().addAll(reportSalesButton,voidButton);
+            hBoxButton.setPadding(new Insets(10,10,10,10));
+            hBoxButton.setSpacing(20);
             GridPane.setRowSpan(gridInfo,2);
-            gridInfo.getChildren().addAll(ticketTypeLabel,ticketNumberLabel,ticketPriceLabel,taxLabel,exchangeRateLabel,customerEmailLabel,paymentMethodAmountLabel,typeField,ticketNumberField,ticketPriceField,taxField,exchangeRateField,customerEmailField,checkH);
-
+            gridInfo.getChildren().addAll(ticketTypeLabel,ticketNumberLabel,ticketPriceLabel,taxLabel,exchangeRateLabel,customerEmailLabel,paymentMethodLabel,customerPaymentAmountLabel,creditCardField,creditCardLabel,dateLabel,typeField,ticketNumberField,ticketPriceField,taxField,exchangeRateField,customerEmailField,paymentMethodBox,customerPaidAmountField,dateField);
             grid.getChildren().addAll(table1,table2,gridInfo);
-            Scene scene = new Scene(grid);
+
+
+            table1.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                Data2 assignSelection = table1.getSelectionModel().getSelectedItems().get(0);
+                typeField.setText(assignSelection.getData21());
+                ticketNumberField.setText(assignSelection.getData22());
+                if (assignSelection.getData21().equals("444")  || assignSelection.getData21().equals("440")  || assignSelection.getData21().equals("420")) {
+                    exchangeRateField.setDisable(false);
+                } else {
+                    exchangeRateField.setDisable(true);
+                }
+            });
+
+            table2.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                Data2 toOnClickSelection = table2.getSelectionModel().getSelectedItems().get(0);
+                customerEmailField.setText(toOnClickSelection.getData21());
+            });
+
+            paymentMethodBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+                if (newValue == "cash") {
+                    creditCardField.setDisable(true);
+                } else if (newValue == "card") {
+                    creditCardField.setDisable(false);
+                }
+            }) ;
+
+            voidButton.setOnAction(e -> {
+                try {
+                    SQLBlanks.voidBlank(ticketNumberField.getText());
+                    table1.setItems(SQLBlanks.salesTable("" + staffNumber));
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            });
+            BorderPane borderPane = new BorderPane();
+            borderPane.setCenter(grid);
+            borderPane.setBottom(hBoxButton);
+            Scene scene = new Scene(borderPane);
             window.setScene(scene);
             window.show();
         } catch (Exception e) {

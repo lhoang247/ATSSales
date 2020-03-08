@@ -141,6 +141,8 @@ public class AssignBlanks {
                 }
             });
 
+            table1.setItems(SQLBlanks.getReport1());
+
             unassignButton.setOnAction(e -> {
                 try {
                     Data2 bundleSelection = table1.getSelectionModel().getSelectedItems().get(0);

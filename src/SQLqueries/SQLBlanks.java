@@ -120,4 +120,16 @@ public class SQLBlanks {
             return null;
         }
     }
+
+    public static void voidBlank(String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE atsdb.blanks \n" +
+                    "SET status = 'void' \n" +
+                    "WHERE ticketnumber = '" + ticketnumber + "' AND status = 'assigned';");
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
 }
