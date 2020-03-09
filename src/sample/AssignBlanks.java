@@ -4,6 +4,7 @@ import Entities.Data;
 import Entities.Data2;
 import SQLqueries.SQLBlanks;
 import SQLqueries.SQLReport;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -167,5 +168,4 @@ public class AssignBlanks {
 
         }
     }
-
 }

@@ -31,6 +31,7 @@ public class SQLBlanks {
                 );
                 table.add(data);
             }
+            con.close();
             return table;
         } catch (Exception e) {
             return null;
@@ -51,6 +52,7 @@ public class SQLBlanks {
                 );
                 table.add(data);
             }
+            con.close();
             return table;
         } catch (Exception e) {
             return null;
@@ -128,6 +130,73 @@ public class SQLBlanks {
             stmt.executeUpdate("UPDATE atsdb.blanks \n" +
                     "SET status = 'void' \n" +
                     "WHERE ticketnumber = '" + ticketnumber + "' AND status = 'assigned';");
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+
+
+
+    public static void reportSales(String ticketnumber,String blanktype,String salesAmount, String paid, String tax,String exchangerate, String customeremail, String amountPaid, String paymentMethod, String commissionrate, String daterecorded) throws Exception {
+        try {
+            Connection con = getConnection();
+            if (blanktype.equals("440") || blanktype.equals("420") || blanktype.equals("444")) {
+                PreparedStatement statement = con.prepareStatement("insert into atsdb.sales (ticketnumber, blanktype, salesamount, paid, refunded, tax, exchangerate,customeremail,amountPaid,paymentMethod,commissionrate,daterecorded) " +
+                        " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                statement.setString (1, ticketnumber);
+                statement.setString (2, blanktype);
+                statement.setString (3, salesAmount);
+                statement.setString (4, paid);
+                statement.setString (5, "n");
+                statement.setString (6, tax);
+                statement.setString (7, exchangerate);
+                statement.setString (8, customeremail);
+                statement.setString (9, amountPaid);
+                statement.setString (10, paymentMethod);
+                statement.setString (11, commissionrate);
+                statement.setString (12, daterecorded);
+                statement.execute();
+            } else {
+                PreparedStatement statement = con.prepareStatement("insert into atsdb.sales (ticketnumber, blanktype, salesamount, paid, refunded, tax,customeremail,amountPaid,paymentMethod,commissionrate,daterecorded) " +
+                        " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                statement.setString (1, ticketnumber);
+                statement.setString (2, blanktype);
+                statement.setString (3, salesAmount);
+                statement.setString (4, paid);
+                statement.setString (5, "n");
+                statement.setString (6, tax);
+                statement.setString (7, customeremail);
+                statement.setString (8, amountPaid);
+                statement.setString (9, paymentMethod);
+                statement.setString (10, commissionrate);
+                statement.setString (11, daterecorded);
+                statement.execute();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void soldBlank(String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE atsdb.blanks \n" +
+                    "SET status = 'sold' \n" +
+                    "WHERE ticketnumber = '" + ticketnumber + "' AND status = 'assigned';");
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+
+    public static void refundSale(String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE atsdb.sales \n" +
+                    "SET refunded = 'y' \n" +
+                    "WHERE ticketnumber = '" + ticketnumber + "';");
         } catch (Exception e) {
             System.out.println("error");
         }

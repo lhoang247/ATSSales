@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -28,6 +29,14 @@ public class SalesPage {
         grid.setPadding(new Insets(30,30,30,30));
         grid.setHgap(10);
         grid.setVgap(10);
+
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+
+        Label labelTitle = new Label();
+        labelTitle.setText("Report Sales");
+        labelTitle.setStyle("-fx-font: 24 arial;");
+        vBox.getChildren().addAll(labelTitle);
 
         TableView<Data2> table1, table2;
         try {
@@ -161,7 +170,7 @@ public class SalesPage {
 
             Button reportSalesButton = new Button("Record Sale");
             reportSalesButton.setMinSize(130,0);
-            Button voidButton = new Button("Void blank");
+            Button voidButton = new Button("Void selected blank");
             voidButton.setMinSize(130,0);
 
             HBox hBoxButton = new HBox();
@@ -197,15 +206,43 @@ public class SalesPage {
                 }
             }) ;
 
+
+            reportSalesButton.setOnAction(e -> {
+                try {
+                    SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"y",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),"10",dateField.getText());
+                    SQLBlanks.soldBlank(ticketNumberField.getText());
+                    ErrorBox.display("Success","The ticket has successfully been reported");
+                    ticketNumberField.clear();
+                    ticketPriceField.clear();
+                    taxField.clear();
+                    exchangeRateField.clear();
+                    customerEmailField.clear();
+                    customerPaidAmountField.clear();
+                    creditCardField.clear();
+                    table1.setItems(SQLBlanks.salesTable("" + staffNumber));
+                } catch (Exception e1) {
+                }
+            });
+
+
             voidButton.setOnAction(e -> {
                 try {
                     SQLBlanks.voidBlank(ticketNumberField.getText());
                     table1.setItems(SQLBlanks.salesTable("" + staffNumber));
+                    ErrorBox.display("Success","The ticket has successfully been voided");
+                    ticketNumberField.clear();
+                    ticketPriceField.clear();
+                    taxField.clear();
+                    exchangeRateField.clear();
+                    customerEmailField.clear();
+                    customerPaidAmountField.clear();
+                    creditCardField.clear();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             });
             BorderPane borderPane = new BorderPane();
+            borderPane.setTop(vBox);
             borderPane.setCenter(grid);
             borderPane.setBottom(hBoxButton);
             Scene scene = new Scene(borderPane);
@@ -215,4 +252,5 @@ public class SalesPage {
 
         }
     }
+
 }

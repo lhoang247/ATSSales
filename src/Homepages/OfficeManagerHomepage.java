@@ -11,10 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sample.AssignBlanks;
-import sample.LoginPage;
-import sample.ReportPage;
-import sample.SalesPage;
+import sample.*;
 
 import java.util.List;
 
@@ -75,12 +72,40 @@ public class OfficeManagerHomepage {
             }
         });
 
-
         Button button4 = new Button();
         button4.setMinSize(200,1);
-        button4.setText("Logout");
+        button4.setText("View customer accounts");
         GridPane.setConstraints(button4, 0, 3);
         button4.setOnAction(e -> {
+            try {
+                CustomerPage.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        Button button5 = new Button();
+        button5.setMinSize(200,1);
+        button5.setText("Refund sale");
+        GridPane.setConstraints(button5, 0, 4);
+
+        button5.setOnAction(e -> {
+            try {
+                refundSale.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+        Button button7 = new Button();
+        button7.setMinSize(200,1);
+        button7.setText("Set discount");
+        GridPane.setConstraints(button7, 0, 5);
+
+        Button button6 = new Button();
+        button6.setMinSize(200,1);
+        button6.setText("Logout");
+        GridPane.setConstraints(button6, 0, 6);
+        button6.setOnAction(e -> {
             LoginPage.setScene(LoginPage.loginScene());
         });
 
@@ -88,7 +113,7 @@ public class OfficeManagerHomepage {
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button2,button3,button4);
+        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);
