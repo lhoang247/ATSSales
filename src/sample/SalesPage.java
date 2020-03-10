@@ -168,6 +168,9 @@ public class SalesPage {
             TextField dateField = new TextField(df.format(calobj.getTime()));
             GridPane.setConstraints(dateField, 1, 9);
 
+            Button calculateMaxButton = new Button("Calculate Max with discount");
+            GridPane.setConstraints(calculateMaxButton, 2, 6);
+
             Button reportSalesButton = new Button("Record Sale");
             reportSalesButton.setMinSize(130,0);
             Button voidButton = new Button("Void selected blank");
@@ -178,7 +181,10 @@ public class SalesPage {
             hBoxButton.setPadding(new Insets(10,10,10,10));
             hBoxButton.setSpacing(20);
             GridPane.setRowSpan(gridInfo,2);
-            gridInfo.getChildren().addAll(ticketTypeLabel,ticketNumberLabel,ticketPriceLabel,taxLabel,exchangeRateLabel,customerEmailLabel,paymentMethodLabel,customerPaymentAmountLabel,creditCardField,creditCardLabel,dateLabel,typeField,ticketNumberField,ticketPriceField,taxField,exchangeRateField,customerEmailField,paymentMethodBox,customerPaidAmountField,dateField);
+            gridInfo.getChildren().addAll(ticketTypeLabel,ticketNumberLabel,ticketPriceLabel,taxLabel,exchangeRateLabel,
+                    customerEmailLabel,paymentMethodLabel,customerPaymentAmountLabel,creditCardField,creditCardLabel,
+                    dateLabel,typeField,ticketNumberField,ticketPriceField,taxField,exchangeRateField,customerEmailField,
+                    paymentMethodBox,customerPaidAmountField,dateField, calculateMaxButton);
             grid.getChildren().addAll(table1,table2,gridInfo);
 
 
@@ -209,7 +215,7 @@ public class SalesPage {
 
             reportSalesButton.setOnAction(e -> {
                 try {
-                    SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"y",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),"10",dateField.getText());
+                    SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"y",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),dateField.getText());
                     SQLBlanks.soldBlank(ticketNumberField.getText());
                     ErrorBox.display("Success","The ticket has successfully been reported");
                     ticketNumberField.clear();
@@ -224,6 +230,23 @@ public class SalesPage {
                 }
             });
 
+            calculateMaxButton.setOnAction(e -> {
+                try {
+                    if (customerEmailField.getText().isEmpty() || ticketPriceField.getText().isEmpty()) {
+                        customerPaidAmountField.setText("" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())));
+                    } else {
+                        if (SQLBlanks.getFixedDiscount(customerEmailField.getText()) == null) {
+                            customerPaidAmountField.setText("" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())));
+                        } else {
+                            Double calculate = (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())) * (1 - (Double.parseDouble(SQLBlanks.getFixedDiscount(customerEmailField.getText())) / 100));
+                            customerPaidAmountField.setText("" + calculate);
+                        }
+                    }
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            });
 
             voidButton.setOnAction(e -> {
                 try {

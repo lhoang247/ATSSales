@@ -101,10 +101,22 @@ public class OfficeManagerHomepage {
         button7.setText("Set discount");
         GridPane.setConstraints(button7, 0, 5);
 
+        Button button8 = new Button();
+        button8.setMinSize(200,1);
+        button8.setText("Edit commissions");
+        GridPane.setConstraints(button8, 0, 6);
+        button8.setOnAction(e -> {
+            try {
+                EditCommissionRates.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
         Button button6 = new Button();
         button6.setMinSize(200,1);
         button6.setText("Logout");
-        GridPane.setConstraints(button6, 0, 6);
+        GridPane.setConstraints(button6, 0, 7);
         button6.setOnAction(e -> {
             LoginPage.setScene(LoginPage.loginScene());
         });
@@ -113,12 +125,12 @@ public class OfficeManagerHomepage {
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7);
+        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7,button8);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);
 
-        Scene homepage = new Scene(borderPane, 300, 300);
+        Scene homepage = new Scene(borderPane, 300, 350);
         window.setTitle("Office Manager Homepage");
         return homepage;
     }

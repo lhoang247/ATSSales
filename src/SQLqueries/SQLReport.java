@@ -202,27 +202,27 @@ public class SQLReport {
             PreparedStatement statement;
             if (type == 0) {
                 statement = con.prepareStatement("SELECT sales.paymentmethod ,\n" +
-                        "                        case when sales.paymentmethod = 'cash' then sum(salesamount)+sum(tax) else '' end as 'cash',\n" +
-                        "                        case when sales.paymentmethod = 'card' then sum(salesamount)+sum(tax) else '' end as 'card', \n" +
+                        "                        case when sales.paymentmethod = 'cash' then sum(amountPaid) else '' end as 'cash',\n" +
+                        "                        case when sales.paymentmethod = 'card' then sum(amountPaid) else '' end as 'card', \n" +
                         "                        case when sales.paymentmethod = 'card' then \n" +
                         "\t\t\t\t\t\t(SELECT cardnumber \n" +
                         "                        FROM atsdb.creditcard \n" +
                         "                        WHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
                         "                        end as 'Card number', \n" +
-                        "                        sum(salesamount)+sum(tax)\n" +
+                        "                        sum(amountPaid)\n" +
                         "                        FROM atsdb.sales, atsdb.blanks\n" +
                         "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420)  and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber\n" +
                         "                        group by blanks.bundle;"
                 );
             } else {
-                statement = con.prepareStatement("SELECT sales.paymentmethod , case when paymentmethod = 'cash' then salesamount+tax else '' end as 'cash',\n" +
-                        "                        case when paymentmethod = 'card' then salesamount+tax else '' end as 'card',\n" +
+                statement = con.prepareStatement("SELECT sales.paymentmethod , case when paymentmethod = 'cash' then amountPaid else '' end as 'cash',\n" +
+                        "                        case when paymentmethod = 'card' then amountPaid else '' end as 'card',\n" +
                         "                        case when paymentmethod = 'card' then \n" +
                         "                       (SELECT cardnumber \n" +
                         "                        FROM atsdb.creditcard \n" +
                         "                        WHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
                         "                        end as 'Card number',\n" +
-                        "                        salesamount+tax\n" +
+                        "                        amountPaid\n" +
                         "                        FROM atsdb.sales , atsdb.blanks\n" +
                         "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y';"
                 );
@@ -290,31 +290,31 @@ public class SQLReport {
             String sqlString;
             PreparedStatement statement;
             if (type == 0) {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then (sum(salesamount)+sum(tax)) * (1 - (commissionrate/100)) end as 'example'";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then (sum(salesamount)+sum(tax)) * (1 - (commissionrate/100)) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales, atsdb.blanks" +
-                        " WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420)  and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.status = 'sold' and sales.refunded != 'y'" +
+                        " WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420)  and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.status = 'sold' and sales.refunded != 'y' " +
                         "group by blanks.bundle;");
             } else if (type == 1) {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then (salesamount+tax) * (1 - (commissionrate/100)) end as 'example'";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then (salesamount+tax) * (1 - (commissionrate/100)) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND " +
                         "  sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y';");
             } else if (type == 2) {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then (sum(salesamount)+sum(tax)) * (1 - (commissionrate/100)) end as 'example'";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then (sum(salesamount)+sum(tax)) * (1 - (commissionrate/100)) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
                 }
-                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.status = 'sold' and sales.refunded != 'y'" +
+                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.status = 'sold' and sales.refunded != 'y' " +
                         "group by blanks.bundle;");
             } else {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then (salesamount+tax) * (1 - (commissionrate/100)) end as 'example'";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then (salesamount+tax) * (1 - (commissionrate/100)) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND " +
                         "  sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y';");
@@ -434,27 +434,27 @@ public class SQLReport {
             PreparedStatement statement;
             if (type == 0) {
                 statement = con.prepareStatement("SELECT paymentmethod,\n" +
-                        "case when paymentmethod = 'cash' then sum(salesamount)+sum(tax) else '' end as 'cash', \n" +
-                        "case when paymentmethod = 'card' then sum(salesamount)+sum(tax) else '' end as 'card',\n" +
+                        "case when paymentmethod = 'cash' then sum(amountPaid) else '' end as 'cash', \n" +
+                        "case when paymentmethod = 'card' then sum(amountPaid) else '' end as 'card',\n" +
                         "case when paymentmethod = 'card' then\n" +
                         "     (SELECT cardnumber\n" +
                         "\tFROM atsdb.creditcard\n" +
                         "\tWHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
                         "\tend as 'Card number', \n" +
-                        "\tsum(salesamount)+sum(tax)\n" +
+                        "\tsum(amountPaid)\n" +
                         "\tFROM atsdb.sales, atsdb.blanks \n" +
                         "    WHERE (sales.blanktype = 201 OR sales.blanktype = 101) and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber " +
                         "group by blanks.bundle;");
             } else {
                 statement = con.prepareStatement("SELECT paymentmethod,\n" +
-                        "case when paymentmethod = 'cash' then salesamount+tax else '' end as 'cash', \n" +
-                        "case when paymentmethod = 'card' then salesamount+tax else '' end as 'card',\n" +
+                        "case when paymentmethod = 'cash' then amountPaid else '' end as 'cash', \n" +
+                        "case when paymentmethod = 'card' then amountPaid else '' end as 'card',\n" +
                         "case when paymentmethod = 'card' then\n" +
                         "     (SELECT cardnumber\n" +
                         "\tFROM atsdb.creditcard\n" +
                         "\tWHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.ticketnumber) else ''\n" +
                         "\tend as 'Card number', \n" +
-                        "\tsalesamount+tax\n" +
+                        "\tamountPaid\n" +
                         "\tFROM atsdb.sales, atsdb.blanks" +
                         "    WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = "+ staffID +" AND blanks.status = 'sold';");
             }

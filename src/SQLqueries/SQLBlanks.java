@@ -137,10 +137,17 @@ public class SQLBlanks {
 
 
 
-    public static void reportSales(String ticketnumber,String blanktype,String salesAmount, String paid, String tax,String exchangerate, String customeremail, String amountPaid, String paymentMethod, String commissionrate, String daterecorded) throws Exception {
+    public static void reportSales(String ticketnumber,String blanktype,String salesAmount, String paid, String tax,String exchangerate, String customeremail, String amountPaid, String paymentMethod, String daterecorded) throws Exception {
         try {
             Connection con = getConnection();
-            if (blanktype.equals("440") || blanktype.equals("420") || blanktype.equals("444")) {
+            PreparedStatement statement1 = con.prepareStatement("SELECT commissionrate FROM atsdb.commissions WHERE blanktype = '"+ blanktype +"';");
+            ResultSet result = statement1.executeQuery();
+            String commissionrate = "0";
+            while (result.next()) {
+                commissionrate =  result.getString(1);
+            }
+
+            if (blanktype.equals("440") || blanktype.equals("420") || blanktype.equals("444") || blanktype.equals("451") || blanktype.equals("452")) {
                 PreparedStatement statement = con.prepareStatement("insert into atsdb.sales (ticketnumber, blanktype, salesamount, paid, refunded, tax, exchangerate,customeremail,amountPaid,paymentMethod,commissionrate,daterecorded) " +
                         " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
                 statement.setString (1, ticketnumber);
@@ -201,4 +208,23 @@ public class SQLBlanks {
             System.out.println("error");
         }
     }
+
+
+    public static String getFixedDiscount(String customeremail) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement = con.prepareStatement("SELECT fixed_rate " +
+                    "    FROM atsdb.customerdetails, atsdb.discount, atsdb.fixed\n" +
+                    "    WHERE customerdetails.email = discount.email AND fixed.iddiscount = discount.iddiscount AND customerdetails.email = '"+ customeremail +"';");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                return result.getString(1);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
