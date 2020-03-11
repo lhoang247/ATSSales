@@ -154,12 +154,12 @@ public class SQLReport {
             PreparedStatement statement;
             if (type == 0) {
                 statement = con.prepareStatement("SELECT  blanks.idstaff, count(*),sum(sales.salesamount),sum(sales.tax) ,(sum(sales.salesamount) + sum(sales.tax))\n" +
-                        "FROM atsdb.sales, atsdb.blanks where (sales.blanktype = 440 OR sales.blanktype = 444 OR sales.blanktype = 420) and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber\n" +
+                        "FROM atsdb.sales, atsdb.blanks where (sales.blanktype = 440 OR sales.blanktype = 444 OR sales.blanktype = 420  OR sales.blanktype = 451 OR sales.blanktype = 452) and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber\n" +
                         "group by blanks.bundle;");
             } else {
                 statement = con.prepareStatement("SELECT  sales.blanktype,sales.ticketnumber,salesamount/exchangerate,exchangerate, salesamount, tax, (salesamount+tax)\n" +
                         "FROM atsdb.sales , atsdb.blanks\n" +
-                        "WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = "+ staffID +" AND blanks.status = 'sold' AND sales.refunded != 'y';");
+                        "WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420  OR sales.blanktype = 451 OR sales.blanktype = 452) AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = "+ staffID +" AND blanks.status = 'sold' AND sales.refunded != 'y';");
             }
 
             ResultSet result = statement.executeQuery();
@@ -211,7 +211,7 @@ public class SQLReport {
                         "                        end as 'Card number', \n" +
                         "                        sum(amountPaid)\n" +
                         "                        FROM atsdb.sales, atsdb.blanks\n" +
-                        "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420)  and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber\n" +
+                        "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420 OR sales.blanktype = 451 OR sales.blanktype = 452)  and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber\n" +
                         "                        group by blanks.bundle;"
                 );
             } else {
@@ -224,7 +224,7 @@ public class SQLReport {
                         "                        end as 'Card number',\n" +
                         "                        amountPaid\n" +
                         "                        FROM atsdb.sales , atsdb.blanks\n" +
-                        "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y';"
+                        "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420  OR sales.blanktype = 451 OR sales.blanktype = 452) AND sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y';"
                 );
             }
 
@@ -253,10 +253,10 @@ public class SQLReport {
             PreparedStatement statement;
             if (type == 0) {
                 statement = con.prepareStatement("SELECT DISTINCT(commissionrate)  \n" +
-                        "FROM atsdb.sales WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) ORDER BY commissionrate;");
+                        "FROM atsdb.sales WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420  OR sales.blanktype = 451 OR sales.blanktype = 452) ORDER BY commissionrate;");
             } else if (type == 1){
                 statement = con.prepareStatement("SELECT DISTINCT(commissionrate)\n" +
-                        "FROM atsdb.sales, atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND\n" +
+                        "FROM atsdb.sales, atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420  OR sales.blanktype = 451 OR sales.blanktype = 452) AND\n" +
                         "sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y' \n" +
                         " ORDER BY commissionrate;");
             } else if (type == 2) {
@@ -295,14 +295,14 @@ public class SQLReport {
                     sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales, atsdb.blanks" +
-                        " WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420)  and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.status = 'sold' and sales.refunded != 'y' " +
+                        " WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420 OR sales.blanktype = 451 OR sales.blanktype = 452)  and sales.refunded != 'y' AND sales.ticketnumber = blanks.ticketnumber AND blanks.status = 'sold' and sales.refunded != 'y' " +
                         "group by blanks.bundle;");
             } else if (type == 1) {
                 sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
                     sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example' ";
                 }
-                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420) AND " +
+                statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420  OR sales.blanktype = 451 OR sales.blanktype = 452) AND " +
                         "  sales.ticketnumber = blanks.ticketnumber AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y';");
             } else if (type == 2) {
                 sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example'";
@@ -391,7 +391,7 @@ public class SQLReport {
             }
             return table;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("probably no for a table data");
             return null;
         }
     }

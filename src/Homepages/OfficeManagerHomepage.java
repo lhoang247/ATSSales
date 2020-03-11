@@ -25,7 +25,7 @@ public class OfficeManagerHomepage {
         //GridPane Layout
 
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10,10,40,50));
+        grid.setPadding(new Insets(10,40,40,40));
         grid.setVgap(8);
         grid.setHgap(10);
 
@@ -87,7 +87,7 @@ public class OfficeManagerHomepage {
         Button button5 = new Button();
         button5.setMinSize(200,1);
         button5.setText("Refund sale");
-        GridPane.setConstraints(button5, 0, 4);
+        GridPane.setConstraints(button5, 1, 0);
 
         button5.setOnAction(e -> {
             try {
@@ -99,12 +99,19 @@ public class OfficeManagerHomepage {
         Button button7 = new Button();
         button7.setMinSize(200,1);
         button7.setText("Set discount");
-        GridPane.setConstraints(button7, 0, 5);
+        GridPane.setConstraints(button7, 1, 1);
+        button7.setOnAction(e -> {
+            try {
+                DiscountPage.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         Button button8 = new Button();
         button8.setMinSize(200,1);
         button8.setText("Edit commissions");
-        GridPane.setConstraints(button8, 0, 6);
+        GridPane.setConstraints(button8, 1, 2);
         button8.setOnAction(e -> {
             try {
                 EditCommissionRates.display(staffNumber,fullname.get(3));
@@ -113,10 +120,34 @@ public class OfficeManagerHomepage {
             }
         });
 
+        Button button9 = new Button();
+        button9.setMinSize(200,1);
+        button9.setText("Plan Flexible Discount");
+        GridPane.setConstraints(button9, 1, 4);
+        button9.setOnAction(e -> {
+            try {
+                CreateFlexibleDiscount.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        Button button10 = new Button();
+        button10.setMinSize(200,1);
+        button10.setText("Plan Fixed Discount");
+        GridPane.setConstraints(button10, 1, 3);
+        button10.setOnAction(e -> {
+            try {
+                CreateFixedDiscount.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
         Button button6 = new Button();
         button6.setMinSize(200,1);
         button6.setText("Logout");
-        GridPane.setConstraints(button6, 0, 7);
+        GridPane.setConstraints(button6, 0, 4);
         button6.setOnAction(e -> {
             LoginPage.setScene(LoginPage.loginScene());
         });
@@ -125,12 +156,12 @@ public class OfficeManagerHomepage {
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7,button8);
+        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7,button8,button9,button10);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);
 
-        Scene homepage = new Scene(borderPane, 300, 350);
+        Scene homepage = new Scene(borderPane);
         window.setTitle("Office Manager Homepage");
         return homepage;
     }

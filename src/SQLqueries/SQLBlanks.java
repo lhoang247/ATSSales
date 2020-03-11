@@ -213,16 +213,39 @@ public class SQLBlanks {
     public static String getFixedDiscount(String customeremail) throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT fixed_rate " +
                     "    FROM atsdb.customerdetails, atsdb.discount, atsdb.fixed\n" +
-                    "    WHERE customerdetails.email = discount.email AND fixed.iddiscount = discount.iddiscount AND customerdetails.email = '"+ customeremail +"';");
+                    "    WHERE customerdetails.iddiscount = discount.iddiscount AND fixed.iddiscount = discount.iddiscount AND customerdetails.email = '"+ customeremail +"';");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 return result.getString(1);
             }
             return null;
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static String getFlexibleDiscount(String customeremail, String ticketPrice) throws Exception {
+        try {
+            Connection con = getConnection();
+            PreparedStatement statement = con.prepareStatement("SELECT flexdiscband.discount " +
+                    "FROM atsdb.customerdetails,atsdb.discount,atsdb.flexible,atsdb.flexdiscband,atsdb.fband " +
+                    "WHERE customerdetails.iddiscount = discount.iddiscount " +
+                    "AND discount.iddiscount = flexible.iddiscount " +
+                    "AND flexible.idflexible = flexdiscband.idflexible " +
+                    "AND flexdiscband.idfband = fband.idfband " +
+                    "AND customerdetails.email = '"+ customeremail +"' " +
+                    "AND fband.fromBand < " + ticketPrice + " " +
+                    "AND fband.toBand > " + ticketPrice + ";");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                System.out.println(result.getString(1));
+                return result.getString(1);
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

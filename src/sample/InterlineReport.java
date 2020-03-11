@@ -204,7 +204,6 @@ public class InterlineReport {
             return grid;
 
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -225,7 +224,6 @@ public class InterlineReport {
             }
             return table;
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

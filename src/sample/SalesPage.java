@@ -2,6 +2,7 @@ package sample;
 
 import Entities.Data2;
 import SQLqueries.SQLBlanks;
+import SQLqueries.SQLCustomers;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -235,13 +236,21 @@ public class SalesPage {
                     if (customerEmailField.getText().isEmpty() || ticketPriceField.getText().isEmpty()) {
                         customerPaidAmountField.setText("" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())));
                     } else {
-                        if (SQLBlanks.getFixedDiscount(customerEmailField.getText()) == null) {
+                        try {
+                            if (SQLCustomers.getDiscountType2(customerEmailField.getText()).equals("1")){
+                                Double calculate = (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())) * (1 - (Double.parseDouble(SQLBlanks.getFixedDiscount(customerEmailField.getText())) / 100));
+                                customerPaidAmountField.setText("" + calculate);
+                            } else if (SQLCustomers.getDiscountType2(customerEmailField.getText()).equals("2")) {
+                                Double calculate = (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())) * (1 - (Double.parseDouble(SQLBlanks.getFlexibleDiscount(customerEmailField.getText(), "" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())))) / 100));
+                                customerPaidAmountField.setText("" + calculate);
+                            }
+                        } catch (Exception nullpointer) {
                             customerPaidAmountField.setText("" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())));
-                        } else {
-                            Double calculate = (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())) * (1 - (Double.parseDouble(SQLBlanks.getFixedDiscount(customerEmailField.getText())) / 100));
-                            customerPaidAmountField.setText("" + calculate);
                         }
+
+
                     }
+
 
                 } catch (Exception e1) {
                     e1.printStackTrace();

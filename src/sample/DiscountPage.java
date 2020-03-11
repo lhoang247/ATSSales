@@ -2,6 +2,7 @@ package sample;
 
 import Entities.Data2;
 import SQLqueries.SQLCommission;
+import SQLqueries.SQLCustomers;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,11 +15,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static SQLqueries.SQLCustomers.*;
+
 public class DiscountPage {
     public static void display(int staffNumber, String role) throws Exception {
         Stage window = new Stage();
 
-        TableView<Data2> table1;
+        TableView<Data2> table1,table2,table3;
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(30, 30, 30, 30));
@@ -29,7 +32,7 @@ public class DiscountPage {
         vBox.setPadding(new Insets(10, 10, 10, 10));
 
         Label labelTitle = new Label();
-        labelTitle.setText("Discount");
+        labelTitle.setText("Set a discount plan for customers");
         labelTitle.setStyle("-fx-font: 24 arial;");
         vBox.getChildren().addAll(labelTitle);
 
@@ -43,48 +46,74 @@ public class DiscountPage {
         GridPane.setConstraints(gridInfo, 1, 1);
 
 
-        TableColumn<Data2, String> typeColumn2 = new TableColumn<>("Type");
-        typeColumn2.setMinWidth(30);
-        typeColumn2.setCellValueFactory(new PropertyValueFactory<>("data21"));
+        TableColumn<Data2, String> emailColumn1 = new TableColumn<>("EMAIL");
+        emailColumn1.setMinWidth(150);
+        emailColumn1.setCellValueFactory(new PropertyValueFactory<>("data21"));
 
-        TableColumn<Data2, String> commissionrateColumn2 = new TableColumn<>("Commission Rate");
-        commissionrateColumn2.setMinWidth(150);
-        commissionrateColumn2.setCellValueFactory(new PropertyValueFactory<>("data22"));
 
         table1 = new TableView<>();
-        table1.setMinSize(220, 220);
-        table1.setMaxSize(220, 220);
-        table1.getColumns().addAll(typeColumn2, commissionrateColumn2);
+        table1.setMinSize(0, 220);
+        table1.setMaxSize(150, 220);
+        table1.getColumns().addAll(emailColumn1);
+        table1.setItems(SQLCustomers.getCustomerEmails());
         GridPane.setHalignment(table1, HPos.CENTER);
         GridPane.setConstraints(table1, 0, 1);
 
-        Label typeLabel = new Label ("Type: ");
-        GridPane.setConstraints(typeLabel, 0, 0);
-        GridPane.setHalignment(typeLabel, HPos.RIGHT);
 
-        Label commissionLabel = new Label ("Commission Rate (%): ");
-        GridPane.setConstraints(commissionLabel, 0, 1);
-        GridPane.setHalignment(commissionLabel, HPos.RIGHT);
+        TableColumn<Data2, String> discountPlanColumn2 = new TableColumn<>("Discount Plan");
+        discountPlanColumn2.setMinWidth(90);
+        discountPlanColumn2.setCellValueFactory(new PropertyValueFactory<>("data21"));
 
-        TextField typeField = new TextField();
-        typeField.setMaxWidth(70);
-        GridPane.setConstraints(typeField, 1, 0);
+        table2 = new TableView<>();
+        table2.setMinSize(0, 220);
+        table2.setMaxSize(90, 220);
+        table2.getColumns().addAll(discountPlanColumn2);
+        table2.setItems(SQLCustomers.getDiscount());
+        GridPane.setHalignment(table2, HPos.CENTER);
+        GridPane.setConstraints(table2, 1, 1);
 
-        TextField commissionField = new TextField();
-        commissionField.setMaxWidth(70);
-        GridPane.setConstraints(commissionField, 1, 1);
 
-        table1.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            Data2 assignSelection = table1.getSelectionModel().getSelectedItems().get(0);
-            typeField.setText(assignSelection.getData21());
+        TableColumn<Data2, String> discountColumn3 = new TableColumn<>("Discount");
+        discountColumn3.setMinWidth(90);
+        discountColumn3.setCellValueFactory(new PropertyValueFactory<>("data21"));
+
+        TableColumn<Data2, String> FROMColumn3 = new TableColumn<>("FROM");
+        FROMColumn3.setMinWidth(30);
+        FROMColumn3.setCellValueFactory(new PropertyValueFactory<>("data22"));
+
+        TableColumn<Data2, String> TOColumn3 = new TableColumn<>("TO");
+        TOColumn3.setMinWidth(30);
+        TOColumn3.setCellValueFactory(new PropertyValueFactory<>("data23"));
+
+        table3 = new TableView<>();
+        table3.setMinSize(0, 220);
+        table3.setMaxSize(1000, 220);
+        table3.getColumns().addAll(discountColumn3,FROMColumn3,TOColumn3);
+        GridPane.setHalignment(table3, HPos.CENTER);
+        GridPane.setConstraints(table3, 2, 1);
+
+
+
+        table2.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            Data2 moveSelection = table2.getSelectionModel().getSelectedItems().get(0);
+            try {
+                if (Integer.parseInt(getDiscountType(moveSelection.getData21())) == 1)  {
+                    table3.setItems(showFixedDiscount(moveSelection.getData21()));
+                } else {
+                    table3.setItems(showFlexibleDiscount(moveSelection.getData21()));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10,10,10,10));
         hBox.setSpacing(20);
-        Button editButton = new Button("Change");
-        editButton.setMinSize(130,0);
-        hBox.getChildren().addAll(editButton);
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setMinSize(130,0);
+        hBox.getChildren().addAll(confirmButton);
         hBox.setAlignment(Pos.CENTER);
 
         travelAgents.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
@@ -95,17 +124,16 @@ public class DiscountPage {
             }
         }) ;
 
-        editButton.setOnAction(e -> {
+        confirmButton.setOnAction(e -> {
             try {
-                SQLCommission.updateCommission(typeField.getText(),commissionField.getText(),(String) travelAgents.getSelectionModel().getSelectedItem());
-                ErrorBox.display("Success","The commission has successfully been changed");
-                table1.setItems(SQLCommission.getTypeAndCommission(travelAgents.getSelectionModel().getSelectedItem()));
+                Data2 emailSelection = table1.getSelectionModel().getSelectedItems().get(0);
+                Data2 discountPlanSelection = table2.getSelectionModel().getSelectedItems().get(0);
+                SQLCustomers.updateDiscountPlanForCustomer(discountPlanSelection.getData21(),emailSelection.getData21());
+                ErrorBox.display("Success","Customer's discount plan has been updated");
             } catch (Exception e1) {
-                e1.printStackTrace();
             }
         });
-        gridInfo.getChildren().addAll(typeLabel,commissionLabel,typeField,commissionField);
-        grid.getChildren().addAll(travelAgents,table1,gridInfo);
+        grid.getChildren().addAll(table1,table2,table3);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(vBox);
         borderPane.setCenter(grid);
