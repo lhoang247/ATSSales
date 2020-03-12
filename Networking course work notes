@@ -1,0 +1,53 @@
+attacker MAC address 0a:00:27:00:00:00:00
+attacker local ip address 192.168.1.1
+
+pcsCompu_29 MAC: 08:00:27:29:cc:20
+pcsCompu_29 local ip: 192.168.1.100
+
+pcsCompu_dd MAC: 08:00:27:dd:84:45
+pcsCompu_29 local ip: 192.168.1.101
+
+attacker send APR hello package to every possible ip address under the 192.168.1.*
+once it receive the replay from target address if will send a ping package to test the useability 
+{
+    no 1 to no 3459
+}
+
+attacker try to find the open port on the target computer(101) by sending TCP [SYN] package to some common ports
+{
+    3460 to 4487 all the package that attacker send to targe computer
+}
+
+targe computer replays says prot 22, 80 are open
+{
+    3478, 3480
+}
+
+attacker start a secure communication the communication with target computer from the port 39804 to port 22     4503
+
+attacker supports SSH-2.0-libssh_0.8.7    4503
+target computer decided to use SSH-2.0-OpenSSH_7.9p1     4505
+
+They decided to use aes256-ctr as their encryption algorithm mac: hmac-sha2-256 and exchange the public key    4503 - 4511
+
+client protocol SSH-2.0-libssh_0.8.7
+
+
+attacker use the establish the connection with target computer port 22 by using its port(
+39810 22 26 20 06 08 18)      4522 to 63331
+
+5107 - 6737
+attack use those connection ports connect sending packages to the target customer. It might be guessing the authorize user name or password by applying Brute Forcing
+
+attacker also denine all the access request from the target computer 
+
+6738 - 6989
+attacker found what he/she wants and disconnect the connect with port 22 on target computer 
+
+6990 - 7046
+attacker start a new connection with port 22 by using port 40152 and input the password he found from password program got Brute Forcing 
+login to the target computer and open the port 80
+might also allowing the file transmission 
+
+7047 - 7236    need more detail
+attacker establish a net connection with port 80, transfer the data by port 80 from target computer.
