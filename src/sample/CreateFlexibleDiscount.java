@@ -30,7 +30,6 @@ public class CreateFlexibleDiscount {
         grid.setPadding(new Insets(30, 30, 30, 30));
         grid.setHgap(40);
         grid.setVgap(8);
-
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(10, 10, 10, 10));
         Label labelTitle = new Label();
