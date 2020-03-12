@@ -33,7 +33,6 @@ public class CreateFlexibleDiscount {
 
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(10, 10, 10, 10));
-d
         Label labelTitle = new Label();
         labelTitle.setText("Flexible Discount Plan");
         labelTitle.setStyle("-fx-font: 24 arial;");
