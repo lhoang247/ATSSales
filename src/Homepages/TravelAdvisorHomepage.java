@@ -1,15 +1,18 @@
 package Homepages;
 
+import OfficeManager.CustomerPage;
+import OfficeManager.ReportPage;
+import OfficeManager.SalesPage;
+import OfficeManager.refundSale;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.*;
+import General.*;
 
 import java.util.List;
 
