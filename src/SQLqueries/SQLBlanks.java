@@ -2,6 +2,7 @@ package SQLqueries;
 
 import Entities.Data;
 import Entities.Data2;
+import General.ErrorBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -67,7 +68,7 @@ public class SQLBlanks {
                         "SET idstaff = '" + String.format("%03d", Integer.parseInt(idstaff)) + "' , status = 'assigned' \n" +
                         "WHERE bundle = '" + bundle + "' AND (status = 'stock' OR status = 'assigned') ;");
         } catch (Exception e) {
-            System.out.println("error");
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -79,7 +80,7 @@ public class SQLBlanks {
                     "SET idstaff = '' , status = 'stock' \n" +
                     "WHERE bundle = '" + bundle + "' AND status = 'assigned';");
         } catch (Exception e) {
-            System.out.println("error");
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -137,7 +138,7 @@ public class SQLBlanks {
 
 
 
-    public static void reportSales(String ticketnumber,String blanktype,String salesAmount, String paid, String tax,String exchangerate, String customeremail, String amountPaid, String paymentMethod, String daterecorded) throws Exception {
+public static void reportSales(String ticketnumber,String blanktype,String salesAmount, String paid, String tax,String exchangerate, String customeremail, String amountPaid, String paymentMethod, String daterecorded) throws Exception {
         try {
             Connection con = getConnection();
             PreparedStatement statement1 = con.prepareStatement("SELECT commissionrate FROM atsdb.commissions WHERE blanktype = '"+ blanktype +"';");
@@ -181,9 +182,26 @@ public class SQLBlanks {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
+
+    public static void createCreditcard(String email,String cardnumber,String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            PreparedStatement statement = con.prepareStatement("insert into atsdb.creditcard (email,cardnumber,ticketnumber) " +
+                    " values (?, ?, ?);");
+            statement.setString (1, email);
+            statement.setString (2, cardnumber);
+            statement.setString (3, ticketnumber);
+            statement.execute();
+
+        } catch (Exception e) {
+            ErrorBox.display("Miss Input", "Input was not valid.");
+        }
+    }
+
+
 
     public static void soldBlank(String ticketnumber) throws Exception {
         try {
@@ -193,7 +211,7 @@ public class SQLBlanks {
                     "SET status = 'sold' \n" +
                     "WHERE ticketnumber = '" + ticketnumber + "' AND status = 'assigned';");
         } catch (Exception e) {
-            System.out.println("error");
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -205,7 +223,7 @@ public class SQLBlanks {
                     "SET refunded = 'y' \n" +
                     "WHERE ticketnumber = '" + ticketnumber + "';");
         } catch (Exception e) {
-            System.out.println("error");
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -229,7 +247,7 @@ public class SQLBlanks {
     public static String getFlexibleDiscount(String customeremail, String ticketPrice) throws Exception {
         try {
             Connection con = getConnection();
-            PreparedStatement statement = con.prepareStatement("SELECT flexdiscband.discount " +
+            PreparedStatement statement = con.prepareStatement("SELECT MAX(flexdiscband.discount) " +
                     "FROM atsdb.customerdetails,atsdb.discount,atsdb.flexible,atsdb.flexdiscband,atsdb.fband " +
                     "WHERE customerdetails.iddiscount = discount.iddiscount " +
                     "AND discount.iddiscount = flexible.iddiscount " +

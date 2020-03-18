@@ -85,11 +85,12 @@ DROP TABLE IF EXISTS `creditcard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `creditcard` (
-  `email` varchar(45) NOT NULL,
+  `email` varchar(45) DEFAULT NULL,
   `cardnumber` varchar(45) DEFAULT NULL,
   `ticketnumber` int(8) unsigned zerofill DEFAULT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `idcreditcard` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idcreditcard`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +99,7 @@ CREATE TABLE `creditcard` (
 
 LOCK TABLES `creditcard` WRITE;
 /*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-INSERT INTO `creditcard` VALUES ('lee@gmail.com','93285',00000004);
+INSERT INTO `creditcard` VALUES ('lee@gmail.com','93285',00000004,1);
 /*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +141,7 @@ CREATE TABLE `discount` (
   `iddiscount` int NOT NULL AUTO_INCREMENT,
   `type` int DEFAULT NULL,
   PRIMARY KEY (`iddiscount`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +150,7 @@ CREATE TABLE `discount` (
 
 LOCK TABLES `discount` WRITE;
 /*!40000 ALTER TABLE `discount` DISABLE KEYS */;
-INSERT INTO `discount` VALUES (1,1),(3,2),(4,2),(5,2),(6,1),(7,1),(8,1);
+INSERT INTO `discount` VALUES (1,1),(3,2),(4,2),(5,2),(6,1),(7,1),(8,1),(9,2);
 /*!40000 ALTER TABLE `discount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +166,7 @@ CREATE TABLE `fband` (
   `fromBand` int DEFAULT NULL,
   `toBand` int DEFAULT NULL,
   PRIMARY KEY (`idfband`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +175,7 @@ CREATE TABLE `fband` (
 
 LOCK TABLES `fband` WRITE;
 /*!40000 ALTER TABLE `fband` DISABLE KEYS */;
-INSERT INTO `fband` VALUES (1,0,5000),(2,5000,10000),(3,10000,15000),(4,15000,20000),(5,20000,999999);
+INSERT INTO `fband` VALUES (1,0,5000),(2,5000,10000),(3,10000,15000),(4,15000,20000),(5,20000,999999),(6,0,4000);
 /*!40000 ALTER TABLE `fband` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +217,7 @@ CREATE TABLE `flexdiscband` (
   `idfband` int DEFAULT NULL,
   `discount` decimal(4,2) DEFAULT NULL,
   PRIMARY KEY (`idflexdiscband`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +226,7 @@ CREATE TABLE `flexdiscband` (
 
 LOCK TABLES `flexdiscband` WRITE;
 /*!40000 ALTER TABLE `flexdiscband` DISABLE KEYS */;
-INSERT INTO `flexdiscband` VALUES (1,1,1,0.00),(2,1,2,1.00),(3,1,3,2.00),(4,1,4,3.00),(5,1,5,4.00),(6,2,1,10.00),(7,2,2,11.00),(8,2,3,12.00),(9,3,2,10.00),(10,3,3,12.00),(11,3,4,14.00),(12,3,5,16.00);
+INSERT INTO `flexdiscband` VALUES (1,1,1,0.00),(2,1,2,1.00),(3,1,3,2.00),(4,1,4,3.00),(5,1,5,4.00),(6,2,1,10.00),(7,2,2,11.00),(8,2,3,12.00),(9,3,2,10.00),(10,3,3,12.00),(11,3,4,14.00),(12,3,5,16.00),(13,4,1,0.00),(14,4,6,0.00);
 /*!40000 ALTER TABLE `flexdiscband` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +241,7 @@ CREATE TABLE `flexible` (
   `idflexible` int NOT NULL AUTO_INCREMENT,
   `iddiscount` int DEFAULT NULL,
   PRIMARY KEY (`idflexible`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +250,7 @@ CREATE TABLE `flexible` (
 
 LOCK TABLES `flexible` WRITE;
 /*!40000 ALTER TABLE `flexible` DISABLE KEYS */;
-INSERT INTO `flexible` VALUES (1,3),(2,4),(3,5);
+INSERT INTO `flexible` VALUES (1,3),(2,4),(3,5),(4,9);
 /*!40000 ALTER TABLE `flexible` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,7 +338,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (001,'Bob','Build','qwe','123','m','emailhere',NULL),(002,'Mike','John','abc','xyz','t','example',NULL),(003,'Lee','Hoang','hello','world','a','o.gmail.com',NULL),(004,'New','Account','asd','qwe','m','na@new.com',NULL),(005,'f','j','h',NULL,NULL,NULL,NULL);
+INSERT INTO `staff` VALUES (001,'Bob','Build','qwe','123','m','emailhere',NULL),(002,'Mike','John','abc','xyz','t','example',NULL),(003,'Lee','Hoang','hello','world','a','o.gmail.com',NULL),(004,'New','Account','asd','qwe','m','na@new.com',NULL),(005,'f','j','h',NULL,NULL,'123',NULL);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-12 23:34:55
+-- Dump completed on 2020-03-18 12:32:01

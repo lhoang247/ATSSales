@@ -1,6 +1,7 @@
 package SQLqueries;
 
 import Entities.Data2;
+import General.ErrorBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
@@ -58,7 +59,7 @@ public class SQLAdmin {
                     "SET bundle = '" + data2 + "' \n" +
                     "WHERE ticketnumber = " + data + ";");
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -106,7 +107,7 @@ public class SQLAdmin {
 
 
         } catch (Exception e) {
-
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -118,7 +119,7 @@ public class SQLAdmin {
                     "SET firstname = '" + firstname + "' , surname = '" + surname + "', email = '" + email + "' \n" +
                     "WHERE idstaff = '"+ id + "' ;");
         } catch (Exception e) {
-            System.out.println("error");
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 }

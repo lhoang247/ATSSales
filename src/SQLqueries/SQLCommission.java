@@ -1,6 +1,7 @@
 package SQLqueries;
 
 import Entities.Data2;
+import General.ErrorBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -54,7 +55,6 @@ public class SQLCommission {
                     "SET commissionrate = " + commission + "  " +
                     "WHERE blanktype = '" + type + "' AND idtravelagents = (SELECT idtravelagents FROM atsdb.travelagents WHERE travelagentsName = '"+ travelagent +"') ;");
         } catch (Exception e) {
-            System.out.println("error");
         }
     }
 }

@@ -142,10 +142,21 @@ public class CreateFlexibleDiscount {
 
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10,10,10,10));
-        hBox.setSpacing(20);
+        hBox.setSpacing(50);
         Button createButton = new Button("Create Plan");
+        HBox hBox2 = new HBox();
+        hBox2.setSpacing(8);
+        Button createnewBandButton = new Button("Create New Band");
         createButton.setMinSize(130,0);
-        hBox.getChildren().addAll(createButton);
+        Label fromLabel = new Label("From:");
+        TextField fromField = new TextField();
+        fromField.setMaxWidth(50);
+        Label toLabel = new Label("To:");
+        TextField toField = new TextField();
+        toField.setMaxWidth(50);
+        createnewBandButton.setMinSize(130,0);
+        hBox.getChildren().addAll(hBox2,createButton);
+        hBox2.getChildren().addAll(fromLabel,fromField,toLabel,toField,createnewBandButton);
         hBox.setAlignment(Pos.CENTER);
 
         createButton.setOnAction(e -> {
@@ -155,6 +166,15 @@ public class CreateFlexibleDiscount {
                     SQLCustomers.createFlexDiscBand(table2.getItems().get(i).getData21(),table2.getItems().get(i).getData24());
                 }
                 ErrorBox.display("Success", "A new flexible discount plan has been added.");
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        createnewBandButton.setOnAction(e -> {
+            try {
+                SQLCustomers.createFBand(fromField.getText(),toField.getText());
+                table1.setItems(SQLCustomers.viewBands());
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

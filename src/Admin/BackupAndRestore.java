@@ -1,5 +1,6 @@
 package Admin;
 
+import General.ErrorBox;
 import Homepages.SystemAdminHomepage;
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class BackupAndRestore {
             int processComplete = runtimeProcess.waitFor();
             /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
             if (processComplete == 0) {
-                System.out.println("Backup Complete");
+                ErrorBox.display("Success","The databsae has been backed up.");
             } else {
                 System.out.println("Backup Failure");
             }
@@ -82,7 +83,7 @@ public class BackupAndRestore {
 
             /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
             if (processComplete == 0) {
-                JOptionPane.showMessageDialog(null, "Successfully restored from SQL : " + s);
+                ErrorBox.display("Success","The databsae has been restored.");
             } else {
                 JOptionPane.showMessageDialog(null, "Error at restoring");
             }

@@ -2,6 +2,7 @@ package SQLqueries;
 
 import Entities.Data;
 import Entities.Data2;
+import General.ErrorBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,7 +27,7 @@ public class SQLCustomers {
                 statement.execute();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -64,7 +65,21 @@ public class SQLCustomers {
             statement.execute();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorBox.display("Miss Input", "Input was not valid.");
+        }
+    }
+
+    public static void createFBand(String from,String to) throws Exception {
+        try {
+            Connection con = getConnection();
+            PreparedStatement statement = con.prepareStatement("insert into atsdb.fband (fromBand,toBand) " +
+                    " values (?,?);");
+            statement.setString (1, from);
+            statement.setString (2, to);
+            statement.execute();
+
+        } catch (Exception e) {
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -90,7 +105,7 @@ public class SQLCustomers {
             statement.execute();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -132,6 +147,7 @@ public class SQLCustomers {
             statement.setString (3, discount);
             statement.execute();
         } catch (Exception e) {
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -199,11 +215,12 @@ public class SQLCustomers {
         try {
             Connection con = getConnection();
             ObservableList<Data2> table = FXCollections.observableArrayList();
-            PreparedStatement statement = con.prepareStatement("SELECT iddiscount FROM atsdb.discount;");
+            PreparedStatement statement = con.prepareStatement("SELECT iddiscount,case when type = 1 then 'Fixed' else 'Flexible' end as 'cash' FROM atsdb.discount;");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Data2 data = new Data2(
-                        result.getString(1)
+                        result.getString(1),
+                        result.getString(2)
                 );
                 table.add(data);
             }
@@ -236,7 +253,7 @@ public class SQLCustomers {
                     "SET iddiscount = " + discount + "  " +
                     "WHERE email = '" + email + "';");
         } catch (Exception e) {
-            System.out.println("error");
+            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -257,4 +274,6 @@ public class SQLCustomers {
             return null;
         }
     }
+
+
 }

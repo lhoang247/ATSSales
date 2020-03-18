@@ -99,10 +99,11 @@ public class EditCommissionRates {
         editButton.setOnAction(e -> {
             try {
                 SQLCommission.updateCommission(typeField.getText(),commissionField.getText(),(String) travelAgents.getSelectionModel().getSelectedItem());
+                int test = Integer.parseInt(commissionField.getText());
                 ErrorBox.display("Success","The commission has successfully been changed");
                 table1.setItems(SQLCommission.getTypeAndCommission(travelAgents.getSelectionModel().getSelectedItem()));
             } catch (Exception e1) {
-                e1.printStackTrace();
+                ErrorBox.display("Miss Input", "Input was not valid.");
             }
         });
         gridInfo.getChildren().addAll(typeLabel,commissionLabel,typeField,commissionField);
