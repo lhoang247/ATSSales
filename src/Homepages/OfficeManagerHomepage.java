@@ -1,9 +1,12 @@
 package Homepages;
 
+import Entities.Data2;
 import OfficeManager.*;
+import SQLqueries.SQLCustomers;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import General.*;
@@ -12,10 +15,11 @@ import java.util.List;
 
 public class OfficeManagerHomepage {
 
-    public static Scene getScene(List<String> fullname) {
+    public static Scene getScene(List<String> fullname) throws Exception {
         Stage window = new Stage();
-
         int staffNumber = Integer.parseInt(fullname.get(2));
+
+        TableView table1;
 
         //GridPane Layout
 
@@ -147,11 +151,23 @@ public class OfficeManagerHomepage {
             LoginPage.setScene(LoginPage.loginScene());
         });
 
+        TableColumn<Data2, String> emailColumn = new TableColumn<>("Late Payment Customers");
+        emailColumn.setMinWidth(180);
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("data21"));
+
+        table1 = new TableView<>();
+        table1.setMinSize(180, 120);
+        table1.setMaxSize(180, 120);
+        table1.setItems(SQLCustomers.getLatePayment(staffNumber));
+        table1.getColumns().addAll(emailColumn);
+        GridPane.setConstraints(table1, 2, 0);
+        GridPane.setRowSpan(table1,5);
+
         VBox homeLayout = new VBox(10);
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7,button8,button9,button10);
+        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7,button8,button9,button10,table1);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);

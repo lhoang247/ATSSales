@@ -98,6 +98,7 @@ public class InterlineReport {
                 table1.setItems(SQLReport.getReport7(type, staffNumber));
                 table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1);
 
+
                 total = 0;
                 for (Data item : table1.getItems()) {
                     total = total + Integer.parseInt(item.getData5());

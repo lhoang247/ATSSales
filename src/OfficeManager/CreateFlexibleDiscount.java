@@ -113,6 +113,7 @@ public class CreateFlexibleDiscount {
 
         moveRight.setOnAction(e -> {
             try {
+                Integer.parseInt(discountField.getText());
                 Data2 moveSelection = table1.getSelectionModel().getSelectedItems().get(0);
                 table2.getItems().add(new Data2(moveSelection.getData21(),moveSelection.getData22(),moveSelection.getData23(),discountField.getText()));
                 ObservableList<Data2> deleteSelection, allProducts;
@@ -120,7 +121,7 @@ public class CreateFlexibleDiscount {
                 deleteSelection = table1.getSelectionModel().getSelectedItems();
                 deleteSelection.forEach(allProducts::remove);
             }catch (Exception e2) {
-
+                ErrorBox.display("Error", "Wrong input type.");
             }
 
         });
@@ -173,10 +174,12 @@ public class CreateFlexibleDiscount {
 
         createnewBandButton.setOnAction(e -> {
             try {
+                Integer.parseInt(fromField.getText());
+                Integer.parseInt(toField.getText());
                 SQLCustomers.createFBand(fromField.getText(),toField.getText());
                 table1.setItems(SQLCustomers.viewBands());
             } catch (Exception e1) {
-                e1.printStackTrace();
+                ErrorBox.display("Error", "Wrong input type.");
             }
         });
 

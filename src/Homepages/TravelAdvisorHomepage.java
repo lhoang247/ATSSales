@@ -1,13 +1,19 @@
 package Homepages;
 
+import Entities.Data2;
 import OfficeManager.CustomerPage;
 import OfficeManager.ReportPage;
 import OfficeManager.SalesPage;
 import OfficeManager.refundSale;
+import SQLqueries.SQLCustomers;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -18,10 +24,12 @@ import java.util.List;
 
 public class TravelAdvisorHomepage {
 
-    public static Scene getScene(List<String> fullname) {
+    public static Scene getScene(List<String> fullname) throws Exception {
         Stage window = new Stage();
 
         int staffNumber = Integer.parseInt(fullname.get(2));
+
+        TableView table1;
 
         //GridPane Layout
 
@@ -95,16 +103,28 @@ public class TravelAdvisorHomepage {
             LoginPage.setScene(LoginPage.loginScene());
         });
 
+        TableColumn<Data2, String> emailColumn = new TableColumn<>("Late Payment Customers");
+        emailColumn.setMinWidth(180);
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("data21"));
+
+        table1 = new TableView<>();
+        table1.setMinSize(190, 80);
+        table1.setMaxSize(190, 80);
+        table1.setItems(SQLCustomers.getLatePayment(staffNumber));
+        table1.getColumns().addAll(emailColumn);
+        GridPane.setConstraints(table1, 0, 5);
+        GridPane.setHalignment(table1, HPos.CENTER);
+
         VBox homeLayout = new VBox(10);
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button3,button4,button5,button6);
+        grid.getChildren().addAll(button1,button3,button4,button5,button6,table1);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);
 
-        Scene homepage = new Scene(borderPane, 300, 300);
+        Scene homepage = new Scene(borderPane, 300, 340);
         window.setTitle("Travel Advisor Homepage");
         return homepage;
     }

@@ -49,9 +49,10 @@ public class CreateFixedDiscount {
         confirmButton.setOnAction(e -> {
             try {
                 SQLCustomers.createFixedPlan(discountField.getText());
+                Integer.parseInt(discountField.getText());
                 ErrorBox.display("Success", "A new flxed discount plan has been added.");
             } catch (Exception e1) {
-                e1.printStackTrace();
+                ErrorBox.display("Error", "Wrong input type.");
             }
         });
         BorderPane borderPane = new BorderPane();

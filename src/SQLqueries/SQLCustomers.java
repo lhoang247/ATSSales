@@ -147,7 +147,6 @@ public class SQLCustomers {
             statement.setString (3, discount);
             statement.execute();
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -253,7 +252,6 @@ public class SQLCustomers {
                     "SET iddiscount = " + discount + "  " +
                     "WHERE email = '" + email + "';");
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -270,6 +268,26 @@ public class SQLCustomers {
                 return result.getString(1);
             }
             return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static ObservableList<Data2> getLatePayment(int idstaff) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement = con.prepareStatement("SELECT customeremail \n" +
+                    "FROM atsdb.sales, atsdb.blanks \n" +
+                    "WHERE paid = 'n' AND dateRecorded >= 19/03/2020 AND sales.ticketnumber = blanks.ticketnumber AND idstaff = "+ idstaff +";");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Data2 data = new Data2(
+                        result.getString(1)
+                );
+                table.add(data);
+            }
+            return table;
         } catch (Exception e) {
             return null;
         }

@@ -68,7 +68,6 @@ public class SQLBlanks {
                         "SET idstaff = '" + String.format("%03d", Integer.parseInt(idstaff)) + "' , status = 'assigned' \n" +
                         "WHERE bundle = '" + bundle + "' AND (status = 'stock' OR status = 'assigned') ;");
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -80,7 +79,6 @@ public class SQLBlanks {
                     "SET idstaff = '' , status = 'stock' \n" +
                     "WHERE bundle = '" + bundle + "' AND status = 'assigned';");
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -182,7 +180,6 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
             }
 
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -195,9 +192,8 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
             statement.setString (2, cardnumber);
             statement.setString (3, ticketnumber);
             statement.execute();
-
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
+            e.printStackTrace();
         }
     }
 
@@ -211,7 +207,6 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
                     "SET status = 'sold' \n" +
                     "WHERE ticketnumber = '" + ticketnumber + "' AND status = 'assigned';");
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -223,7 +218,6 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
                     "SET refunded = 'y' \n" +
                     "WHERE ticketnumber = '" + ticketnumber + "';");
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -267,5 +261,4 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
             return null;
         }
     }
-
 }

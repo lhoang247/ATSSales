@@ -134,14 +134,19 @@ public class ViewStaff {
 
             createButton.setOnAction(e -> {
                 try {
-                    SQLAdmin.addStaff(fnameField.getText(),snameField.getText(),usernameField.getText(),passwordField.getText(),roleBox.getValue(),emailField.getText());
-                    ErrorBox.display("Success","The staff account has successfully been added");
-                    table1.setItems(SQLAdmin.getStaffDetails());
-                    fnameField.clear();
-                    snameField.clear();
-                    usernameField.clear();
-                    passwordField.clear();
-                    emailField.clear();
+                    if (SQLAdmin.getStaffUsername(usernameField.getText()).equals(null)) {
+                        SQLAdmin.addStaff(fnameField.getText(),snameField.getText(),usernameField.getText(),passwordField.getText(),roleBox.getValue(),emailField.getText());
+                        ErrorBox.display("Success","The staff account has successfully been added");
+                        table1.setItems(SQLAdmin.getStaffDetails());
+                        fnameField.clear();
+                        snameField.clear();
+                        usernameField.clear();
+                        passwordField.clear();
+                        emailField.clear();
+                    } else {
+                        ErrorBox.display("Error","The staff username already exist.");
+                    }
+
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

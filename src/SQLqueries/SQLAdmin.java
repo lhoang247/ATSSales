@@ -59,7 +59,6 @@ public class SQLAdmin {
                     "SET bundle = '" + data2 + "' \n" +
                     "WHERE ticketnumber = " + data + ";");
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -107,7 +106,6 @@ public class SQLAdmin {
 
 
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
         }
     }
 
@@ -119,7 +117,22 @@ public class SQLAdmin {
                     "SET firstname = '" + firstname + "' , surname = '" + surname + "', email = '" + email + "' \n" +
                     "WHERE idstaff = '"+ id + "' ;");
         } catch (Exception e) {
-            ErrorBox.display("Miss Input", "Input was not valid.");
+        }
+    }
+
+    public static String getStaffUsername(String username) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement = con.prepareStatement("SELECT username FROM atsdb.staff WHERE username = '" + username + "';");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                return result.getString(1);
+            }
+            con.close();
+            return null;
+        } catch (Exception e) {
+            return null;
         }
     }
 }

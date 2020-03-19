@@ -116,20 +116,32 @@ public class SalesPage {
             GridPane.setConstraints(customerEmailLabel, 0, 5);
             GridPane.setHalignment(customerEmailLabel,HPos.RIGHT);
 
+            Label fullyPaidLabel = new Label ("Fully Paid: ");
+            GridPane.setConstraints(fullyPaidLabel, 0, 7);
+            GridPane.setHalignment(fullyPaidLabel,HPos.RIGHT);
+
             Label paymentMethodLabel = new Label ("Payment Method: ");
-            GridPane.setConstraints(paymentMethodLabel, 0, 7);
+            GridPane.setConstraints(paymentMethodLabel, 0, 8);
             GridPane.setHalignment(paymentMethodLabel,HPos.RIGHT);
 
             Label customerPaymentAmountLabel = new Label ("Customer Payment Amount: ");
             GridPane.setConstraints(customerPaymentAmountLabel, 0, 6);
             GridPane.setHalignment(customerPaymentAmountLabel,HPos.RIGHT);
 
-            Label creditCardLabel = new Label ("Credit Card: ");
-            GridPane.setConstraints(creditCardLabel, 0, 8);
+            Label creditCardLabel = new Label ("Credit Card Number: ");
+            GridPane.setConstraints(creditCardLabel, 0, 10);
             GridPane.setHalignment(creditCardLabel,HPos.RIGHT);
 
+            Label creditCardNameLabel = new Label ("Credit Card Name: ");
+            GridPane.setConstraints(creditCardNameLabel, 0, 11);
+            GridPane.setHalignment(creditCardNameLabel,HPos.RIGHT);
+
+            Label creditCardExpireLabel = new Label ("Credit Card Expiry Date: ");
+            GridPane.setConstraints(creditCardExpireLabel, 0, 12);
+            GridPane.setHalignment(creditCardExpireLabel,HPos.RIGHT);
+
             Label dateLabel = new Label ("Date: ");
-            GridPane.setConstraints(dateLabel, 0, 9);
+            GridPane.setConstraints(dateLabel, 0, 13);
             GridPane.setHalignment(dateLabel,HPos.RIGHT);
 
             TextField typeField = new TextField();
@@ -151,21 +163,33 @@ public class SalesPage {
             TextField customerEmailField = new TextField();
             GridPane.setConstraints(customerEmailField, 1, 5);
 
+            ComboBox fullypaidBox = new ComboBox();
+            fullypaidBox.setValue("yes");
+            fullypaidBox.getItems().add("yes");
+            fullypaidBox.getItems().add("no");
+            GridPane.setConstraints(fullypaidBox, 1, 7);
+
             ComboBox paymentMethodBox = new ComboBox();
             paymentMethodBox.getItems().add("cash");
             paymentMethodBox.getItems().add("card");
-            GridPane.setConstraints(paymentMethodBox, 1, 7);
+            GridPane.setConstraints(paymentMethodBox, 1, 8);
 
             TextField customerPaidAmountField = new TextField();
             GridPane.setConstraints(customerPaidAmountField, 1, 6);
 
             TextField creditCardField = new TextField();
-            GridPane.setConstraints(creditCardField, 1, 8);
+            GridPane.setConstraints(creditCardField, 1, 10);
+
+            TextField creditCardNameField = new TextField();
+            GridPane.setConstraints(creditCardNameField, 1, 11);
+
+            TextField creditCardExpireField = new TextField();
+            GridPane.setConstraints(creditCardExpireField, 1, 12);
 
             DateFormat df = new SimpleDateFormat("dd/MM/yy");
             Calendar calobj = Calendar.getInstance();
             TextField dateField = new TextField(df.format(calobj.getTime()));
-            GridPane.setConstraints(dateField, 1, 9);
+            GridPane.setConstraints(dateField, 1, 13);
 
             Button calculateMaxButton = new Button("Calculate Max with discount");
             GridPane.setConstraints(calculateMaxButton, 2, 6);
@@ -183,7 +207,7 @@ public class SalesPage {
             gridInfo.getChildren().addAll(ticketTypeLabel,ticketNumberLabel,ticketPriceLabel,taxLabel,exchangeRateLabel,
                     customerEmailLabel,paymentMethodLabel,customerPaymentAmountLabel,creditCardField,creditCardLabel,
                     dateLabel,typeField,ticketNumberField,ticketPriceField,taxField,exchangeRateField,customerEmailField,
-                    paymentMethodBox,customerPaidAmountField,dateField, calculateMaxButton);
+                    paymentMethodBox,customerPaidAmountField,dateField, calculateMaxButton, fullypaidBox, fullyPaidLabel,creditCardExpireLabel,creditCardExpireField,creditCardNameField,creditCardNameLabel);
             grid.getChildren().addAll(table1,table2,gridInfo);
 
 
@@ -206,17 +230,32 @@ public class SalesPage {
             paymentMethodBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
                 if (newValue == "cash") {
                     creditCardField.setDisable(true);
+                    creditCardExpireField.setDisable(true);
+                    creditCardNameField.setDisable(true);
                 } else if (newValue == "card") {
                     creditCardField.setDisable(false);
+                    creditCardExpireField.setDisable(false);
+                    creditCardNameField.setDisable(false);
                 }
             }) ;
 
 
             reportSalesButton.setOnAction(e -> {
                 try {
-                    SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"y",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),dateField.getText());
+                    if (fullypaidBox.getValue().equals("yes")) {
+                        SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"y",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),dateField.getText());
+                    } else if (fullypaidBox.getValue().equals("no")) {
+                        SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"n",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),dateField.getText());
+                    }
+                    Integer.parseInt(ticketPriceField.getText());
+                    Integer.parseInt(taxField.getText());
+                    Integer.parseInt(customerPaidAmountField.getText());
+                    Integer.parseInt(creditCardField.getText());
                     SQLBlanks.soldBlank(ticketNumberField.getText());
                     ErrorBox.display("Success","The ticket has successfully been reported");
+                    if (paymentMethodBox.getValue().equals("card")) {
+                        SQLBlanks.createCreditcard(customerEmailField.getText(),creditCardField.getText(),ticketNumberField.getText());
+                    }
                     ticketNumberField.clear();
                     ticketPriceField.clear();
                     taxField.clear();
@@ -224,8 +263,11 @@ public class SalesPage {
                     customerEmailField.clear();
                     customerPaidAmountField.clear();
                     creditCardField.clear();
+                    creditCardExpireField.clear();
+                    creditCardNameField.clear();
                     table1.setItems(SQLBlanks.salesTable("" + staffNumber));
                 } catch (Exception e1) {
+                    ErrorBox.display("Error","The ticket has a the wrong input type.");
                 }
             });
 
@@ -245,10 +287,7 @@ public class SalesPage {
                         } catch (Exception nullpointer) {
                             customerPaidAmountField.setText("" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())));
                         }
-
-
                     }
-
 
                 } catch (Exception e1) {
                     e1.printStackTrace();

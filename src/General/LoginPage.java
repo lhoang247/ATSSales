@@ -17,6 +17,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public class LoginPage {
     public static Stage window = new Stage();
 
@@ -117,6 +123,17 @@ public class LoginPage {
         //also setting size to window
 
         loginPage = new Scene(borderPane, 400, 225);
+
+        Date today = new Date();
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(today);
+        cal.add(Calendar.DAY_OF_MONTH, -30);
+        Date today30 = cal.getTime();
+        DateFormat df = new SimpleDateFormat("dd/MM/yy");
+        Calendar calobj = Calendar.getInstance();
+        TextField dateField = new TextField(df.format(calobj.getTime()));
+        System.out.println(df.format(calobj.getTime()));
+
         return loginPage;
     }
 
