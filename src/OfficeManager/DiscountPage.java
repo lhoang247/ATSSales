@@ -48,14 +48,18 @@ public class DiscountPage {
 
 
         TableColumn<Data2, String> emailColumn1 = new TableColumn<>("EMAIL");
-        emailColumn1.setMinWidth(150);
+        emailColumn1.setMinWidth(0);
         emailColumn1.setCellValueFactory(new PropertyValueFactory<>("data21"));
+
+        TableColumn<Data2, String> discountPlanColumn1 = new TableColumn<>("DiscountPlan");
+        discountPlanColumn1.setMinWidth(0);
+        discountPlanColumn1.setCellValueFactory(new PropertyValueFactory<>("data22"));
 
 
         table1 = new TableView<>();
         table1.setMinSize(0, 220);
         table1.setMaxSize(150, 220);
-        table1.getColumns().addAll(emailColumn1);
+        table1.getColumns().addAll(emailColumn1,discountPlanColumn1);
         table1.setItems(SQLCustomers.getCustomerEmails());
         GridPane.setHalignment(table1, HPos.CENTER);
         GridPane.setConstraints(table1, 0, 1);

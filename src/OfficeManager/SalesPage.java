@@ -157,7 +157,7 @@ public class SalesPage {
             TextField taxField = new TextField();
             GridPane.setConstraints(taxField, 1, 3);
 
-            TextField exchangeRateField = new TextField();
+            TextField exchangeRateField = new TextField(SQLBlanks.getExchangeRate());
             GridPane.setConstraints(exchangeRateField, 1, 4);
 
             TextField customerEmailField = new TextField();
@@ -186,7 +186,7 @@ public class SalesPage {
             TextField creditCardExpireField = new TextField();
             GridPane.setConstraints(creditCardExpireField, 1, 12);
 
-            DateFormat df = new SimpleDateFormat("dd/MM/yy");
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
             Calendar calobj = Calendar.getInstance();
             TextField dateField = new TextField(df.format(calobj.getTime()));
             GridPane.setConstraints(dateField, 1, 13);
@@ -247,14 +247,13 @@ public class SalesPage {
                     } else if (fullypaidBox.getValue().equals("no")) {
                         SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"n",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),dateField.getText());
                     }
-                    Integer.parseInt(ticketPriceField.getText());
-                    Integer.parseInt(taxField.getText());
-                    Integer.parseInt(customerPaidAmountField.getText());
-                    Integer.parseInt(creditCardField.getText());
-                    SQLBlanks.soldBlank(ticketNumberField.getText());
+                    Double.parseDouble(ticketPriceField.getText());
+                    Double.parseDouble(taxField.getText());
+                    Double.parseDouble(customerPaidAmountField.getText());
+                    SQLBlanks.soldBlank(ticketNumberField.getText(),typeField.getText());
                     ErrorBox.display("Success","The ticket has successfully been reported");
                     if (paymentMethodBox.getValue().equals("card")) {
-                        SQLBlanks.createCreditcard(customerEmailField.getText(),creditCardField.getText(),ticketNumberField.getText());
+                        SQLBlanks.createCreditcard(customerEmailField.getText(),creditCardField.getText(),ticketNumberField.getText(),typeField.getText());
                     }
                     ticketNumberField.clear();
                     ticketPriceField.clear();
@@ -296,7 +295,7 @@ public class SalesPage {
 
             voidButton.setOnAction(e -> {
                 try {
-                    SQLBlanks.voidBlank(ticketNumberField.getText());
+                    SQLBlanks.voidBlank(ticketNumberField.getText(),typeField.getText());
                     table1.setItems(SQLBlanks.salesTable("" + staffNumber));
                     ErrorBox.display("Success","The ticket has successfully been voided");
                     ticketNumberField.clear();

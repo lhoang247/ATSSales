@@ -14,7 +14,7 @@ import static OfficeManager.InterlineReport.getColumns;
 
 public class DomesticReport {
 
-    public static GridPane domesticGrid(int type, int staffNumber) {
+    public static GridPane domesticGrid(int type, int staffNumber,String dateFrom,String dateTo) {
         TableView<Data2> table1, table2 , table3;
 
         GridPane grid = new GridPane();
@@ -86,7 +86,7 @@ public class DomesticReport {
 
             table1 = new TableView<>();
             table1.setMaxSize(235,200);
-            table1.setItems(SQLReport.getReport10(type, staffNumber));
+            table1.setItems(SQLReport.getReport10(type, staffNumber, dateFrom,dateTo));
             table1.getColumns().addAll(blanktypeColumn1, blankColumn1, fareAmountColumn1, taxColumn1);
 
             GridPane.setConstraints(table1,0,2);
@@ -115,13 +115,13 @@ public class DomesticReport {
 
             table2 = new TableView<>();
             table2.getColumns().addAll(pmColumn2,cashColumn2,cardColumn2,cardNumberColumn2,totalColumn2);
-            table2.setItems(SQLReport.getReport11(type, staffNumber));
+            table2.setItems(SQLReport.getReport11(type, staffNumber, dateFrom,dateTo));
             table2.setMaxSize(307,200);
 
             GridPane.setConstraints(table2,1,2);
 
             table3 = getColumns(type + 2, staffNumber);
-            table3.setItems(SQLReport.getReport9(type + 2, staffNumber));
+            table3.setItems(SQLReport.getReport9(type + 2, staffNumber, dateFrom,dateTo));
             table3.setMaxSize(1000,200);
             GridPane.setConstraints(table3,2,2);
 

@@ -17,12 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 public class LoginPage {
     public static Stage window = new Stage();
 
@@ -79,8 +73,8 @@ public class LoginPage {
             try
             {
                 // Login check
-                if (SQL.getLoginDetails(usernameTextBox.getText(),"username").equals(usernameTextBox.getText())
-                        && SQL.getLoginDetails((passwordTextBox.getText()),"password").equals(passwordTextBox.getText())
+                if (SQL.getLoginDetails(usernameTextBox.getText(),passwordTextBox.getText()).get(0).equals(usernameTextBox.getText())
+                        && SQL.getLoginDetails(usernameTextBox.getText(),passwordTextBox.getText()).get(1).equals(passwordTextBox.getText())
                         && !usernameTextBox.getText().equals("") && !passwordTextBox.getText().equals("")) {
 
                     //role check
@@ -104,13 +98,28 @@ public class LoginPage {
                     ErrorBox.display("Wrong Login", "Wrong Login. Please try again.");
                 }
             } catch (Exception el) {
-                el.printStackTrace();
+                ErrorBox.display("Wrong Login", "Wrong Login. Please try again.");
+            }
+        });
+
+        GridPane restoreGrid = new GridPane();
+        restoreGrid.setPadding(new Insets(0,0,0,20));
+        GridPane.setConstraints(restoreGrid,2,2);
+
+        Button restoreButton = new Button("Restore");
+        restoreGrid.getChildren().addAll(restoreButton);
+
+        restoreButton.setOnAction(e -> {
+            try {
+                RestorePage.display();
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
         });
 
         //Adding objects to gridPane
 
-        grid.getChildren().addAll(usernameLabel, usernameTextBox, passwordLabel,passwordTextBox, loginButton);
+        grid.getChildren().addAll(usernameLabel, usernameTextBox, passwordLabel,passwordTextBox, loginButton,restoreGrid);
 
 
         // Using borderPane for layout
@@ -123,16 +132,6 @@ public class LoginPage {
         //also setting size to window
 
         loginPage = new Scene(borderPane, 400, 225);
-
-        Date today = new Date();
-        Calendar cal = new GregorianCalendar();
-        cal.setTime(today);
-        cal.add(Calendar.DAY_OF_MONTH, -30);
-        Date today30 = cal.getTime();
-        DateFormat df = new SimpleDateFormat("dd/MM/yy");
-        Calendar calobj = Calendar.getInstance();
-        TextField dateField = new TextField(df.format(calobj.getTime()));
-        System.out.println(df.format(calobj.getTime()));
 
         return loginPage;
     }

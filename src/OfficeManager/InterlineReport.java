@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class InterlineReport {
 
-    public static GridPane interlineGrid(int type, int staffNumber) {
+    public static GridPane interlineGrid(int type, int staffNumber, String dateFrom,String dateTo) {
         TableView<Data> table1;
         TableView<Data2> table2, table3;
 
@@ -95,7 +95,7 @@ public class InterlineReport {
                 localFareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data5"));
 
                 table1.setMaxSize(275,200);
-                table1.setItems(SQLReport.getReport7(type, staffNumber));
+                table1.setItems(SQLReport.getReport7(type, staffNumber,dateFrom,dateTo));
                 table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1);
 
 
@@ -135,7 +135,7 @@ public class InterlineReport {
                 totalAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data7"));
 
                 table1.setMaxSize(405,200);
-                table1.setItems(SQLReport.getReport7(type, staffNumber));
+                table1.setItems(SQLReport.getReport7(type, staffNumber, dateFrom,dateTo));
                 table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1,taxColumn1,totalAmountColumn1);
 
                 total = 0;
@@ -176,7 +176,7 @@ public class InterlineReport {
 
             table2 = new TableView<>();
             table2.getColumns().addAll(pmColumn2,cashColumn2,cardColumn2,cardNumberColumn2,totalColumn2);
-            table2.setItems(SQLReport.getReport8(type, staffNumber));
+            table2.setItems(SQLReport.getReport8(type, staffNumber, dateFrom,dateTo));
             table2.setMaxSize(307,200);
 
             GridPane.setConstraints(table2,1,3);
@@ -191,7 +191,7 @@ public class InterlineReport {
             GridPane.setHalignment(table2Total, HPos.RIGHT);
 
             table3 = getColumns(type, staffNumber);
-            table3.setItems(SQLReport.getReport9(type, staffNumber));
+            table3.setItems(SQLReport.getReport9(type, staffNumber, dateFrom,dateTo));
             table3.setMaxSize(1000,200);
             GridPane.setConstraints(table3,2,3);
 

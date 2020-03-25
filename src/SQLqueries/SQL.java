@@ -1,9 +1,5 @@
 package SQLqueries;
 
-import Entities.Data;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -27,16 +23,20 @@ public class SQL {
         }
     }
 
-    public static String getLoginDetails(String match, String field) throws Exception {
+    public static ArrayList<String> getLoginDetails(String username, String password) throws Exception {
         try {
-            String data = "";
+            ArrayList<String> data = new ArrayList<>();
             Connection con = getConnection();
 
-            PreparedStatement statement = con.prepareStatement("SELECT " + field + " FROM staff WHERE " + field + " = '" + match + "'");
+            PreparedStatement statement = con.prepareStatement("SELECT username,password FROM staff WHERE username = '" + username + "' AND password = '" + password + "';");
             ResultSet result = statement.executeQuery();
-            while (result.next())
-                data = result.getString(field);
-            return data;
+            while (result.next()) {
+                data.add(result.getString(1));
+                data.add(result.getString(2));
+                return data;
+            }
+
+            return null;
         } catch (Exception e) {
             return null;
         }

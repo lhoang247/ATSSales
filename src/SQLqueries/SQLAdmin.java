@@ -1,10 +1,8 @@
 package SQLqueries;
 
 import Entities.Data2;
-import General.ErrorBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,43 +20,44 @@ public class SQLAdmin {
         try {
             Connection con = getConnection();
 
-            DateFormat df = new SimpleDateFormat("dd/MM/yy");
+            DateFormat df = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
             Calendar calobj = Calendar.getInstance();
 
             String data = null;
-            PreparedStatement statement = con.prepareStatement("insert into atsdb.blanks (blanktype,status,receivedDate) " +
+            /*PreparedStatement statement = con.prepareStatement("insert into atsdb.blanks (blanktype,status,receivedDate) " +
                     " values (?,?,?);");
             statement.setString(1, blanktype);
             statement.setString(2, "stock");
             statement.setString(3, df.format(calobj.getTime()));
-            statement.execute();
+            statement.execute();*/
 
 
-            statement = con.prepareStatement("SELECT MAX(ticketnumber) FROM atsdb.blanks;");
+            PreparedStatement statement = con.prepareStatement("SELECT MAX(ticketnumber) FROM atsdb.blanks WHERE blanktype = " + blanktype + ";");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 data = result.getString(1);
             }
 
-            String data2 = String.format("%08d", Integer.parseInt(data)) + " - " + String.format("%08d", Integer.parseInt(String.valueOf(Integer.parseInt(data) + Integer.parseInt(quantity) - 1)));
-
-
-            statement = con.prepareStatement("insert into atsdb.blanks (blanktype,status,bundle,receivedDate) " +
-                    " values (?,?,?,?);");
-
-            for (int i = 0; i < Integer.parseInt(quantity) - 1; i++) {
-                statement.setString(1, blanktype);
-                statement.setString(2, "stock");
-                statement.setString(3, data2);
-                statement.setString(4, df.format(calobj.getTime()));
-                statement.execute();
+            if (data == null) {
+                data = "0";
             }
 
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate("UPDATE atsdb.blanks \n" +
-                    "SET bundle = '" + data2 + "' \n" +
-                    "WHERE ticketnumber = " + data + ";");
+            String data2 = String.format("%08d", Integer.parseInt(data) + 1) + " - " + String.format("%08d", Integer.parseInt(String.valueOf(Integer.parseInt(data) + Integer.parseInt(quantity))));
+
+
+            statement = con.prepareStatement("insert into atsdb.blanks (ticketnumber,blanktype,status,bundle,receivedDate) " +
+                    " values (?,?,?,?,?);");
+
+            for (int i = Integer.parseInt(data) + 1; i <= Integer.parseInt(quantity) + Integer.parseInt(data); i++) {
+                statement.setInt(1, i);
+                statement.setString(2, blanktype);
+                statement.setString(3, "stock");
+                statement.setString(4, data2);
+                statement.setString(5, df.format(calobj.getTime()));
+                statement.execute();
+            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -135,4 +134,44 @@ public class SQLAdmin {
             return null;
         }
     }
+
+    public static void removeStocks(String blanktype,String from, String to) throws Exception {
+        try {
+            Connection con = getConnection();
+
+            String query = "delete from atsdb.blanks where blanktype = " + blanktype + " AND ticketnumber  >= " + from + " AND ticketnumber <= " + to + ";";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.execute();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ObservableList<Data2> getSearchStocks(String blanktype, String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement = con.prepareStatement("SELECT blanktype,null, ticketnumber,ticketnumber,idstaff,receivedDate FROM atsdb.blanks WHERE blanktype = "+ blanktype +" AND status != 'sold';");
+            if (!ticketnumber.equals("")) {
+                statement = con.prepareStatement("SELECT blanktype,null, ticketnumber,ticketnumber,idstaff,receivedDate FROM atsdb.blanks WHERE blanktype = "+ blanktype +" AND ticketnumber = "+ ticketnumber +" AND status != 'sold';");
+            }
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Data2 data = new Data2(result.getString(1),
+                        result.getString(2),
+                        result.getString(3),
+                        result.getString(4),
+                        result.getString(5),
+                        result.getString(6)
+                );
+                table.add(data);
+            }
+            con.close();
+            return table;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

@@ -14,7 +14,7 @@ import javafx.scene.layout.Priority;
 
 public class TurnoverReport {
 
-    public static GridPane turnoverGrid() {
+    public static GridPane turnoverGrid(String dateFrom,String dateTo) {
         TableView<Data> table1, table2, table3, table4, table5, table6;
 
         GridPane grid = new GridPane();
@@ -127,7 +127,7 @@ public class TurnoverReport {
 
             table1 = new TableView<>();
             table1.setMaxSize(230,200);
-            table1.setItems(SQLReport.getReport1());
+            table1.setItems(SQLReport.getReport1(dateFrom,dateTo));
             table1.getColumns().addAll(blanktypeColumn1,blankColumn1, amountColumn1);
 
             GridPane.setConstraints(table1,0,3);
@@ -159,7 +159,7 @@ public class TurnoverReport {
             amountColumn2.setCellValueFactory(new PropertyValueFactory<>("data4"));
 
             table2 = new TableView<>();
-            table2.setItems(SQLReport.getReport2());
+            table2.setItems(SQLReport.getReport2(dateFrom,dateTo));
             table2.getColumns().addAll(staffidColumn2, blanktypeColumn2, blankColumn2, amountColumn2);
             table2.setMaxSize(280,200);
 
@@ -321,7 +321,7 @@ public class TurnoverReport {
 
 
         } catch (Exception e) {
-            System.out.println("error");
+            e.printStackTrace();
             return null;
         }
     }

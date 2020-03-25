@@ -1,15 +1,20 @@
 package Homepages;
 
 import Entities.Data2;
+import General.LoginPage;
 import OfficeManager.*;
 import SQLqueries.SQLCustomers;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import General.*;
 
 import java.util.List;
 
@@ -143,10 +148,34 @@ public class OfficeManagerHomepage {
             }
         });
 
+        Button button11 = new Button();
+        button11.setMinSize(200,1);
+        button11.setText("Update Late Payments");
+        GridPane.setConstraints(button11, 0, 4);
+        button11.setOnAction(e -> {
+            try {
+                UpdateLatePayment.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        Button button12 = new Button();
+        button12.setMinSize(200,1);
+        button12.setText("Update Exchange Rate");
+        GridPane.setConstraints(button12, 1, 5);
+        button12.setOnAction(e -> {
+            try {
+                UpdateExchangeRate.display();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
         Button button6 = new Button();
         button6.setMinSize(200,1);
         button6.setText("Logout");
-        GridPane.setConstraints(button6, 0, 4);
+        GridPane.setConstraints(button6, 0, 5);
         button6.setOnAction(e -> {
             LoginPage.setScene(LoginPage.loginScene());
         });
@@ -167,7 +196,7 @@ public class OfficeManagerHomepage {
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7,button8,button9,button10,table1);
+        grid.getChildren().addAll(button1,button2,button3,button4,button5,button6,button7,button8,button9,button10,table1,button11,button12);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);

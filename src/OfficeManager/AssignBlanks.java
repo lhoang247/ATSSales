@@ -44,10 +44,6 @@ public class AssignBlanks {
             typeColumn1.setMinWidth(50);
             typeColumn1.setCellValueFactory(new PropertyValueFactory<>("data21"));
 
-            TableColumn<Data2,String> bundleColumn1 = new TableColumn<>("Bundle");
-            bundleColumn1.setMinWidth(50);
-            bundleColumn1.setCellValueFactory(new PropertyValueFactory<>("data22"));
-
             TableColumn<Data2,String> bundleminColumn1 = new TableColumn<>("From");
             bundleminColumn1.setMinWidth(50);
             bundleminColumn1.setCellValueFactory(new PropertyValueFactory<>("data23"));
@@ -64,10 +60,14 @@ public class AssignBlanks {
             receivedDateColumn1.setMinWidth(125);
             receivedDateColumn1.setCellValueFactory(new PropertyValueFactory<>("data26"));
 
+            TableColumn<Data2 ,String> assignedDateColumn1 = new TableColumn<>("Date Assigned");
+            assignedDateColumn1.setMinWidth(125);
+            assignedDateColumn1.setCellValueFactory(new PropertyValueFactory<>("data27"));
+
             table1 = new TableView<>();
             table1.setMaxSize(500,300);
             table1.setItems(SQLBlanks.getReport1());
-            table1.getColumns().addAll(typeColumn1,bundleColumn1,bundleminColumn1,bundlemaxColumn1,idstaffColumn1,receivedDateColumn1);
+            table1.getColumns().addAll(typeColumn1,bundleminColumn1,bundlemaxColumn1,idstaffColumn1,receivedDateColumn1,assignedDateColumn1);
 
             GridPane.setConstraints(table1,0,1);
 
@@ -103,7 +103,10 @@ public class AssignBlanks {
             TextField assignField = new TextField();
             Label toLabel = new Label("TO: ");
             TextField toField = new TextField();
-            selection.getChildren().addAll(assignLabel,assignField,toLabel,toField);
+            Label quantityLabel = new Label("Quantity: ");
+            TextField quantityField = new TextField();
+            quantityField.setMaxWidth(50);
+            selection.getChildren().addAll(assignLabel,assignField,toLabel,toField,quantityLabel,quantityField);
 
             HBox hBox = new HBox();
             hBox.setPadding(new Insets(10,10,10,10));
@@ -130,7 +133,7 @@ public class AssignBlanks {
                 try {
                     Data2 bundleSelection = table1.getSelectionModel().getSelectedItems().get(0);
                     Data2 staffIDSelection = table2.getSelectionModel().getSelectedItems().get(0);
-                    SQLBlanks.assignBlank(staffIDSelection.getData21(),bundleSelection.getData22());
+                    SQLBlanks.assignBlank(staffIDSelection.getData21(),bundleSelection.getData22(), Integer.parseInt(bundleSelection.getData23()), Integer.parseInt(bundleSelection.getData23()) + Integer.parseInt(quantityField.getText()), bundleSelection.getData21());
                     ErrorBox.display("Success","The bundle has successfully been assigned");
                     table1.setItems(SQLBlanks.getReport1());
                 } catch (Exception e1) {
@@ -143,7 +146,7 @@ public class AssignBlanks {
             unassignButton.setOnAction(e -> {
                 try {
                     Data2 bundleSelection = table1.getSelectionModel().getSelectedItems().get(0);
-                    SQLBlanks.unassignBlank(bundleSelection.getData22());
+                    SQLBlanks.unassignBlank(bundleSelection.getData22(), bundleSelection.getData21(), bundleSelection.getData23(), bundleSelection.getData24());
                     ErrorBox.display("Success","The bundle has successfully been unassigned");
                     table1.setItems(SQLBlanks.getReport1());
                 } catch (Exception e1) {

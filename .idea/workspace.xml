@@ -2,40 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ATSSales.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ATSSales.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/General/RestorePage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/OfficeManager/UpdateExchangeRate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/OfficeManager/UpdateLatePayment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/Admin/BackupAndRestore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/Admin/BackupAndRestore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/Admin/ViewStaff.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/Admin/ViewStaff.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/Admin/ViewStock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/Admin/ViewStock.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ATSSales/General/LoginPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/General/LoginPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ATSSales/Homepages/OfficeManagerHomepage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/Homepages/OfficeManagerHomepage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/Homepages/TravelAdvisorHomepage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/Homepages/TravelAdvisorHomepage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/CreateFixedDiscount.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/CreateFixedDiscount.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/CreateFlexibleDiscount.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/CreateFlexibleDiscount.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/Export.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/Export.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/AssignBlanks.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/AssignBlanks.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/DiscountPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/DiscountPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/DomesticReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/DomesticReport.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/InterlineReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/InterlineReport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/ReportPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/ReportPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/SalesPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/SalesPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/TurnoverReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/OfficeManager/TurnoverReport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQL.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQL.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLAdmin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLAdmin.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLBlanks.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLBlanks.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLCustomers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLCustomers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/AirTicketsSales/General/sample.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/AirTicketsSales/Images/TeamLogo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/backup/backup.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin/ViewStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin/ViewStaff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ATSSales/SQLqueries/SQLReport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Admin/ViewStock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin/ViewStock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/General/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/General/LoginPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Homepages/OfficeManagerHomepage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Homepages/OfficeManagerHomepage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Homepages/TravelAdvisorHomepage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Homepages/TravelAdvisorHomepage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OfficeManager/CreateFixedDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/CreateFixedDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OfficeManager/CreateFlexibleDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/CreateFlexibleDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OfficeManager/Export.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/Export.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OfficeManager/AssignBlanks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/AssignBlanks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OfficeManager/DiscountPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/DiscountPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OfficeManager/DomesticReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/DomesticReport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OfficeManager/InterlineReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/InterlineReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OfficeManager/ReportPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/ReportPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OfficeManager/SalesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/SalesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OfficeManager/TurnoverReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OfficeManager/TurnoverReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SQLqueries/SQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SQLqueries/SQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SQLqueries/SQLAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SQLqueries/SQLAdmin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SQLqueries/SQLBlanks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SQLqueries/SQLBlanks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SQLqueries/SQLCustomers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SQLqueries/SQLCustomers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SQLqueries/SQLReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SQLqueries/SQLReport.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -178,34 +179,36 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="2" />
-          <entry key="project.open.time.10" value="2" />
+          <entry key="project.open.time.10" value="3" />
           <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.6" value="2" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.open.time.6" value="4" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="4946" />
+          <entry key="java" value="10190" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4943" />
-          <entry key="SQL" value="3" />
+          <entry key="JAVA" value="10186" />
+          <entry key="SQL" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="1" />
-          <entry key="java" value="49" />
+          <entry key="class" value="2" />
+          <entry key="java" value="99" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="49" />
+          <entry key="CLASS" value="2" />
+          <entry key="JAVA" value="99" />
         </counts>
       </usages-collector>
     </session>
@@ -275,37 +278,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/ReportPage.java">
+        <entry file="file://$PROJECT_DIR$/src/Homepages/OfficeManagerHomepage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
+            <state relative-caret-position="319">
+              <caret line="150" selection-start-line="150" selection-end-line="172" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/SalesPage.java">
+        <entry file="file://$PROJECT_DIR$/src/Homepages/TravelAdvisorHomepage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="295" selection-start-line="295" selection-end-line="295" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/EditCommissionRates.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/Export.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="788">
-              <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
+            <state relative-caret-position="234">
+              <caret line="123" column="11" lean-forward="true" selection-start-line="123" selection-start-column="11" selection-end-line="123" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -314,55 +299,85 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../../poi-4.1.2/poi-4.1.2.jar!/org/apache/poi/poifs/property/RootProperty.class">
+        <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLCustomers.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="407">
+              <caret line="352" column="35" selection-start-line="352" selection-start-column="35" selection-end-line="352" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/OfficeManager/SalesPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="273" column="21" lean-forward="true" selection-start-line="273" selection-start-column="21" selection-end-line="273" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/InterlineReport.java">
+        <entry file="file://$PROJECT_DIR$/src/OfficeManager/UpdateLatePayment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-319">
-              <caret line="179" column="39" selection-start-line="179" selection-start-column="39" selection-end-line="179" selection-end-column="39" />
+            <state relative-caret-position="475">
+              <caret line="187" column="66" selection-start-line="187" selection-start-column="66" selection-end-line="187" selection-end-column="66" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/refundSale.java">
+        <entry file="file://$PROJECT_DIR$/src/OfficeManager/AssignBlanks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            <state relative-caret-position="325">
+              <caret line="126" selection-start-line="126" selection-end-line="127" selection-end-column="64" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/DiscountPage.java">
+        <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLAdmin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="144" column="44" selection-start-line="144" selection-start-column="44" selection-end-line="144" selection-end-column="44" />
+            <state relative-caret-position="1254">
+              <caret line="156" column="214" selection-start-line="156" selection-start-column="214" selection-end-line="156" selection-end-column="214" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/DomesticReport.java">
+        <entry file="file://$PROJECT_DIR$/src/Homepages/SystemAdminHomepage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1309">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            <state relative-caret-position="1734">
+              <caret line="102" column="38" lean-forward="true" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OfficeManager/CustomerPage.java">
+        <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLBlanks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340">
-              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            <state relative-caret-position="251">
+              <caret line="67" selection-start-line="67" selection-end-line="79" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/General/RestorePage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -379,6 +394,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>sql</find>
+      <find>sales.ticketnumber =</find>
+      <find>typefield</find>
+      <find>update</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -405,24 +423,34 @@
         <option value="$PROJECT_DIR$/src/sample/TurnoverReport.java" />
         <option value="$PROJECT_DIR$/src/sample/ReportPage.java" />
         <option value="$PROJECT_DIR$/src/sample/DomesticReport.java" />
-        <option value="$PROJECT_DIR$/src/SQLqueries/SQLReport.java" />
         <option value="$PROJECT_DIR$/src/sample/InterlineReport.java" />
-        <option value="$PROJECT_DIR$/src/OfficeManager/DiscountPage.java" />
         <option value="$PROJECT_DIR$/src/OfficeManager/EditCommissionRates.java" />
         <option value="$PROJECT_DIR$/src/SQLqueries/SQLCommission.java" />
         <option value="$PROJECT_DIR$/src/Admin/BackupAndRestore.java" />
-        <option value="$PROJECT_DIR$/src/General/LoginPage.java" />
-        <option value="$PROJECT_DIR$/src/Homepages/OfficeManagerHomepage.java" />
-        <option value="$PROJECT_DIR$/src/Homepages/TravelAdvisorHomepage.java" />
         <option value="$PROJECT_DIR$/src/Admin/ViewStaff.java" />
-        <option value="$PROJECT_DIR$/src/SQLqueries/SQLBlanks.java" />
-        <option value="$PROJECT_DIR$/src/SQLqueries/SQLAdmin.java" />
-        <option value="$PROJECT_DIR$/src/SQLqueries/SQLCustomers.java" />
-        <option value="$PROJECT_DIR$/src/OfficeManager/SalesPage.java" />
         <option value="$PROJECT_DIR$/src/OfficeManager/CreateFixedDiscount.java" />
         <option value="$PROJECT_DIR$/src/OfficeManager/CreateFlexibleDiscount.java" />
         <option value="$PROJECT_DIR$/src/OfficeManager/Export.java" />
+        <option value="$PROJECT_DIR$/src/SQLqueries/SQL.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/DiscountPage.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/TurnoverReport.java" />
         <option value="$PROJECT_DIR$/src/OfficeManager/InterlineReport.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/DomesticReport.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/refundSale.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/AssignBlanks.java" />
+        <option value="$PROJECT_DIR$/src/SQLqueries/SQLReport.java" />
+        <option value="$PROJECT_DIR$/src/General/LoginPage.java" />
+        <option value="$PROJECT_DIR$/src/General/RestorePage.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/ReportPage.java" />
+        <option value="$PROJECT_DIR$/src/Homepages/OfficeManagerHomepage.java" />
+        <option value="$PROJECT_DIR$/src/SQLqueries/SQLBlanks.java" />
+        <option value="$PROJECT_DIR$/src/SQLqueries/SQLAdmin.java" />
+        <option value="$PROJECT_DIR$/src/Admin/ViewStock.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/SalesPage.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/UpdateExchangeRate.java" />
+        <option value="$PROJECT_DIR$/src/Homepages/TravelAdvisorHomepage.java" />
+        <option value="$PROJECT_DIR$/src/SQLqueries/SQLCustomers.java" />
+        <option value="$PROJECT_DIR$/src/OfficeManager/UpdateLatePayment.java" />
       </list>
     </option>
   </component>
@@ -434,7 +462,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="65" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -450,7 +478,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -470,6 +497,36 @@
             </path>
             <path>
               <item name="ATSSales" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ATSSales" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ATSSales" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ATSSales" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="General" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ATSSales" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ATSSales" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Homepages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ATSSales" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ATSSales" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="OfficeManager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ATSSales" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ATSSales" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="SQLqueries" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ATSSales" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
@@ -485,6 +542,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -498,7 +556,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1584649303299" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1585177794828" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../poi-4.1.2/lib/jaxb-impl-2.3.2.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -627,16 +685,60 @@
       <workItem from="1583331058403" duration="7810000" />
       <workItem from="1584534538020" duration="896000" />
       <workItem from="1584622722965" duration="17378000" />
+      <workItem from="1584665882378" duration="666000" />
+      <workItem from="1584719957591" duration="5741000" />
+      <workItem from="1584787927589" duration="14900000" />
+      <workItem from="1584882018687" duration="2446000" />
+      <workItem from="1584966131976" duration="18518000" />
+      <workItem from="1585073470750" duration="4115000" />
+      <workItem from="1585137397603" duration="14929000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109622000" />
+    <option name="totallyTimeSpent" value="170937000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.17864583" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Favorites" order="2" weight="0.32995737" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32944915" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25105932" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3983051" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Application Servers" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Problems" order="9" />
+      <window_info anchor="bottom" id="Changes" order="10" />
+      <window_info anchor="bottom" id="Profiler" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" weight="0.32944915" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32521185" />
+      <window_info anchor="bottom" id="Statistic" order="14" />
+      <window_info anchor="bottom" id="Database Changes" order="15" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="16" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="JetGradle" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.32995737" />
+    </layout>
+    <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.17864583" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" weight="0.32995737" />
@@ -672,42 +774,6 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.32995737" />
-    </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.2397882" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info id="Favorites" order="2" weight="0.32995737" />
-      <window_info id="Designer" order="3" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Capture Tool" order="6" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3295082" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Application Servers" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Problems" order="9" />
-      <window_info anchor="bottom" id="Changes" order="10" />
-      <window_info anchor="bottom" id="Profiler" order="11" />
-      <window_info anchor="bottom" id="Event Log" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.3262295" />
-      <window_info anchor="bottom" id="Statistic" order="14" />
-      <window_info anchor="bottom" id="Database Changes" order="15" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="16" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="JetGradle" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="right" id="Palette" order="5" />
-      <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="right" id="Capture Analysis" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Theme Preview" order="9" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -753,20 +819,6 @@
     <entry file="file://$PROJECT_DIR$/src/sample/ReportPage.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/TurnoverReport.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/InterlineReport.java" />
-    <entry file="file://$PROJECT_DIR$/src/Homepages/SystemAdminHomepage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-772">
-          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-738">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/General/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -777,104 +829,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/TurnoverReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Admin/BackupAndRestore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Homepages/OfficeManagerHomepage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="153" selection-start-line="153" selection-end-line="164" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Homepages/TravelAdvisorHomepage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="116" selection-start-line="116" selection-end-line="116" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/General/LoginPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-470">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Admin/ViewStaff.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="907">
           <caret line="146" column="73" selection-start-line="146" selection-start-column="73" selection-end-line="146" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLBlanks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="69" column="31" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLAdmin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLCommission.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLCustomers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="148" column="31" selection-start-line="148" selection-start-column="31" selection-end-line="148" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2524">
-          <caret line="27" column="32" lean-forward="true" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getReport2#0;class#SQLReport#0" />
-            <element signature="method#getReport3#0;class#SQLReport#0" />
-            <element signature="method#getReport4#0;class#SQLReport#0" />
-            <element signature="method#getReport5#0;class#SQLReport#0" />
-            <element signature="method#getReport6#0;class#SQLReport#0" />
-            <element signature="method#getReport8#0;class#SQLReport#0" />
-            <element signature="method#getUniqueCommissions#0;class#SQLReport#0" />
-            <element signature="method#getReport9#0;class#SQLReport#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/AssignBlanks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1003">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -892,55 +850,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/CustomerPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/DiscountPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="144" column="44" selection-start-line="144" selection-start-column="44" selection-end-line="144" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/DomesticReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1309">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/EditCommissionRates.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/refundSale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/ReportPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/SalesPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="295" selection-start-line="295" selection-end-line="295" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../../poi-4.1.2/poi-4.1.2.jar!/org/apache/poi/poifs/property/RootProperty.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -948,10 +857,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OfficeManager/Export.java">
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/EditCommissionRates.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="788">
-          <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
+        <state relative-caret-position="1564">
+          <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar!/com/mysql/cj/jdbc/StatementImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="1854" selection-start-line="1854" selection-end-line="1854" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="25" column="78" selection-start-line="25" selection-start-column="78" selection-end-line="25" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/DiscountPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/TurnoverReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="161" column="64" selection-start-line="161" selection-start-column="49" selection-end-line="161" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/refundSale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="55" column="57" selection-start-line="55" selection-start-column="57" selection-end-line="55" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/DomesticReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="123" column="87" selection-start-line="123" selection-start-column="87" selection-end-line="123" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/CustomerPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1666">
+          <caret line="108" column="47" selection-start-line="108" selection-start-column="47" selection-end-line="108" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -960,8 +925,148 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/OfficeManager/InterlineReport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-319">
-          <caret line="179" column="39" selection-start-line="179" selection-start-column="39" selection-end-line="179" selection-end-column="39" />
+        <state relative-caret-position="3094">
+          <caret line="193" column="37" selection-start-line="193" selection-start-column="37" selection-end-line="193" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/Export.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/ReportPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="26" selection-start-line="26" selection-end-line="27" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLCommission.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/BackupAndRestore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/General/LoginPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/ViewStock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1483">
+          <caret line="25" column="43" lean-forward="true" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/UpdateExchangeRate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="61" column="78" selection-start-line="61" selection-start-column="78" selection-end-line="61" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Homepages/OfficeManagerHomepage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="150" selection-start-line="150" selection-end-line="172" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/General/RestorePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/SalesPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="273" column="21" lean-forward="true" selection-start-line="273" selection-start-column="21" selection-end-line="273" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLAdmin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1254">
+          <caret line="156" column="214" selection-start-line="156" selection-start-column="214" selection-end-line="156" selection-end-column="214" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/AssignBlanks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="126" selection-start-line="126" selection-end-line="127" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLBlanks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="67" selection-start-line="67" selection-end-line="79" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Homepages/SystemAdminHomepage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1734">
+          <caret line="102" column="38" lean-forward="true" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Homepages/TravelAdvisorHomepage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="123" column="11" lean-forward="true" selection-start-line="123" selection-start-column="11" selection-end-line="123" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SQLqueries/SQLCustomers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="352" column="35" selection-start-line="352" selection-start-column="35" selection-end-line="352" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OfficeManager/UpdateLatePayment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="187" column="66" selection-start-line="187" selection-start-column="66" selection-end-line="187" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

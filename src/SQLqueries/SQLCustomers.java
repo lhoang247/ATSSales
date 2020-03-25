@@ -1,6 +1,5 @@
 package SQLqueries;
 
-import Entities.Data;
 import Entities.Data2;
 import General.ErrorBox;
 import javafx.collections.FXCollections;
@@ -196,11 +195,12 @@ public class SQLCustomers {
         try {
             Connection con = getConnection();
             ObservableList<Data2> table = FXCollections.observableArrayList();
-            PreparedStatement statement = con.prepareStatement("SELECT email FROM atsdb.customerdetails WHERE customerType = 'valued';");
+            PreparedStatement statement = con.prepareStatement("SELECT email,iddiscount FROM atsdb.customerdetails WHERE customerType = 'valued';");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Data2 data = new Data2(
-                        result.getString(1)
+                        result.getString(1),
+                        result.getString(2)
                 );
                 table.add(data);
             }
@@ -279,7 +279,7 @@ public class SQLCustomers {
             ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT customeremail \n" +
                     "FROM atsdb.sales, atsdb.blanks \n" +
-                    "WHERE paid = 'n' AND dateRecorded >= 19/03/2020 AND sales.ticketnumber = blanks.ticketnumber AND idstaff = "+ idstaff +";");
+                    "WHERE paid = 'n' AND dateRecorded  <= CURRENT_DATE() - INTERVAL 1 MONTH AND sales.tid = blanks.tid AND idstaff = "+ idstaff +";");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Data2 data = new Data2(
@@ -293,5 +293,67 @@ public class SQLCustomers {
         }
     }
 
+    public static ObservableList<Data2> getLatePaymentwithTicket(int idstaff) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement = con.prepareStatement("SELECT customeremail , sales.blanktype, sales.ticketnumber \n" +
+                    "FROM atsdb.sales, atsdb.blanks \n" +
+                    "WHERE paid = 'n' AND sales.tid = blanks.tid AND idstaff = "+ idstaff +";");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Data2 data = new Data2(
+                        result.getString(1),
+                        result.getString(2),
+                        result.getString(3)
+                );
+                table.add(data);
+            }
+            return table;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
+    public static String getsalesamountandtax(String blanktype,String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            PreparedStatement statement = con.prepareStatement("SELECT salesamount+tax FROM atsdb.sales WHERE ticketnumber = "+ ticketnumber +" AND blanktype = "+ blanktype +";");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                return result.getString(1);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void updateLateSales(String paymentamount, String method, String date,String ticketnumber,String blanktype) throws Exception {
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE atsdb.sales " +
+                    "SET amountpaid = " + paymentamount + ", paid = 'y' , paymentmethod = '"+ method +"', dateRecorded = '" + date + "' " +
+                    "WHERE ticketnumber = " + ticketnumber + " AND blanktype = " + blanktype + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void updateCustomer(String email,String blanktype,String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE atsdb.customerdetails " +
+                    "SET iddiscount = NULL, customerType = 'regular' " +
+                    "WHERE email = '" + email + "';");
+            stmt.executeUpdate("UPDATE atsdb.sales " +
+                    "SET paid = 'x'" +
+                    "WHERE ticketnumber = " + ticketnumber + " AND blanktype = " + blanktype + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
