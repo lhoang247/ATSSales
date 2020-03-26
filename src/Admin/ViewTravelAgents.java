@@ -1,7 +1,6 @@
 package Admin;
 
 import Entities.Data2;
-import General.ErrorBox;
 import SQLqueries.SQLCommission;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -31,7 +30,7 @@ public class ViewTravelAgents {
             vBox.setPadding(new Insets(10, 10, 10, 10));
 
             Label labelTitle = new Label();
-            labelTitle.setText("Edit commission rates");
+            labelTitle.setText("View Travel Agents");
             labelTitle.setStyle("-fx-font: 24 arial;");
             vBox.getChildren().addAll(labelTitle);
 
@@ -49,19 +48,15 @@ public class ViewTravelAgents {
             typeColumn2.setMinWidth(30);
             typeColumn2.setCellValueFactory(new PropertyValueFactory<>("data21"));
 
+            TableColumn<Data2, String> commissionsColumn2 = new TableColumn<>("Commission");
+            commissionsColumn2.setMinWidth(30);
+            commissionsColumn2.setCellValueFactory(new PropertyValueFactory<>("data22"));
+
             table1 = new TableView<>();
-            table1.setMaxSize(90, 220);
-            table1.getColumns().addAll(typeColumn2);
+            table1.setMaxSize(200, 220);
+            table1.getColumns().addAll(typeColumn2,commissionsColumn2);
             GridPane.setHalignment(table1, HPos.CENTER);
-            GridPane.setConstraints(table1, 1, 1);
-
-            Label typeLabel = new Label ("Type: ");
-            GridPane.setConstraints(typeLabel, 0, 0);
-            GridPane.setHalignment(typeLabel, HPos.RIGHT);
-
-            Label commissionLabel = new Label ("Commission Rate (%): ");
-            GridPane.setConstraints(commissionLabel, 0, 1);
-            GridPane.setHalignment(commissionLabel, HPos.RIGHT);
+            GridPane.setConstraints(table1, 0, 1);
 
             TextField typeField = new TextField();
             typeField.setMaxWidth(70);
@@ -79,9 +74,6 @@ public class ViewTravelAgents {
             HBox hBox = new HBox();
             hBox.setPadding(new Insets(10,10,10,10));
             hBox.setSpacing(20);
-            Button editButton = new Button("Change");
-            editButton.setMinSize(130,0);
-            hBox.getChildren().addAll(editButton);
             hBox.setAlignment(Pos.CENTER);
 
             travelAgents.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
@@ -91,16 +83,7 @@ public class ViewTravelAgents {
                     e.printStackTrace();
                 }
             }) ;
-
-            editButton.setOnAction(e -> {
-                try {
-
-                    table1.setItems(SQLCommission.getTypeAndCommission(travelAgents.getSelectionModel().getSelectedItem()));
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            });
-            gridInfo.getChildren().addAll(typeLabel,commissionLabel,typeField,commissionField);
+            gridInfo.getChildren().addAll();
             grid.getChildren().addAll(travelAgents,table1,gridInfo);
             BorderPane borderPane = new BorderPane();
             borderPane.setTop(vBox);

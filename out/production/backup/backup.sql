@@ -94,7 +94,7 @@ CREATE TABLE `creditcard` (
   `expire` varchar(8) DEFAULT NULL,
   `ticketnumber` int(8) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`idcreditcard`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `creditcard` (
 
 LOCK TABLES `creditcard` WRITE;
 /*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-INSERT INTO `creditcard` VALUES (5,'',NULL,'casualcustomer',NULL,00000002),(6,'',NULL,'VISA 6454 9863 8733 8876',NULL,00000002),(7,'',NULL,'VISA 4901 0002 2345 3456',NULL,00000524),(8,'',NULL,'- VISA 6454 9863 8733 8876',NULL,00000724),(9,'',NULL,'VISA 7449 1555 4589 3456',NULL,00000544);
+INSERT INTO `creditcard` VALUES (5,'',NULL,'casualcustomer',NULL,00000002),(6,'',NULL,'VISA 6454 9863 8733 8876',NULL,00000002),(7,'',NULL,'VISA 4901 0002 2345 3456',NULL,00000524),(8,'',NULL,'- VISA 6454 9863 8733 8876',NULL,00000724),(9,'',NULL,'VISA 7449 1555 4589 3456',NULL,00000544),(13,'SarahB',NULL,'MC 5301 0234 5698 1234',NULL,00000543),(14,'DaveD',NULL,'VISA 5899 4554 3265 5121.',NULL,00000525);
 /*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ CREATE TABLE `customerdetails` (
 
 LOCK TABLES `customerdetails` WRITE;
 /*!40000 ALTER TABLE `customerdetails` DISABLE KEYS */;
-INSERT INTO `customerdetails` VALUES ('Chris','Chris','Smart','valued',10),('DaveD','Dave','Dodson','valued',11),('Dom','Dominic','beatty','regular',NULL),('SarahB','Sarah','Broklehurst','valued',12);
+INSERT INTO `customerdetails` VALUES ('Chris','Chris','Smart','regular',NULL),('DaveD','Dave','Dodson','valued',11),('Dom','Dominic','beatty','regular',NULL),('SarahB','Sarah','Broklehurst','valued',12);
 /*!40000 ALTER TABLE `customerdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,7 +339,7 @@ CREATE TABLE `sales` (
 
 LOCK TABLES `sales` WRITE;
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-INSERT INTO `sales` VALUES (00000001,444,220,'y','n',58,0.54,'SarahB',272,'cash',9.00,'2020-01-02',7,'523'),(00000002,444,230,'y','y',98,0.54,'',328,'card',9.00,'2020-01-02',8,'524'),(00000001,201,86,'y','n',16,NULL,'',102,'cash',5.00,'2020-01-02',9,'723'),(00000003,444,63,'n','n',75,0.43,'DaveD',0,'cash',9.00,'2020-02-02',10,'525'),(00000004,444,230,'n','n',58,0.43,'Chris',0,'cash',9.00,'2020-02-02',11,'526'),(00000002,201,75,'y','y',14,NULL,'',89,'card',5.00,'2020-02-02',12,'724'),(00000021,444,250,'n','n',60,0.43,'SarahB',0,'cash',9.00,'2020-02-03',13,'543'),(00000022,444,300,'y','n',65,0.43,'',365,'card',9.00,'2020-02-03',14,'544'),(00000011,201,75,'y','y',14,NULL,'',89,'cash',5.00,'2020-02-03',15,'733');
+INSERT INTO `sales` VALUES (00000001,444,220,'y','n',58,0.54,'SarahB',272,'cash',9.00,'2020-01-02',7,'523'),(00000002,444,230,'y','y',98,0.54,'',328,'card',9.00,'2020-01-02',8,'524'),(00000001,201,86,'y','n',16,NULL,'',102,'cash',5.00,'2020-01-02',9,'723'),(00000003,444,63,'y','n',75,0.43,'DaveD',138,'card',9.00,'2020-03-25',10,'525'),(00000004,444,230,'x','n',58,0.43,'Chris',0,'cash',9.00,'2020-02-02',11,'526'),(00000002,201,75,'y','y',14,NULL,'',89,'card',5.00,'2020-02-02',12,'724'),(00000021,444,250,'y','n',60,0.43,'SarahB',304,'card',9.00,'2020-03-25',13,'543'),(00000022,444,300,'y','n',65,0.43,'',365,'card',9.00,'2020-02-03',14,'544'),(00000011,201,75,'y','y',14,NULL,'',89,'cash',5.00,'2020-02-03',15,'733');
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,4 +407,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-25 13:06:14
+-- Dump completed on 2020-03-26 12:59:44
