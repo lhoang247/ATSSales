@@ -80,6 +80,32 @@ INSERT INTO `commissions` VALUES (1,'444',9.00,'1'),(2,'440',7.50,'1'),(3,'420',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `coupons`
+--
+
+DROP TABLE IF EXISTS `coupons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `coupons` (
+  `idcoupons` int NOT NULL AUTO_INCREMENT,
+  `blanktype` int DEFAULT NULL,
+  `ticketnumber` int(8) unsigned zerofill DEFAULT NULL,
+  `destination` varchar(45) DEFAULT NULL,
+  `tid` int DEFAULT NULL,
+  PRIMARY KEY (`idcoupons`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `coupons`
+--
+
+LOCK TABLES `coupons` WRITE;
+/*!40000 ALTER TABLE `coupons` DISABLE KEYS */;
+/*!40000 ALTER TABLE `coupons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `creditcard`
 --
 
@@ -339,7 +365,7 @@ CREATE TABLE `sales` (
 
 LOCK TABLES `sales` WRITE;
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-INSERT INTO `sales` VALUES (00000001,444,220,'y','n',58,0.54,'SarahB',272,'cash',9.00,'2020-01-02',7,'523'),(00000002,444,230,'y','y',98,0.54,'',328,'card',9.00,'2020-01-02',8,'524'),(00000001,201,86,'y','n',16,NULL,'',102,'cash',5.00,'2020-01-02',9,'723'),(00000003,444,63,'y','n',75,0.43,'DaveD',138,'card',9.00,'2020-03-25',10,'525'),(00000004,444,230,'x','n',58,0.43,'Chris',0,'cash',9.00,'2020-02-02',11,'526'),(00000002,201,75,'y','y',14,NULL,'',89,'card',5.00,'2020-02-02',12,'724'),(00000021,444,250,'y','n',60,0.43,'SarahB',304,'card',9.00,'2020-03-25',13,'543'),(00000022,444,300,'y','n',65,0.43,'',365,'card',9.00,'2020-02-03',14,'544'),(00000011,201,75,'y','y',14,NULL,'',89,'cash',5.00,'2020-02-03',15,'733');
+INSERT INTO `sales` VALUES (00000001,444,220,'y','n',58,0.54,'SarahB',272,'cash',9.00,'2020-01-02',7,'523'),(00000002,444,230,'y','y',98,0.54,'',328,'card',9.00,'2020-01-02',8,'524'),(00000001,201,86,'y','n',16,NULL,'',102,'cash',5.00,'2020-01-02',9,'723'),(00000003,444,63,'y','n',75,0.43,'DaveD',138,'card',9.00,'2020-03-25',10,'525'),(00000004,444,230,'y','y',58,0.43,'Chris',0,'cash',9.00,'2020-02-02',11,'526'),(00000002,201,75,'y','y',14,NULL,'',89,'card',5.00,'2020-02-02',12,'724'),(00000021,444,250,'y','n',60,0.43,'SarahB',304,'card',9.00,'2020-03-25',13,'543'),(00000022,444,300,'y','n',65,0.43,'',365,'card',9.00,'2020-02-03',14,'544'),(00000011,201,75,'y','y',14,NULL,'',89,'cash',5.00,'2020-02-03',15,'733');
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,4 +433,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-26 12:59:44
+-- Dump completed on 2020-03-31 14:37:03

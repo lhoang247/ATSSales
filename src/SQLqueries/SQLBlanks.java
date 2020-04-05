@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import static SQLqueries.SQL.getConnection;
@@ -320,6 +321,28 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
             return null;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public static void addCoupons(ArrayList<String> destinations, String blanktype, String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+
+            PreparedStatement statement = con.prepareStatement("insert into atsdb.coupons (blanktype,ticketnumber,destination) " +
+                    " values (?,?,?);");
+
+            for (int i = 0 ; i < destinations.size(); i++) {
+                if (!destinations.get(i).equals("")) {
+                    statement.setString (1, blanktype);
+                    statement.setString (2, ticketnumber);
+                    statement.setString (3, destinations.get(i));
+                    statement.execute();
+                }
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

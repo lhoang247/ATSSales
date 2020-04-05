@@ -356,4 +356,24 @@ public class SQLCustomers {
             e.printStackTrace();
         }
     }
+
+
+    public static ObservableList<Data2> getCoupons(String blanktype, String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement = con.prepareStatement("SELECT destination FROM atsdb.coupons WHERE ticketnumber = "+ ticketnumber +" AND blanktype = "+ blanktype +";");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Data2 data = new Data2(
+                        result.getString(1)
+                );
+                table.add(data);
+            }
+            return table;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -115,10 +115,22 @@ public class TravelAdvisorHomepage {
             }
         });
 
+        Button button9 = new Button();
+        button9.setMinSize(200,1);
+        button9.setText("View Sales");
+        GridPane.setConstraints(button9, 0, 6);
+        button9.setOnAction(e -> {
+            try {
+                ViewSales.display(staffNumber,fullname.get(3));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
         Button button8 = new Button();
         button8.setMinSize(200,1);
         button8.setText("Logout");
-        GridPane.setConstraints(button8, 0, 6);
+        GridPane.setConstraints(button8, 0, 7);
         button8.setOnAction(e -> {
             LoginPage.setScene(LoginPage.loginScene());
         });
@@ -139,12 +151,12 @@ public class TravelAdvisorHomepage {
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button3,button4,button5,button6,table1,button7,button8);
+        grid.getChildren().addAll(button1,button3,button4,button5,button6,table1,button7,button9,button8);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);
 
-        Scene homepage = new Scene(borderPane, 300, 420);
+        Scene homepage = new Scene(borderPane, 300, 440);
         window.setTitle("Travel Advisor Homepage");
         return homepage;
     }

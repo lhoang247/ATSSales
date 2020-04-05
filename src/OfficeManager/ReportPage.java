@@ -1,10 +1,12 @@
 package OfficeManager;
 
+import General.ErrorBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -91,11 +93,32 @@ if (role.equals("m")) {
         box.setAlignment(Pos.CENTER_RIGHT);
 
         HBox box2 = new HBox();
-        box2.setSpacing(10);
+        box2.setSpacing(300);
         box2.setPadding(new Insets(15,15,15,15));
         Button closeButton = new Button("Exit");
+        Label exportfileLabel = new Label("File name: ");
+        GridPane.setConstraints(exportfileLabel,0,0);
+        TextField exportfilenamefield = new TextField();
+        GridPane.setConstraints(exportfilenamefield,1,0);
+        Button exportButton = new Button("Export");
+        GridPane exportGrid = new GridPane();
+        exportGrid.setHgap(8);
+        GridPane.setConstraints(exportButton,2,0);
+        exportGrid.getChildren().addAll(exportfileLabel,exportfilenamefield,exportButton);
+
+        exportButton.setOnAction(e -> {
+            if (choiceBox.getValue().equals("Turnover Report")) {
+                Export.export(exportfilenamefield.getText(), returnReports.returnTurnoverreport(dateFrom.getText(),dateTo.getText()),dateFrom.getText(),dateTo.getText());
+                ErrorBox.display("Success","You have exported the report.");
+            }  else if (choiceBox.getValue().equals("Turnover Report")) {
+                Export.export(exportfilenamefield.getText(), returnReports.returnTurnoverreport(dateFrom.getText(),dateTo.getText()),dateFrom.getText(),dateTo.getText());
+                ErrorBox.display("Success","You have exported the report.");
+            }
+
+        });
+
         closeButton.setOnAction(e -> window.close());
-        box2.getChildren().addAll(closeButton);
+        box2.getChildren().addAll(closeButton,exportGrid);
 
         borderPane.setTop(box);
         borderPane.setBottom(box2);

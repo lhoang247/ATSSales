@@ -1,6 +1,5 @@
 package OfficeManager;
 
-import Entities.Data;
 import Entities.Data2;
 import SQLqueries.SQLReport;
 import javafx.geometry.HPos;
@@ -16,10 +15,10 @@ import java.util.ArrayList;
 public class InterlineReport {
 
     public static GridPane interlineGrid(int type, int staffNumber, String dateFrom,String dateTo) {
-        TableView<Data> table1;
+        TableView<Data2> table1;
         TableView<Data2> table2, table3;
 
-
+        ArrayList<TableView<Data2>> tableViews = returnReports.returnInterlinereport(type,staffNumber,dateFrom,dateTo);
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setVgap(8);
@@ -63,86 +62,26 @@ public class InterlineReport {
 
         try {
             //table1
-            TableColumn<Data ,String> blanktypeColumn1;
-            TableColumn<Data ,String> blankColumn1;
-            TableColumn<Data ,String> fareAmountColumn1;
-            TableColumn<Data ,String> exchangeRateColumn1;
-            TableColumn<Data ,String> localFareAmountColumn1;
-            TableColumn<Data ,String> taxColumn1;
-            TableColumn<Data ,String> totalAmountColumn1;
-            table1 = new TableView<>();
             int total = 0;
+
+            table1 = tableViews.get(0);
+
             if (type == 0) {
 
-                blanktypeColumn1 = new TableColumn<>("StaffID");
-                blanktypeColumn1.setMinWidth(50);
-                blanktypeColumn1.setCellValueFactory(new PropertyValueFactory<>("data1"));
-
-                blankColumn1 = new TableColumn<>("TTL TK\nNUMR");
-                blankColumn1.setMinWidth(10);
-                blankColumn1.setCellValueFactory(new PropertyValueFactory<>("data2"));
-
-                fareAmountColumn1 = new TableColumn<>("FARE");
-                fareAmountColumn1.setMinWidth(40);
-                fareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data3"));
-
-                exchangeRateColumn1 = new TableColumn<>("TAX");
-                exchangeRateColumn1.setMinWidth(40);
-                exchangeRateColumn1.setCellValueFactory(new PropertyValueFactory<>("data4"));
-
-                localFareAmountColumn1 = new TableColumn<>("TOTAL");
-                localFareAmountColumn1.setMinWidth(40);
-                localFareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data5"));
-
-                table1.setMaxSize(275,200);
-                table1.setItems(SQLReport.getReport7(type, staffNumber,dateFrom,dateTo));
-                table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1);
-
-
                 total = 0;
-                for (Data item : table1.getItems()) {
-                    total = total + Integer.parseInt(item.getData5());
+                for (Data2 item : table1.getItems()) {
+                    total = total + Integer.parseInt(item.getData25());
                 }
 
             } else {
 
-                blanktypeColumn1 = new TableColumn<>("TYPE");
-                blanktypeColumn1.setMinWidth(50);
-                blanktypeColumn1.setCellValueFactory(new PropertyValueFactory<>("data1"));
-
-                blankColumn1 = new TableColumn<>("TICKET\nNUMBER");
-                blankColumn1.setMinWidth(10);
-                blankColumn1.setCellValueFactory(new PropertyValueFactory<>("data2"));
-
-                fareAmountColumn1 = new TableColumn<>("USD");
-                fareAmountColumn1.setMinWidth(40);
-                fareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data3"));
-
-                exchangeRateColumn1 = new TableColumn<>("USD/BGL");
-                exchangeRateColumn1.setMinWidth(40);
-                exchangeRateColumn1.setCellValueFactory(new PropertyValueFactory<>("data4"));
-
-                localFareAmountColumn1 = new TableColumn<>("BGL");
-                localFareAmountColumn1.setMinWidth(40);
-                localFareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data5"));
-
-                taxColumn1 = new TableColumn<>("TAX");
-                taxColumn1.setMinWidth(40);
-                taxColumn1.setCellValueFactory(new PropertyValueFactory<>("data6"));
-
-                totalAmountColumn1 = new TableColumn<>("TOTAL\nAMOUNT");
-                totalAmountColumn1.setMinWidth(40);
-                totalAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data7"));
-
-                table1.setMaxSize(405,200);
-                table1.setItems(SQLReport.getReport7(type, staffNumber, dateFrom,dateTo));
-                table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1,taxColumn1,totalAmountColumn1);
 
                 total = 0;
-                for (Data item : table1.getItems()) {
-                    total = total + Integer.parseInt(item.getData7());
+                for (Data2 item : table1.getItems()) {
+                    total = total + Integer.parseInt(item.getData27());
                 }
             }
+
 
 
             GridPane.setConstraints(table1,0,3);
@@ -154,30 +93,7 @@ public class InterlineReport {
 
             //table2
 
-            TableColumn<Data2 ,String> pmColumn2 = new TableColumn<>("PAYMENT\nMETHOD");
-            pmColumn2.setMinWidth(50);
-            pmColumn2.setCellValueFactory(new PropertyValueFactory<>("data2" + 1));
-
-            TableColumn<Data2 ,String> cashColumn2 = new TableColumn<>("CASH");
-            cashColumn2.setMinWidth(10);
-            cashColumn2.setCellValueFactory(new PropertyValueFactory<>("data22"));
-
-            TableColumn<Data2 ,String> cardColumn2 = new TableColumn<>("CARD");
-            cardColumn2.setMinWidth(40);
-            cardColumn2.setCellValueFactory(new PropertyValueFactory<>("data23"));
-
-            TableColumn<Data2 ,String> cardNumberColumn2 = new TableColumn<>("CARD\nNUMBER");
-            cardNumberColumn2.setMinWidth(40);
-            cardNumberColumn2.setCellValueFactory(new PropertyValueFactory<>("data24"));
-
-            TableColumn<Data2 ,String> totalColumn2 = new TableColumn<>("TOTAL");
-            totalColumn2.setMinWidth(40);
-            totalColumn2.setCellValueFactory(new PropertyValueFactory<>("data25"));
-
-            table2 = new TableView<>();
-            table2.getColumns().addAll(pmColumn2,cashColumn2,cardColumn2,cardNumberColumn2,totalColumn2);
-            table2.setItems(SQLReport.getReport8(type, staffNumber, dateFrom,dateTo));
-            table2.setMaxSize(307,200);
+            table2 = tableViews.get(1);
 
             GridPane.setConstraints(table2,1,3);
 
@@ -190,9 +106,9 @@ public class InterlineReport {
             GridPane.setConstraints(table2Total,1,4);
             GridPane.setHalignment(table2Total, HPos.RIGHT);
 
-            table3 = getColumns(type, staffNumber);
-            table3.setItems(SQLReport.getReport9(type, staffNumber, dateFrom,dateTo));
-            table3.setMaxSize(1000,200);
+
+            table3 = tableViews.get(2);
+
             GridPane.setConstraints(table3,2,3);
 
 

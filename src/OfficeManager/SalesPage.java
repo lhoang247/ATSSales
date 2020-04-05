@@ -1,6 +1,7 @@
 package OfficeManager;
 
 import Entities.Data2;
+import General.ErrorBox;
 import SQLqueries.SQLBlanks;
 import SQLqueries.SQLCustomers;
 import javafx.geometry.HPos;
@@ -13,10 +14,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import General.ErrorBox;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class SalesPage {
@@ -144,6 +145,23 @@ public class SalesPage {
             GridPane.setConstraints(dateLabel, 0, 13);
             GridPane.setHalignment(dateLabel,HPos.RIGHT);
 
+            Label destination1Label = new Label ("Destination 1: ");
+            GridPane.setConstraints(destination1Label, 2, 0);
+            GridPane.setHalignment(destination1Label,HPos.LEFT);
+
+            Label destination2Label = new Label ("Destination 2: ");
+            GridPane.setConstraints(destination2Label, 2, 1);
+            GridPane.setHalignment(destination2Label,HPos.LEFT);
+
+            Label destination3Label = new Label ("Destination 3: ");
+            GridPane.setConstraints(destination3Label, 2, 2);
+            GridPane.setHalignment(destination3Label,HPos.LEFT);
+
+            Label destination4Label = new Label ("Destination 4: ");
+            GridPane.setConstraints(destination4Label, 2, 3);
+            GridPane.setHalignment(destination4Label,HPos.LEFT);
+
+
             TextField typeField = new TextField();
             GridPane.setConstraints(typeField, 1, 0);
 
@@ -193,11 +211,24 @@ public class SalesPage {
 
             Button calculateMaxButton = new Button("Calculate Max with discount");
             GridPane.setConstraints(calculateMaxButton, 2, 6);
+            GridPane.setColumnSpan(calculateMaxButton,2);
 
             Button reportSalesButton = new Button("Record Sale");
             reportSalesButton.setMinSize(130,0);
             Button voidButton = new Button("Void selected blank");
             voidButton.setMinSize(130,0);
+
+            TextField destination1Field = new TextField ();
+            GridPane.setConstraints(destination1Field, 3, 0);
+
+            TextField destination2Field = new TextField ();
+            GridPane.setConstraints(destination2Field, 3, 1);
+
+            TextField destination3Field = new TextField ();
+            GridPane.setConstraints(destination3Field, 3, 2);
+
+            TextField destination4Field = new TextField ();
+            GridPane.setConstraints(destination4Field, 3, 3);
 
             HBox hBoxButton = new HBox();
             hBoxButton.getChildren().addAll(reportSalesButton,voidButton);
@@ -207,7 +238,9 @@ public class SalesPage {
             gridInfo.getChildren().addAll(ticketTypeLabel,ticketNumberLabel,ticketPriceLabel,taxLabel,exchangeRateLabel,
                     customerEmailLabel,paymentMethodLabel,customerPaymentAmountLabel,creditCardField,creditCardLabel,
                     dateLabel,typeField,ticketNumberField,ticketPriceField,taxField,exchangeRateField,customerEmailField,
-                    paymentMethodBox,customerPaidAmountField,dateField, calculateMaxButton, fullypaidBox, fullyPaidLabel,creditCardExpireLabel,creditCardExpireField,creditCardNameField,creditCardNameLabel);
+                    paymentMethodBox,customerPaidAmountField,dateField, calculateMaxButton, fullypaidBox, fullyPaidLabel,
+                    creditCardExpireLabel,creditCardExpireField,creditCardNameField,creditCardNameLabel,destination1Label,
+                    destination2Label,destination3Label,destination4Label,destination1Field,destination2Field,destination3Field,destination4Field);
             grid.getChildren().addAll(table1,table2,gridInfo);
 
 
@@ -219,6 +252,35 @@ public class SalesPage {
                     exchangeRateField.setDisable(false);
                 } else {
                     exchangeRateField.setDisable(true);
+                }
+
+                if (assignSelection.getData21().equals("444")  || assignSelection.getData21().equals("440")) {
+                    destination1Field.setVisible(true);
+                    destination2Field.setVisible(true);
+                    destination3Field.setVisible(true);
+                    destination4Field.setVisible(true);
+                    destination1Label.setVisible(true);
+                    destination2Label.setVisible(true);
+                    destination3Label.setVisible(true);
+                    destination4Label.setVisible(true);
+                } else if (assignSelection.getData21().equals("420")  || assignSelection.getData21().equals("201")) {
+                    destination1Field.setVisible(true);
+                    destination2Field.setVisible(true);
+                    destination3Field.setVisible(false);
+                    destination4Field.setVisible(false);
+                    destination1Label.setVisible(true);
+                    destination2Label.setVisible(true);
+                    destination3Label.setVisible(false);
+                    destination4Label.setVisible(false);
+                } else if (assignSelection.getData21().equals("101")) {
+                    destination1Field.setVisible(true);
+                    destination2Field.setVisible(false);
+                    destination3Field.setVisible(false);
+                    destination4Field.setVisible(false);
+                    destination1Label.setVisible(true);
+                    destination2Label.setVisible(false);
+                    destination3Label.setVisible(false);
+                    destination4Label.setVisible(false);
                 }
             });
 
@@ -251,6 +313,21 @@ public class SalesPage {
                     Double.parseDouble(taxField.getText());
                     Double.parseDouble(customerPaidAmountField.getText());
                     SQLBlanks.soldBlank(ticketNumberField.getText(),typeField.getText());
+                    ArrayList<String> destinations = new ArrayList();
+                    if (typeField.getText().equals("444") || typeField.getText().equals("440")) {
+                        destinations.add(destination1Field.getText());
+                        destinations.add(destination2Field.getText());
+                        destinations.add(destination3Field.getText());
+                        destinations.add(destination4Field.getText());
+                        SQLBlanks.addCoupons(destinations,typeField.getText(),ticketNumberField.getText());
+                    } else if (typeField.getText().equals("420") || typeField.getText().equals("201")){
+                        destinations.add(destination1Field.getText());
+                        destinations.add(destination2Field.getText());
+                        SQLBlanks.addCoupons(destinations,typeField.getText(),ticketNumberField.getText());
+                    } else if (typeField.getText().equals("101")){
+                        destinations.add(destination1Field.getText());
+                        SQLBlanks.addCoupons(destinations,typeField.getText(),ticketNumberField.getText());
+                    }
                     ErrorBox.display("Success","The ticket has successfully been reported");
                     if (paymentMethodBox.getValue().equals("card")) {
                         SQLBlanks.createCreditcard(customerEmailField.getText(),creditCardField.getText(),ticketNumberField.getText(),typeField.getText());
@@ -264,6 +341,10 @@ public class SalesPage {
                     creditCardField.clear();
                     creditCardExpireField.clear();
                     creditCardNameField.clear();
+                    destination1Field.clear();
+                    destination2Field.clear();
+                    destination3Field.clear();
+                    destination4Field.clear();
                     table1.setItems(SQLBlanks.salesTable("" + staffNumber));
                 } catch (Exception e1) {
                     ErrorBox.display("Error","The ticket has a the wrong input type.");

@@ -1,6 +1,5 @@
 package SQLqueries;
 
-import Entities.Data;
 import Entities.Data2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,14 +13,14 @@ import static SQLqueries.SQL.getConnection;
 
 public class SQLReport {
 
-    public static ObservableList<Data> getReport1(String dateFrom, String dateTo) throws Exception {
+    public static ObservableList<Data2> getReport1(String dateFrom, String dateTo) throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data> table = FXCollections.observableArrayList();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT DISTINCT (bundle), blanktype, COUNT(*) FROM blanks WHERE receivedDate >= '" + dateFrom + "' AND receivedDate < '" + dateTo + "' GROUP BY receivedDate");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Data data = new Data(result.getString("bundle"),
+                Data2 data = new Data2(result.getString("bundle"),
                         result.getString("blanktype"),
                         result.getString("COUNT(*)")
                 );
@@ -33,14 +32,14 @@ public class SQLReport {
         }
     }
 
-    public static ObservableList<Data> getReport2(String dateFrom, String dateTo) throws Exception {
+    public static ObservableList<Data2> getReport2(String dateFrom, String dateTo) throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data> table = FXCollections.observableArrayList();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT DISTINCT (bundle), blanktype,idstaff, COUNT(*) FROM blanks WHERE receivedDate >= '" + dateFrom + "' AND receivedDate < '" + dateTo + "' AND status != 'stock' GROUP BY receivedDate");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Data data = new Data(result.getString("idstaff"),
+                Data2 data = new Data2(result.getString("idstaff"),
                         result.getString("blanktype"),
                         result.getString("bundle"),
                         result.getString("COUNT(*)")
@@ -53,17 +52,17 @@ public class SQLReport {
         }
     }
 
-    public static ObservableList<Data> getReport3() throws Exception {
+    public static ObservableList<Data2> getReport3() throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data> table = FXCollections.observableArrayList();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT DISTINCT bundle, blanktype, idstaff, COUNT(*)" +
                     "FROM blanks " +
                     "WHERE status != 'stock'" +
                     "GROUP BY receivedDate;");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Data data = new Data(result.getString("idstaff"),
+                Data2 data = new Data2(result.getString("idstaff"),
                         result.getString("blanktype"),
                         result.getString(1),
                         result.getString("COUNT(*)")
@@ -76,19 +75,19 @@ public class SQLReport {
         }
     }
 
-    public static ObservableList<Data> getReport4() throws Exception {
+    public static ObservableList<Data2> getReport4() throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data> table = FXCollections.observableArrayList();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT blanktype, MIN(ticketnumber), MAX(ticketnumber), count(*) " +
                     "FROM blanks " +
                     "WHERE status = 'sold' " +
                     "GROUP BY assignedDate;");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Data data = new Data(result.getString("blanktype"),
-                        result.getString(2),
-                        result.getString(3),
+                Data2 data = new Data2(result.getString("blanktype"),
+                        String.format("%08d", Integer.parseInt( result.getString(2))),
+                        String.format("%08d", Integer.parseInt(result.getString(3))),
                         result.getString("COUNT(*)")
                 );
                 table.add(data);
@@ -99,10 +98,10 @@ public class SQLReport {
         }
     }
 
-    public static ObservableList<Data> getReport5() throws Exception {
+    public static ObservableList<Data2> getReport5() throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data> table = FXCollections.observableArrayList();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT blanktype, MIN(ticketnumber), MAX(ticketnumber), count(*)\n" +
                     "FROM atsdb.blanks\n" +
                     "WHERE status != 'sold' AND status = 'stock'\n" +
@@ -114,9 +113,9 @@ public class SQLReport {
                     "GROUP BY receivedDate;");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Data data = new Data(result.getString("blanktype"),
-                        result.getString(2),
-                        result.getString(3),
+                Data2 data = new Data2(result.getString("blanktype"),
+                        String.format("%08d", Integer.parseInt(result.getString(2))),
+                        String.format("%08d", Integer.parseInt(result.getString(3))),
                         result.getString("COUNT(*)")
                 );
                 table.add(data);
@@ -127,21 +126,21 @@ public class SQLReport {
         }
     }
 
-    public static ObservableList<Data> getReport6() throws Exception {
+    public static ObservableList<Data2> getReport6() throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data> table = FXCollections.observableArrayList();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT idstaff, blanktype, MIN(ticketnumber) AS \"FROM\", MAX(ticketnumber) AS \"TO\", count(*) \n" +
                     "FROM atsdb.blanks \n" +
                     "WHERE status = \"assigned\" \n" +
                     "GROUP BY assignedDate;\n");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Data data = new Data(
+                Data2 data = new Data2(
                         result.getString("idstaff"),
                         result.getString("blanktype"),
-                        result.getString(3),
-                        result.getString(4),
+                        String.format("%08d", Integer.parseInt(result.getString(3))),
+                        String.format("%08d", Integer.parseInt(result.getString(4))),
                         result.getString("COUNT(*)")
                 );
                 table.add(data);
@@ -152,10 +151,10 @@ public class SQLReport {
         }
     }
 
-    public static ObservableList<Data> getReport7(int type, int staffID, String dateFrom, String dateTo) throws Exception {
+    public static ObservableList<Data2> getReport7(int type, int staffID, String dateFrom, String dateTo) throws Exception {
         try {
             Connection con = getConnection();
-            ObservableList<Data> table = FXCollections.observableArrayList();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement;
             if (type == 0) {
                 statement = con.prepareStatement("SELECT  blanks.idstaff, count(*),sum(sales.salesamount),sum(sales.tax) ,(sum(sales.salesamount) + sum(sales.tax))\n" +
@@ -168,10 +167,10 @@ public class SQLReport {
             }
 
             ResultSet result = statement.executeQuery();
-            Data data;
+            Data2 data;
             while (result.next()) {
                 if (type == 0) {
-                    data = new Data(
+                    data = new Data2(
                             result.getString(1),
                             result.getString(2),
                             result.getString(3),
@@ -180,9 +179,9 @@ public class SQLReport {
                             ""
                     );
                 } else {
-                    data = new Data(
+                    data = new Data2(
                             result.getString(1),
-                            result.getString(2),
+                            String.format("%08d", Integer.parseInt(result.getString(2))),
                             result.getString(3),
                             result.getString(4),
                             result.getString(5),
@@ -209,11 +208,7 @@ public class SQLReport {
                 statement = con.prepareStatement("SELECT sales.paymentmethod ,\n" +
                         "                        case when sales.paymentmethod = 'cash' then sum(amountPaid) else '' end as 'cash',\n" +
                         "                        case when sales.paymentmethod = 'card' then sum(amountPaid) else '' end as 'card', \n" +
-                        "                        case when sales.paymentmethod = 'card' then \n" +
-                        "\t\t\t\t\t\t(SELECT cardnumber \n" +
-                        "                        FROM atsdb.creditcard,atsdb.sales \n" +
-                        "                        WHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.tid) else ''\n" +
-                        "                        end as 'Card number', \n" +
+                        "                        null, \n" +
                         "                        sum(amountPaid)\n" +
                         "                        FROM atsdb.sales, atsdb.blanks\n" +
                         "                        WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420 OR sales.blanktype = 451 OR sales.blanktype = 452)  and sales.refunded != 'y' AND sales.tid = blanks.tid AND dateRecorded >= '" + dateFrom + "' AND dateRecorded < '" + dateTo + "'\n" +
@@ -223,9 +218,7 @@ public class SQLReport {
                 statement = con.prepareStatement("SELECT sales.paymentmethod , case when paymentmethod = 'cash' then amountPaid else '' end as 'cash',\n" +
                         "                        case when paymentmethod = 'card' then amountPaid else '' end as 'card',\n" +
                         "                        case when paymentmethod = 'card' then \n" +
-                        "                       (SELECT cardnumber \n" +
-                        "                        FROM atsdb.creditcard,atsdb.sales \n" +
-                        "                        WHERE creditcard.email = sales.customeremail and creditcard.ticketnumber = sales.tid) else ''\n" +
+                        "                        'temp' else ''\n" +
                         "                        end as 'Card number',\n" +
                         "                        amountPaid\n" +
                         "                        FROM atsdb.sales , atsdb.blanks\n" +
@@ -300,8 +293,8 @@ public class SQLReport {
                     sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales, atsdb.blanks" +
-                        " WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420 OR sales.blanktype = 451 OR sales.blanktype = 452)  and sales.refunded != 'y' AND sales.tid = blanks.tid AND blanks.status = 'sold' and sales.refunded != 'y' AND dateRecorded >= '" + dateFrom + "'AND dateRecorded < '" + dateTo + "';" +
-                        "group by blanks.bundle;");
+                        " WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420 OR sales.blanktype = 451 OR sales.blanktype = 452)  and sales.refunded != 'y' AND sales.tid = blanks.tid AND blanks.status = 'sold' and sales.refunded != 'y' AND dateRecorded >= '" + dateFrom + "'AND dateRecorded < '" + dateTo + "' " +
+                        "group by blanks.idstaff;");
             } else if (type == 1) {
                 sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
@@ -315,7 +308,7 @@ public class SQLReport {
                     sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) and sales.refunded != 'y' AND sales.tid = blanks.tid AND blanks.status = 'sold' and sales.refunded != 'y' AND dateRecorded >= '" + dateFrom + "' AND dateRecorded < '" + dateTo + "' " +
-                        "group by blanks.bundle;");
+                        "group by blanks.idstaff;");
             } else {
                 sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
@@ -396,7 +389,7 @@ public class SQLReport {
             }
             return table;
         } catch (Exception e) {
-            System.out.println("probably no for a table data");
+            e.printStackTrace();
             return null;
         }
     }
@@ -501,6 +494,34 @@ public class SQLReport {
                             result.getString(1),
                             String.format("%08d", Integer.parseInt(result.getString(2)))
                     );
+                table.add(data);
+            }
+            return table;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ObservableList<Data2> getReport13(int staffID) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement;
+
+            statement = con.prepareStatement("SELECT case \n" +
+                    "FROM atsdb.sales , atsdb.blanks\n" +
+                    "WHERE sales.tid = blanks.tid AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' AND refunded = 'n';");
+
+
+            ResultSet result = statement.executeQuery();
+            Data2 data;
+            while (result.next()) {
+
+                data = new Data2(
+                        result.getString(1),
+                        String.format("%08d", Integer.parseInt(result.getString(2)))
+                );
                 table.add(data);
             }
             return table;
