@@ -16,20 +16,34 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import General.ErrorBox;
 
+//This class displays a window that shows the current Customers.
+//You can also add customers.
+
 public class CustomerPage {
 
     public static void display(int staffNumber, String role) throws Exception {
+
+        //Creating new window.
+
         Stage window = new Stage();
 
+        //Creating new TableView to be displayed.
+
         TableView<Data2> table1;
+
+        //Creating GridPane for easier layout management.
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(30, 30, 30, 30));
         grid.setHgap(40);
         grid.setVgap(8);
 
+        //Creating VBox for the title label.
+
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(10, 10, 10, 10));
+
+        //Creating label for the title.
 
         Label labelTitle = new Label();
         labelTitle.setText("Customer Accounts");
@@ -37,11 +51,15 @@ public class CustomerPage {
         vBox.getChildren().addAll(labelTitle);
 
 
+        //Creating another GridPane.
+
         GridPane gridInfo = new GridPane();
         gridInfo.setHgap(10);
         gridInfo.setVgap(8);
         GridPane.setConstraints(gridInfo, 1, 0);
 
+
+        //Creating the columns for table1.
 
         TableColumn<Data2, String> emailColumn2 = new TableColumn<>("Email");
         emailColumn2.setMinWidth(30);
@@ -59,6 +77,8 @@ public class CustomerPage {
         customerTypeColumn2.setMinWidth(30);
         customerTypeColumn2.setCellValueFactory(new PropertyValueFactory<>("data24"));
 
+        //Adding columns and formatting the table for looks.
+
         table1 = new TableView<>();
         table1.setMinSize(330, 140);
         table1.setMaxSize(330, 140);
@@ -67,6 +87,8 @@ public class CustomerPage {
 
         GridPane.setConstraints(table1, 0, 0);
 
+
+        //Creating labels and textFields to display.
 
         Label emailLabel = new Label ("Email: ");
         GridPane.setConstraints(emailLabel, 0, 0);
@@ -93,27 +115,42 @@ public class CustomerPage {
         TextField surnameField = new TextField();
         GridPane.setConstraints(surnameField, 1, 2);
 
+        //Creating ComboBox to limit the amount of selection the user can have.
+        //Customers can either be regular or valued.
+
         ComboBox typeBox = new ComboBox();
         typeBox.getItems().add("regular");
         typeBox.getItems().add("valued");
         typeBox.setValue("regular");
+
         GridPane.setConstraints(typeBox, 1, 3);
+
+        //Creating HBox for the confirm button.
 
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10,10,10,10));
         hBox.setSpacing(20);
+
         Button createButton = new Button("Create");
         createButton.setMinSize(130,0);
-        Button editButton = new Button("Edit");
-        editButton.setMinSize(130,0);
+
+        //Adding the button to HBox.
+
         hBox.getChildren().addAll(createButton);
         hBox.setAlignment(Pos.CENTER);
 
+
+        //Adding an action listener for the button to add the customer created by the staff.
+
         createButton.setOnAction(e -> {
             try {
+                //System checks if the TextFields provided are empty or not.
                 if (!emailField.getText().isEmpty() && !firstnameField.getText().isEmpty() && !surnameField.getText().isEmpty()) {
+                    //Calls an SQL query to add a new customer to the database.
                     SQLCustomers.addCustomer(emailField.getText(),firstnameField.getText(),surnameField.getText(), (String) typeBox.getSelectionModel().getSelectedItem());
+                    //Pop up for success.
                     ErrorBox.display("Success","Customer Account has been created.");
+                    //Table1 is refreshed to show that the customer has been added to the database.
                     table1.setItems(SQLBlanks.getCustomerAccounts());
                 } else {
                     ErrorBox.display("Error","Please fill out all boxes.");
@@ -124,20 +161,23 @@ public class CustomerPage {
             }
         });
 
+        //Adding assets to the respective GridPanes.
+
         gridInfo.getChildren().addAll(emailLabel,firstnameLabel,surnameLabel,typeLabel,emailField,firstnameField,surnameField,typeBox);
         grid.getChildren().addAll(table1,gridInfo);
+
+        //Creating BorderPane.
+
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(vBox);
         borderPane.setCenter(grid);
         borderPane.setBottom(hBox);
+
         Scene scene = new Scene(borderPane);
+
         window.setScene(scene);
         window.show();
-        try {
 
-        } catch (Exception e) {
-
-        }
     }
 
 }

@@ -17,6 +17,9 @@ import static SQLqueries.SQL.getConnection;
 
 public class SQLBlanks {
 
+    //This method returns the blanks that are in stock.
+    //The method uses union.
+
     public static ObservableList<Data2> getReport1() throws Exception {
         try {
             Connection con = getConnection();
@@ -45,6 +48,8 @@ public class SQLBlanks {
         }
     }
 
+    //This method returns the staff members who are either a manager or a travel advisor.
+
     public static ObservableList<Data2> getReport2() throws Exception {
         try {
             Connection con = getConnection();
@@ -66,6 +71,9 @@ public class SQLBlanks {
         }
     }
 
+    //This method allows the user to assign blanks to the other staff members.
+    //This uses a update query.
+
     public static void assignBlank(String idstaff, String bundle, int from, int to, String time) throws Exception {
         try {
             DateFormat df = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
@@ -73,12 +81,14 @@ public class SQLBlanks {
             Connection con = getConnection();
             Statement stmt = con.createStatement();
                 stmt.executeUpdate("UPDATE atsdb.blanks \n" +
-                        "SET idstaff = '" + String.format("%03d", Integer.parseInt(idstaff)) + "' , status = 'assigned' , assignedDate = '"+ df.format(calobj) +"' \n" +
+                        "SET idstaff = '" + String.format("%03d", Integer.parseInt(idstaff)) + "' , status = 'assigned' , assignedDate = '"+ df.format(calobj.getTime()) +"' \n" +
                         "WHERE bundle = '" + bundle + "' AND (status = 'stock' OR status = 'assigned') AND  ticketnumber >= " + from + " AND ticketnumber < " + to + " AND blanktype = " + time + ";");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    //This method unassigns blanks from the staff.
 
     public static void unassignBlank(String bundle, String blanktype, String from, String to) throws Exception {
         try {
@@ -94,6 +104,8 @@ public class SQLBlanks {
         }
     }
 
+
+    //This table returns the blanks that are assigned to the staff member who requested it.
 
     public static ObservableList<Data2> salesTable(String idstaff) throws Exception {
         try {
@@ -113,6 +125,9 @@ public class SQLBlanks {
             return null;
         }
     }
+
+
+    //This method returns customer details.
 
     public static ObservableList<Data2> getCustomerAccounts() throws Exception {
         try {
@@ -134,6 +149,10 @@ public class SQLBlanks {
         }
     }
 
+
+    //This method voids blanks.
+    //This uses a update query.
+
     public static void voidBlank(String ticketnumber, String blanktype) throws Exception {
         try {
             Connection con = getConnection();
@@ -147,24 +166,43 @@ public class SQLBlanks {
     }
 
 
+    //This method allows the user to report a sale.
 
 public static void reportSales(String ticketnumber,String blanktype,String salesAmount, String paid, String tax,String exchangerate, String customeremail, String amountPaid, String paymentMethod, String daterecorded) throws Exception {
         try {
+
+            //Get connection to the database.
+
             Connection con = getConnection();
+
+            //This statement gets the current commission rate of the blank type.
+
             PreparedStatement statement1 = con.prepareStatement("SELECT commissionrate FROM atsdb.commissions WHERE blanktype = '"+ blanktype +"';");
             ResultSet result = statement1.executeQuery();
             String commissionrate = "0";
+
+            //Storing the current commission rate of the blank type as a variable.
+
             while (result.next()) {
                 commissionrate =  result.getString(1);
             }
 
+            //Getting the ticket id of the blank.
+
             statement1 = con.prepareStatement("SELECT tid FROM atsdb.blanks WHERE blanktype = '"+ blanktype +"' AND ticketnumber = "+ ticketnumber +";");
             result = statement1.executeQuery();
             String tid = "0";
+
+            //Storing the ticket id as a variable.
+
             while (result.next()) {
                 tid =  result.getString(1);
             }
 
+
+            //Adding the ticket to the database with the information provided by the user.
+
+            //This if statement is used for interline tickets as they have exchange rates that need to be added.
 
             if (blanktype.equals("440") || blanktype.equals("420") || blanktype.equals("444") || blanktype.equals("451") || blanktype.equals("452")) {
                 PreparedStatement statement = con.prepareStatement("insert into atsdb.sales (ticketnumber, blanktype, salesamount, paid, refunded, tax, exchangerate,customeremail,amountPaid,paymentMethod,commissionrate,daterecorded,tid) " +
@@ -184,6 +222,11 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
                 statement.setString (13, tid);
                 statement.execute();
             } else {
+
+                //This else statement is used for domestic sales.
+                //We do not need to store the current exchange rate in the database for a domestic sale record.
+
+
                 PreparedStatement statement = con.prepareStatement("insert into atsdb.sales (ticketnumber, blanktype, salesamount, paid, refunded, tax,customeremail,amountPaid,paymentMethod,commissionrate,daterecorded,tid) " +
                         " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);");
                 statement.setString (1, ticketnumber);
@@ -204,6 +247,9 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
         } catch (Exception e) {
         }
     }
+
+
+    //This method allows the user to add credit card details to the database.
 
     public static void createCreditcard(String email,String cardnumber,String ticketnumber,String blanktype) throws Exception {
         try {
@@ -228,6 +274,8 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
     }
 
 
+    //This updates the blanks status.
+    //The status changes from assigned to sold.
 
     public static void soldBlank(String ticketnumber,String blanktype) throws Exception {
         try {
@@ -240,6 +288,9 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
         }
     }
 
+
+    //This method updates the sale to being refunded.
+
     public static void refundSale(String ticketnumber) throws Exception {
         try {
             Connection con = getConnection();
@@ -251,6 +302,8 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
         }
     }
 
+
+    //This method fetches the fixed discount that is associated with the customer detail that is a parameter.
 
     public static String getFixedDiscount(String customeremail) throws Exception {
         try {
@@ -267,6 +320,9 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
             return null;
         }
     }
+
+
+    //This method fetches the flexible discount that is associated with the customer detail that is a parameter.
 
     public static String getFlexibleDiscount(String customeremail, String ticketPrice) throws Exception {
         try {
@@ -292,6 +348,10 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
         }
     }
 
+
+    //This method updates the exchange rate in the database.
+    //Record a new exchange rate.
+
     public static void updateExchangeRate(String exchangerate) throws Exception {
         try {
             Connection con = getConnection();
@@ -308,6 +368,8 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
         }
     }
 
+    //This method fetches the exchange rate.
+
     public static String getExchangeRate() throws Exception {
         try {
             Connection con = getConnection();
@@ -323,6 +385,9 @@ public static void reportSales(String ticketnumber,String blanktype,String sales
             return null;
         }
     }
+
+
+    //This method adds the destination of each coupon to the ticket.
 
     public static void addCoupons(ArrayList<String> destinations, String blanktype, String ticketnumber) throws Exception {
         try {

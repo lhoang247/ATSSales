@@ -11,7 +11,12 @@ import java.util.ArrayList;
 
 import static SQLqueries.SQL.getConnection;
 
+//This class is used to return a list of data that is associated with the reports.
+
 public class SQLReport {
+
+    //This method returns the data that is used in the turnover report
+    //Table1
 
     public static ObservableList<Data2> getReport1(String dateFrom, String dateTo) throws Exception {
         try {
@@ -32,6 +37,10 @@ public class SQLReport {
         }
     }
 
+
+    //This method returns the data that is used in the turnover report
+    //Table2
+
     public static ObservableList<Data2> getReport2(String dateFrom, String dateTo) throws Exception {
         try {
             Connection con = getConnection();
@@ -51,6 +60,10 @@ public class SQLReport {
             return null;
         }
     }
+
+
+    //This method returns the data that is used in the turnover report
+    //Table3
 
     public static ObservableList<Data2> getReport3() throws Exception {
         try {
@@ -75,6 +88,10 @@ public class SQLReport {
         }
     }
 
+
+    //This method returns the data that is used in the turnover report
+    //Table4
+
     public static ObservableList<Data2> getReport4() throws Exception {
         try {
             Connection con = getConnection();
@@ -97,6 +114,10 @@ public class SQLReport {
             return null;
         }
     }
+
+
+    //This method returns the data that is used in the turnover report
+    //Table5
 
     public static ObservableList<Data2> getReport5() throws Exception {
         try {
@@ -126,6 +147,10 @@ public class SQLReport {
         }
     }
 
+
+    //This method returns the data that is used in the turnover report
+    //Table6
+
     public static ObservableList<Data2> getReport6() throws Exception {
         try {
             Connection con = getConnection();
@@ -150,6 +175,10 @@ public class SQLReport {
             return null;
         }
     }
+
+
+    //This method returns the data that is used in the interline report
+    //Table1
 
     public static ObservableList<Data2> getReport7(int type, int staffID, String dateFrom, String dateTo) throws Exception {
         try {
@@ -199,6 +228,10 @@ public class SQLReport {
         }
     }
 
+
+    //This method returns the data that is used in the interline report
+    //Table2
+
     public static ObservableList<Data2> getReport8(int type, int staffID , String dateFrom, String dateTo) throws Exception {
         try {
             Connection con = getConnection();
@@ -243,6 +276,10 @@ public class SQLReport {
         }
     }
 
+
+    //This method returns the number of commissions that was used in the database.
+
+
     public static ArrayList<String> getUniqueCommissions(int type, int staffID) throws Exception {
         try {
             ArrayList<String> data = new ArrayList<>();
@@ -277,6 +314,15 @@ public class SQLReport {
         }
     }
 
+    //This method returns the data that is used in the interline report
+    //Table3
+
+    //This method uses a loop to generate the commission rate columns as the amount of commission is not a static amount sometimes.
+    //This method can have up to 9 different commission rates on the table in case the company changes the commission rate multiple times in
+    //one month period.
+
+    //This method also supplies commission rate tables for both interline and domestic sales as well as individual and global reports.
+
     public static ObservableList<Data2> getReport9(int type, int staffID, String dateFrom, String dateTo) throws Exception {
         try {
             Connection con = getConnection();
@@ -288,31 +334,31 @@ public class SQLReport {
             String sqlString;
             PreparedStatement statement;
             if (type == 0) {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND(sum(salesamount) * (1 - (commissionrate/100)),2) end as 'example' ";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(salesamount) * (1 - (commissionrate/100)),2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales, atsdb.blanks" +
                         " WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420 OR sales.blanktype = 451 OR sales.blanktype = 452)  and sales.refunded != 'y' AND sales.tid = blanks.tid AND blanks.status = 'sold' and sales.refunded != 'y' AND dateRecorded >= '" + dateFrom + "'AND dateRecorded < '" + dateTo + "' " +
                         "group by blanks.idstaff;");
             } else if (type == 1) {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example'";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((salesamount) * (1 - (commissionrate/100)), 2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND((salesamount) * (1 - (commissionrate/100)), 2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 444 OR sales.blanktype = 440 OR sales.blanktype = 420  OR sales.blanktype = 451 OR sales.blanktype = 452) AND " +
                         "  sales.tid = blanks.tid AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y' AND dateRecorded >= '" + dateFrom + "' AND dateRecorded < '" + dateTo + "';");
             } else if (type == 2) {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example'";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND(sum(salesamount) * (1 - (commissionrate/100)),2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(amountPaid) * (1 - (commissionrate/100)),2) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND(sum(salesamount) * (1 - (commissionrate/100)),2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) and sales.refunded != 'y' AND sales.tid = blanks.tid AND blanks.status = 'sold' and sales.refunded != 'y' AND dateRecorded >= '" + dateFrom + "' AND dateRecorded < '" + dateTo + "' " +
                         "group by blanks.idstaff;");
             } else {
-                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example'";
+                sqlString = "case when commissionrate = " + array.get(0) +  " then ROUND((salesamount) * (1 - (commissionrate/100)), 2) end as 'example'";
                 for (int i = 1 ; i < array.size() ; i ++) {
-                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND((amountPaid) * (1 - (commissionrate/100)), 2) end as 'example' ";
+                    sqlString += ", case when commissionrate = " + array.get(i) +  " then ROUND((salesamount) * (1 - (commissionrate/100)), 2) end as 'example' ";
                 }
                 statement = con.prepareStatement("SELECT " + sqlString +" FROM atsdb.sales,atsdb.blanks WHERE (sales.blanktype = 201 OR sales.blanktype = 101) AND " +
                         "  sales.tid = blanks.tid AND blanks.idstaff = " + staffID + " AND blanks.status = 'sold' and sales.refunded != 'y' AND dateRecorded >= '" + dateFrom + "' AND dateRecorded < '" + dateTo + "';");
@@ -394,6 +440,9 @@ public class SQLReport {
         }
     }
 
+    //This method returns the data that is used in the domestic report
+    //Table1
+
     public static ObservableList<Data2> getReport10(int type, int staffID, String dateFrom, String dateTo) throws Exception {
         try {
             Connection con = getConnection();
@@ -424,6 +473,10 @@ public class SQLReport {
             return null;
         }
     }
+
+
+    //This method returns the data that is used in the domestic report
+    //Table2
 
     public static ObservableList<Data2> getReport11(int type, int staffID, String dateFrom, String dateTo) throws Exception {
         try {
@@ -475,6 +528,10 @@ public class SQLReport {
     }
 
 
+
+    //This method is used to show the blanks that are sold.
+    //This is used in the refund page.
+
     public static ObservableList<Data2> getReport12(int staffID) throws Exception {
         try {
             Connection con = getConnection();
@@ -502,6 +559,8 @@ public class SQLReport {
             return null;
         }
     }
+
+    //Currently not used.
 
     public static ObservableList<Data2> getReport13(int staffID) throws Exception {
         try {

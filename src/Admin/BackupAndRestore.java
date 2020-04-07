@@ -83,7 +83,7 @@ public class BackupAndRestore {
 
             /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
             if (processComplete == 0) {
-                ErrorBox.display("Success","The databsae has been restored.");
+                ErrorBox.display("Success","The database has been restored.");
             } else {
                 JOptionPane.showMessageDialog(null, "Error at restoring");
             }

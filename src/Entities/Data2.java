@@ -1,7 +1,17 @@
 package Entities;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+
+/* Data2 is used to generate all tableviews.
+
+9 different constructors so the tableview that is using this class can have a flexible
+amount of columns (up to 9)
+
+To validate the data when the user interacts with the database, the data is parsed.
+For example: Integer.parseInt(dataFromTheTable)*/
+
+
+
 
 public class Data2 {
 

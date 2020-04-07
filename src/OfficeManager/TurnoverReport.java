@@ -11,23 +11,34 @@ import javafx.scene.layout.Priority;
 
 import java.util.ArrayList;
 
-public class TurnoverReport {
+//This class returns a GridPane of the Turnover report with totals
+//Designs the layout of the report.
 
+public class TurnoverReport {
 
     public static GridPane turnoverGrid(String dateFrom,String dateTo) {
 
+        //Calling the method to fill the list with TableViews.
+
         ArrayList<TableView<Data2>> tableViews = returnReports.returnTurnoverreport(dateFrom,dateTo);
 
+        //Creating tables to display.
+
         TableView<Data2> table1, table2, table3, table4, table5, table6;
+
+        //Creating GridPane for easier layout management.
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10,10,10,10));
         grid.setVgap(8);
         grid.setHgap(0);
 
-        //Label
+        //Creating another GridPane.
 
         GridPane gridInfo = new GridPane();
+
+        //Label
+
         Label labelTitle = new Label("Ticket Stock Turnover Report");
         labelTitle.setStyle("-fx-font: 24 arial;");
         GridPane.setConstraints(labelTitle,0,0);
@@ -44,9 +55,14 @@ public class TurnoverReport {
         Label labelReportPeriod = new Label("Report Period: ");
         GridPane.setConstraints(labelReportPeriod,0,4);
 
+        //Adding items to the GridPane.
+
         gridInfo.getChildren().addAll(labelTitle, labelAgent, labelAgentNumber, labelAgentPlace, labelReportPeriod);
         GridPane.setConstraints(gridInfo,0,0);
         GridPane.setColumnSpan(gridInfo,2);
+
+        //Labels
+
         Label label3 = new Label("RECIEVED BLANKS");
         GridPane.setConstraints(label3,0,1);
         GridPane.setHalignment(label3, HPos.CENTER);
@@ -115,10 +131,13 @@ public class TurnoverReport {
         GridPane.setHalignment(label14, HPos.RIGHT);
 
         try {
+
             //table1
 
             table1 = tableViews.get(0);
             GridPane.setConstraints(table1,0,3);
+
+            //calculating total of the table
 
             int total = 0;
             for (Data2 item : table1.getItems()) {
@@ -128,10 +147,14 @@ public class TurnoverReport {
             label9.setText("" + total + " ");
 
             GridPane.setConstraints(table1,0,3);
+
+
             //table2
 
             table2 = tableViews.get(1);
             GridPane.setConstraints(table2,1,3);
+
+            //calculating total of the table
 
             total = 0;
             for (Data2 item : table2.getItems()) {
@@ -140,11 +163,13 @@ public class TurnoverReport {
 
             label10.setText("" + total + " ");
 
+
             //table3
 
             table3 = tableViews.get(2);
             GridPane.setConstraints(table3,2,3);
 
+            //calculating total of the table
 
             total = 0;
             for (Data2 item : table3.getItems()) {
@@ -159,6 +184,8 @@ public class TurnoverReport {
             table4 = tableViews.get(3);
             GridPane.setConstraints(table4,3,3);
 
+            //calculating total of the table
+
             total = 0;
             for (Data2 item : table4.getItems()) {
                 total = total + Integer.parseInt(item.getData24());
@@ -166,10 +193,13 @@ public class TurnoverReport {
 
             label12.setText("" + total + " ");
 
+
             //table5
 
             table5 = tableViews.get(4);
             GridPane.setConstraints(table5,4,3);
+
+            //calculating total of the table
 
             total = 0;
             for (Data2 item : table5.getItems()) {
@@ -178,11 +208,13 @@ public class TurnoverReport {
 
             label13.setText("" + total + " ");
 
+
             //table6
 
             table6 = tableViews.get(5);
             GridPane.setConstraints(table6,5,3);
 
+            //calculating total of the table
 
             total = 0;
             for (Data2 item : table6.getItems()) {
@@ -191,8 +223,12 @@ public class TurnoverReport {
 
             label14.setText("" + total + " ");
 
+            //?
+
             HBox hBox = new HBox();
             hBox.getChildren().addAll(table1,table2,table3);
+
+            //This allows you to scroll with limited window space.
 
             grid.setHgrow(table1, Priority.ALWAYS);
             grid.setHgrow(table2, Priority.ALWAYS);
@@ -200,10 +236,15 @@ public class TurnoverReport {
             grid.setHgrow(table4, Priority.ALWAYS);
             grid.setHgrow(table5, Priority.ALWAYS);
             grid.setHgrow(table6, Priority.ALWAYS);
+
+            //Adding items to the grid.
+
             grid.getChildren().addAll(gridInfo,label1,label2,label3,label4,label5,
                     labelused,label6,label7,label8,labelt,label9,label10,label11,label12,
                     label13,label14,table1,table2,table3,table4,table5,table6);
 
+
+            //Returning the grid.
 
             return grid;
 

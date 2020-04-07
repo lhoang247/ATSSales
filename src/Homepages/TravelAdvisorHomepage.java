@@ -151,12 +151,12 @@ public class TravelAdvisorHomepage {
         Label welcome = new Label("Welcome " + fullname.get(0) + " " + fullname.get(1));
         Label staffID = new Label("Staff ID: " + fullname.get(2));
         homeLayout.getChildren().addAll(welcome ,staffID);
-        grid.getChildren().addAll(button1,button3,button4,button5,button6,table1,button7,button9,button8);
+        grid.getChildren().addAll(button1,button3,button4,button5,button6,button7,button9,button8);
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeLayout);
         borderPane.setCenter(grid);
 
-        Scene homepage = new Scene(borderPane, 300, 440);
+        Scene homepage = new Scene(borderPane, 300, 400);
         window.setTitle("Travel Advisor Homepage");
         return homepage;
     }

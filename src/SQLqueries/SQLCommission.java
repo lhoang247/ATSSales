@@ -1,7 +1,6 @@
 package SQLqueries;
 
 import Entities.Data2;
-import General.ErrorBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -13,7 +12,12 @@ import java.sql.Statement;
 
 import static SQLqueries.SQL.getConnection;
 
+//This class is used for the SQL queries that involve commissions.
+
 public class SQLCommission {
+
+    //This method returns the blank type and commissions that are associated with a specific travel agent.
+
     public static ObservableList<Data2> getTypeAndCommission(String travel) throws Exception {
         try {
             Connection con = getConnection();
@@ -32,6 +36,8 @@ public class SQLCommission {
         }
     }
 
+    //This returns a ComboBox that contains all the travel agents that are associated with the company.
+
     public static ComboBox<String> getTravelAgents() throws Exception {
         try {
             Connection con = getConnection();
@@ -46,6 +52,8 @@ public class SQLCommission {
             return null;
         }
     }
+
+    //This method updates commission rates.
 
     public static void updateCommission(String type, String commission, String travelagent) throws Exception {
         try {

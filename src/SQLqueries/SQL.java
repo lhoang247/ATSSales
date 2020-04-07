@@ -7,9 +7,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+//This class contains the connection to the database.
+//The program uses MySQL and a local server that our system hosts.
+
 public class SQL {
 
     public static Connection getConnection() throws Exception {
+
+        //Connecting with MySQL.
+
         try {
             String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://localhost:3306/atsdb";
@@ -23,13 +29,21 @@ public class SQL {
         }
     }
 
+    //This method is used to match the login details.
+
     public static ArrayList<String> getLoginDetails(String username, String password) throws Exception {
         try {
             ArrayList<String> data = new ArrayList<>();
+
+            //Calling the connection method.
             Connection con = getConnection();
 
+            //SQL statement.
             PreparedStatement statement = con.prepareStatement("SELECT username,password FROM staff WHERE username = '" + username + "' AND password = '" + password + "';");
+            //Executing statement.
             ResultSet result = statement.executeQuery();
+
+            //While loop to go through all the data.
             while (result.next()) {
                 data.add(result.getString(1));
                 data.add(result.getString(2));
@@ -41,6 +55,8 @@ public class SQL {
             return null;
         }
     }
+
+    //This method returns a string that is the role of the account.
 
     public static String getRole(String match) throws Exception {
         try {
@@ -57,6 +73,7 @@ public class SQL {
         }
     }
 
+    //This method returns a list of information about the user who is logging in.
 
     public static List<String> getFandSname(String match, String field) throws Exception {
         List<String> data = new ArrayList();
@@ -75,10 +92,5 @@ public class SQL {
         } catch (Exception e) {
             return null;
         }
-    }
-
-
-    public void addTravelAdvisor() throws Exception {
-
     }
 }

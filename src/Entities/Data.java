@@ -1,5 +1,5 @@
 package Entities;
-
+//Data is no longer used
 public class Data {
     private String data1;
     private String data2;

@@ -2,8 +2,6 @@ package OfficeManager;
 
 import Entities.Data2;
 import SQLqueries.SQLReport;
-import javafx.geometry.HPos;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,13 +11,22 @@ import java.util.ArrayList;
 
 import static OfficeManager.InterlineReport.getColumns;
 
+//This class returns a list of TableViews.
+//The TableViews contain the content of the report requested by the user.
+//It names the columns and calls the SQL query
+
 public class returnReports {
 
     public static ArrayList<TableView<Data2>> returnTurnoverreport(String dateFrom,String dateTo) {
+
         try {
+
+            //Creating TableViews to add to the list of TableViews.
+
             TableView<Data2> table1, table2, table3, table4, table5, table6;
 
-            //table1
+            //Creating table1
+
             TableColumn<Data2, String> blanktypeColumn1 = new TableColumn<>("TYPE");
             blanktypeColumn1.setMinWidth(50);
             blanktypeColumn1.setCellValueFactory(new PropertyValueFactory<>("data22"));
@@ -32,13 +39,16 @@ public class returnReports {
             amountColumn1.setMinWidth(40);
             amountColumn1.setCellValueFactory(new PropertyValueFactory<>("data23"));
 
+            //Adding columns to the table.
+            //Filling table with data.
+
             table1 = new TableView<>();
             table1.setMaxSize(230, 200);
             table1.setItems(SQLReport.getReport1(dateFrom, dateTo));
             table1.getColumns().addAll(blanktypeColumn1, blankColumn1, amountColumn1);
 
 
-            //table2
+            //Creating table2
 
             TableColumn<Data2, String> blanktypeColumn2 = new TableColumn<>("TYPE");
             blanktypeColumn2.setMinWidth(50);
@@ -56,13 +66,16 @@ public class returnReports {
             amountColumn2.setMinWidth(40);
             amountColumn2.setCellValueFactory(new PropertyValueFactory<>("data24"));
 
+            //Adding columns to the table.
+            //Filling table with data.
+
             table2 = new TableView<>();
             table2.setItems(SQLReport.getReport2(dateFrom, dateTo));
             table2.getColumns().addAll(staffidColumn2, blanktypeColumn2, blankColumn2, amountColumn2);
             table2.setMaxSize(280, 200);
 
 
-            //table3
+            //Creating table3
 
             TableColumn<Data2, String> blanktypeColumn3 = new TableColumn<>("TYPE");
             blanktypeColumn3.setMinWidth(50);
@@ -80,13 +93,16 @@ public class returnReports {
             amountColumn3.setMinWidth(40);
             amountColumn3.setCellValueFactory(new PropertyValueFactory<>("data24"));
 
+            //Adding columns to the table.
+            //Filling table with data.
+
             table3 = new TableView<>();
             table3.setItems(SQLReport.getReport3());
             table3.getColumns().addAll(staffidColumn3, blanktypeColumn3, blankColumn3, amountColumn3);
             table3.setMaxSize(280, 200);
 
 
-            //table4
+            //Creating table4
 
             TableColumn<Data2, String> blanktypeColumn4 = new TableColumn<>("TYPE");
             blanktypeColumn4.setMinWidth(0);
@@ -104,12 +120,15 @@ public class returnReports {
             amountColumn4.setMinWidth(0);
             amountColumn4.setCellValueFactory(new PropertyValueFactory<>("data24"));
 
+            //Adding columns to the table.
+            //Filling table with data.
+
             table4 = new TableView<>();
             table4.setItems(SQLReport.getReport4());
             table4.getColumns().addAll(blanktypeColumn4, blankFromColumn4, blankToColumn4, amountColumn4);
             table4.setMaxSize(295, 200);
 
-            //table5
+            //Creating table5
 
             TableColumn<Data2, String> blanktypeColumn5 = new TableColumn<>("TYPE");
             blanktypeColumn5.setMinWidth(0);
@@ -127,13 +146,16 @@ public class returnReports {
             amountColumn5.setMinWidth(0);
             amountColumn5.setCellValueFactory(new PropertyValueFactory<>("data24"));
 
+            //Adding columns to the table.
+            //Filling table with data.
+
             table5 = new TableView<>();
             table5.setItems(SQLReport.getReport5());
             table5.getColumns().addAll(blanktypeColumn5, blankFromColumn5, blankToColumn5, amountColumn5);
             table5.setMaxSize(295, 200);
 
 
-            //table6
+            //Creating table6
 
             TableColumn<Data2, String> staffIDColumn6 = new TableColumn<>("CODE");
             staffIDColumn6.setMinWidth(0);
@@ -155,12 +177,20 @@ public class returnReports {
             amountColumn6.setMinWidth(0);
             amountColumn6.setCellValueFactory(new PropertyValueFactory<>("data25"));
 
+            //Adding columns to the table.
+            //Filling table with data.
+
             table6 = new TableView<>();
             table6.setItems(SQLReport.getReport6());
             table6.getColumns().addAll(staffIDColumn6, blanktypeColumn6, blankFromColumn6, blankToColumn6, amountColumn6);
             table6.setMaxSize(350, 200);
 
+
+            //Creating the list of TableViews.
+
             ArrayList<TableView<Data2>> tableviews = new ArrayList<>();
+
+            //Adding the TableViews to the list.
 
             tableviews.add(table1);
             tableviews.add(table2);
@@ -169,20 +199,39 @@ public class returnReports {
             tableviews.add(table5);
             tableviews.add(table6);
 
+            //Returning the list.
+
             return tableviews;
 
         } catch (Exception e) {
+
             return null;
+
         }
 
     }
 
+
+    //This method returns the interline sales report.
+    //This can either return individual or global report.
+
     public static ArrayList<TableView<Data2>> returnInterlinereport(int type, int staffNumber, String dateFrom,String dateTo) {
+
         try {
+
+            //Creating TableViews to add to the list.
+
             TableView<Data2> table1, table2, table3;
+
+            //Creating the list of TableViews.
+
             ArrayList<TableView<Data2>> tableviews = new ArrayList<>();
 
-            //table1
+
+            //Creating columns for table1.
+            //Here i predefined the columns as i will pass them in a if statement to decide if the title is either
+            //a individual report or a global report.
+
             TableColumn<Data2 ,String> blanktypeColumn1;
             TableColumn<Data2 ,String> blankColumn1;
             TableColumn<Data2 ,String> fareAmountColumn1;
@@ -190,9 +239,21 @@ public class returnReports {
             TableColumn<Data2 ,String> localFareAmountColumn1;
             TableColumn<Data2 ,String> taxColumn1;
             TableColumn<Data2 ,String> totalAmountColumn1;
+
+            //Creating table1.
+
             table1 = new TableView<>();
+
+            //Initialized total to calculate the total of each TableView's last column.
+
             int total = 0;
+
+            //Type 0 = global
+            //Type 1 = individual
+
             if (type == 0) {
+
+                //Creating the columns and naming them.
 
                 blanktypeColumn1 = new TableColumn<>("StaffID");
                 blanktypeColumn1.setMinWidth(50);
@@ -214,11 +275,17 @@ public class returnReports {
                 localFareAmountColumn1.setMinWidth(40);
                 localFareAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data25"));
 
+
+                //Filling table1 with data.
+                //Adding the columns to the table.
+
                 table1.setMaxSize(275,200);
                 table1.setItems(SQLReport.getReport7(type, staffNumber,dateFrom,dateTo));
                 table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1);
 
             } else {
+
+                //Creating columns for the individual report.
 
                 blanktypeColumn1 = new TableColumn<>("TYPE");
                 blanktypeColumn1.setMinWidth(50);
@@ -248,21 +315,20 @@ public class returnReports {
                 totalAmountColumn1.setMinWidth(40);
                 totalAmountColumn1.setCellValueFactory(new PropertyValueFactory<>("data27"));
 
+                //Adding columns to the table.
+                //Filling table with data.
+
                 table1.setMaxSize(405,200);
                 table1.setItems(SQLReport.getReport7(type, staffNumber, dateFrom,dateTo));
                 table1.getColumns().addAll(blanktypeColumn1,blankColumn1,fareAmountColumn1, exchangeRateColumn1,localFareAmountColumn1,taxColumn1,totalAmountColumn1);
 
             }
 
-
             GridPane.setConstraints(table1,0,3);
 
 
-            Label table1Total = new Label("" + total);
-            GridPane.setConstraints(table1Total,0,4);
-            GridPane.setHalignment(table1Total, HPos.RIGHT);
-
-            //table2
+            //Creating table2
+            //This one does not need a if statement as both reports share the same column names.
 
             TableColumn<Data2 ,String> pmColumn2 = new TableColumn<>("PAYMENT\nMETHOD");
             pmColumn2.setMinWidth(50);
@@ -284,19 +350,33 @@ public class returnReports {
             totalColumn2.setMinWidth(40);
             totalColumn2.setCellValueFactory(new PropertyValueFactory<>("data25"));
 
+
+            //Adding columns to the table.
+            //Filling table with data.
+
             table2 = new TableView<>();
             table2.getColumns().addAll(pmColumn2,cashColumn2,cardColumn2,cardNumberColumn2,totalColumn2);
             table2.setItems(SQLReport.getReport8(type, staffNumber, dateFrom,dateTo));
             table2.setMaxSize(307,200);
 
 
+
+            //Calling a method that feels the commission table with columns.
+            //Adding columns to the table.
+            //Filling table with data.
+
             table3 = getColumns(type, staffNumber);
             table3.setItems(SQLReport.getReport9(type, staffNumber, dateFrom,dateTo));
             table3.setMaxSize(1000,200);
 
+            //Adding tables to the list.
+
             tableviews.add(table1);
             tableviews.add(table2);
             tableviews.add(table3);
+
+
+            //Returning the list.
 
             return tableviews;
 

@@ -20,27 +20,46 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+//This class generate the sale page for both office manager and the travel advisors.
+//Main function of this window is to allow the user to record sold blanks or void blanks.
+
 public class SalesPage {
 
     public static void display(int staffNumber ,String role) throws Exception {
+
+        //Creating a new window.
+
         Stage window = new Stage();
+
+        //Creating a GridPane for easier layout management.
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(30,30,30,30));
         grid.setHgap(10);
         grid.setVgap(10);
 
+        //Creating a VBox to add the title label.
+
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(10, 10, 10, 10));
+
+        //Creating label for the title.
 
         Label labelTitle = new Label();
         labelTitle.setText("Report Sales");
         labelTitle.setStyle("-fx-font: 24 arial;");
+
+        //Adding the label to the VBox.
+
         vBox.getChildren().addAll(labelTitle);
 
+        //Creating TableViews for display.
+
         TableView<Data2> table1, table2;
+
         try {
-            //table1
+
+            //Creating table1 columns.
 
             TableColumn<Data2, String> typeColumn1 = new TableColumn<>("Blank Type");
             typeColumn1.setMinWidth(50);
@@ -54,6 +73,9 @@ public class SalesPage {
             maxColumn1.setMinWidth(40);
             maxColumn1.setCellValueFactory(new PropertyValueFactory<>("data23"));
 
+            //Adding columns to the table.
+            //Filling the table with data.
+
             table1 = new TableView<>();
             table1.setMaxSize(500, 150);
             table1.setItems(SQLBlanks.salesTable("" + staffNumber));
@@ -61,7 +83,8 @@ public class SalesPage {
 
             GridPane.setConstraints(table1, 0, 0);
 
-            //table2
+
+            //Creating columns for table2.
 
             TableColumn<Data2, String> emailColumn2 = new TableColumn<>("Email");
             emailColumn2.setMinWidth(30);
@@ -79,6 +102,10 @@ public class SalesPage {
             customerTypeColumn2.setMinWidth(30);
             customerTypeColumn2.setCellValueFactory(new PropertyValueFactory<>("data24"));
 
+
+            //Adding columns to the table.
+            //Filling the table with data.
+
             table2 = new TableView<>();
             table2.setMaxSize(290, 150);
             table2.setItems(SQLBlanks.getCustomerAccounts());
@@ -86,12 +113,16 @@ public class SalesPage {
 
             GridPane.setConstraints(table2, 0, 1);
 
+            //Creating GridPane to add labels and TextFields.
+
             GridPane gridInfo = new GridPane();
             gridInfo.setHgap(10);
             gridInfo.setVgap(8);
             GridPane.setConstraints(gridInfo, 1, 0);
 
 
+            //Creating labels and TextFields.
+            //Labels.
 
             Label ticketTypeLabel = new Label ("Ticket Type: ");
             GridPane.setConstraints(ticketTypeLabel, 0, 0);
@@ -145,6 +176,8 @@ public class SalesPage {
             GridPane.setConstraints(dateLabel, 0, 13);
             GridPane.setHalignment(dateLabel,HPos.RIGHT);
 
+            //Labels for destination.
+
             Label destination1Label = new Label ("Destination 1: ");
             GridPane.setConstraints(destination1Label, 2, 0);
             GridPane.setHalignment(destination1Label,HPos.LEFT);
@@ -162,9 +195,11 @@ public class SalesPage {
             GridPane.setHalignment(destination4Label,HPos.LEFT);
 
 
+
+            //A lot of TextFields for the user to use.
+
             TextField typeField = new TextField();
             GridPane.setConstraints(typeField, 1, 0);
-
 
             TextField ticketNumberField = new TextField();
             GridPane.setConstraints(ticketNumberField, 1, 1);
@@ -181,11 +216,15 @@ public class SalesPage {
             TextField customerEmailField = new TextField();
             GridPane.setConstraints(customerEmailField, 1, 5);
 
+            //ComboBox created to see if the sale is fully paid or not.
+
             ComboBox fullypaidBox = new ComboBox();
             fullypaidBox.setValue("yes");
             fullypaidBox.getItems().add("yes");
             fullypaidBox.getItems().add("no");
             GridPane.setConstraints(fullypaidBox, 1, 7);
+
+            //ComboBox created to see if the sale is either paid by cash or card.
 
             ComboBox paymentMethodBox = new ComboBox();
             paymentMethodBox.getItems().add("cash");
@@ -204,19 +243,15 @@ public class SalesPage {
             TextField creditCardExpireField = new TextField();
             GridPane.setConstraints(creditCardExpireField, 1, 12);
 
+            //Getting today's date.
+
             DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
             Calendar calobj = Calendar.getInstance();
+
             TextField dateField = new TextField(df.format(calobj.getTime()));
             GridPane.setConstraints(dateField, 1, 13);
 
-            Button calculateMaxButton = new Button("Calculate Max with discount");
-            GridPane.setConstraints(calculateMaxButton, 2, 6);
-            GridPane.setColumnSpan(calculateMaxButton,2);
-
-            Button reportSalesButton = new Button("Record Sale");
-            reportSalesButton.setMinSize(130,0);
-            Button voidButton = new Button("Void selected blank");
-            voidButton.setMinSize(130,0);
+            //TextField for destination.
 
             TextField destination1Field = new TextField ();
             GridPane.setConstraints(destination1Field, 3, 0);
@@ -230,11 +265,32 @@ public class SalesPage {
             TextField destination4Field = new TextField ();
             GridPane.setConstraints(destination4Field, 3, 3);
 
+
+            //Creating buttons for the user to confirm sale or void blank.
+
+            Button calculateMaxButton = new Button("Calculate Max with discount");
+            GridPane.setConstraints(calculateMaxButton, 2, 6);
+            GridPane.setColumnSpan(calculateMaxButton,2);
+
+            Button reportSalesButton = new Button("Record Sale");
+            reportSalesButton.setMinSize(130,0);
+            Button voidButton = new Button("Void selected blank");
+            voidButton.setMinSize(130,0);
+
+
+            //Creating HBox to add the buttons.
+
             HBox hBoxButton = new HBox();
             hBoxButton.getChildren().addAll(reportSalesButton,voidButton);
             hBoxButton.setPadding(new Insets(10,10,10,10));
             hBoxButton.setSpacing(20);
+
             GridPane.setRowSpan(gridInfo,2);
+
+
+            //Adding assets to the respective GridPanes.
+            //A lot of labels and TextFields for GridInfo.
+
             gridInfo.getChildren().addAll(ticketTypeLabel,ticketNumberLabel,ticketPriceLabel,taxLabel,exchangeRateLabel,
                     customerEmailLabel,paymentMethodLabel,customerPaymentAmountLabel,creditCardField,creditCardLabel,
                     dateLabel,typeField,ticketNumberField,ticketPriceField,taxField,exchangeRateField,customerEmailField,
@@ -244,15 +300,32 @@ public class SalesPage {
             grid.getChildren().addAll(table1,table2,gridInfo);
 
 
+            //Added a listener for table1 when a user clicks on the TableView.
+            //Main function is hide TextFields or disable the TextField depending on the type of blank selected.
+
             table1.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+                //Created a variable which hold the selected row that the user selected.
+
                 Data2 assignSelection = table1.getSelectionModel().getSelectedItems().get(0);
+
+                //Automatically fills the type and ticket number TextField with data of the selected ticket.
+
                 typeField.setText(assignSelection.getData21());
                 ticketNumberField.setText(assignSelection.getData22());
+
+                //This if statement is used to disable the exchange rate TextField if the blank type is domestic.
+                //This allows the user to see that the exchange rate will not affect the sales.
+                //Mainly used for clarity.
+
                 if (assignSelection.getData21().equals("444")  || assignSelection.getData21().equals("440")  || assignSelection.getData21().equals("420")) {
                     exchangeRateField.setDisable(false);
                 } else {
                     exchangeRateField.setDisable(true);
                 }
+
+                //These if statements are used to enable and disable the coupon destination TextFields.
+                //Main purpose being limiting the amount of coupons depending on the blank type.
 
                 if (assignSelection.getData21().equals("444")  || assignSelection.getData21().equals("440")) {
                     destination1Field.setVisible(true);
@@ -284,10 +357,16 @@ public class SalesPage {
                 }
             });
 
+            //Adding a listener to allow the user to select a customer.
+            //Automatically fills the customer's email TextField when clicking on a record on the TableView.
+
             table2.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                 Data2 toOnClickSelection = table2.getSelectionModel().getSelectedItems().get(0);
                 customerEmailField.setText(toOnClickSelection.getData21());
             });
+
+            //Here is a listener for the Payment method ComboBox.
+            //This enables and disables the credit card detail fields.
 
             paymentMethodBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
                 if (newValue == "cash") {
@@ -302,40 +381,90 @@ public class SalesPage {
             }) ;
 
 
+            //Adding a action listener for the report sales button.
+
             reportSalesButton.setOnAction(e -> {
+
+                //This try state,emt is used for data validation.
+                //If the user's input doesn't validate the requirements then it will catch and return a error.
+
                 try {
+
+                    //This if statement is used for the fact that a payment can either be fully paid or late payment.
+                    //Therefore the SQL query will need to be called with different parameters.
+
                     if (fullypaidBox.getValue().equals("yes")) {
                         SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"y",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),dateField.getText());
                     } else if (fullypaidBox.getValue().equals("no")) {
                         SQLBlanks.reportSales(ticketNumberField.getText(),typeField.getText(),ticketPriceField.getText(),"n",taxField.getText(),exchangeRateField.getText(),customerEmailField.getText(),customerPaidAmountField.getText(), (String) paymentMethodBox.getSelectionModel().getSelectedItem(),dateField.getText());
                     }
+
+                    //Testing for data validation.
+
                     Double.parseDouble(ticketPriceField.getText());
                     Double.parseDouble(taxField.getText());
                     Double.parseDouble(customerPaidAmountField.getText());
+
+                    //This calls a method that contain an SQL query that updates the blank table.
+                    //The status changes from "assigned" to "sold"
+
                     SQLBlanks.soldBlank(ticketNumberField.getText(),typeField.getText());
+
+                    //Creating an array to add the destinations.
+
                     ArrayList<String> destinations = new ArrayList();
+
+                    //Depending on the blank type, the destinations will be added to the list.
+
                     if (typeField.getText().equals("444") || typeField.getText().equals("440")) {
+
+                        //4 coupons max
+
                         destinations.add(destination1Field.getText());
                         destinations.add(destination2Field.getText());
                         destinations.add(destination3Field.getText());
                         destinations.add(destination4Field.getText());
+
+                        //Calling the SQL query to execute.
                         SQLBlanks.addCoupons(destinations,typeField.getText(),ticketNumberField.getText());
+
+
                     } else if (typeField.getText().equals("420") || typeField.getText().equals("201")){
+
+                        //2 coupons max
+
                         destinations.add(destination1Field.getText());
                         destinations.add(destination2Field.getText());
+
+                        //Calling the SQL query to execute.
                         SQLBlanks.addCoupons(destinations,typeField.getText(),ticketNumberField.getText());
                     } else if (typeField.getText().equals("101")){
+
+                        //1 coupon max
+
                         destinations.add(destination1Field.getText());
+
+                        //Calling the SQL query to execute.
                         SQLBlanks.addCoupons(destinations,typeField.getText(),ticketNumberField.getText());
+
                     }
+
+                    //Popup occurs when successful.
                     ErrorBox.display("Success","The ticket has successfully been reported");
+
+                    //If the payment was card, then the program will add the card details to the credit card table.
+
                     if (paymentMethodBox.getValue().equals("card")) {
+
                         SQLBlanks.createCreditcard(customerEmailField.getText(),creditCardField.getText(),ticketNumberField.getText(),typeField.getText());
+
                     }
+
+                    //Here we clear the TextFields for quality of life.
+
                     ticketNumberField.clear();
                     ticketPriceField.clear();
                     taxField.clear();
-                    exchangeRateField.clear();
                     customerEmailField.clear();
                     customerPaidAmountField.clear();
                     creditCardField.clear();
@@ -345,26 +474,63 @@ public class SalesPage {
                     destination2Field.clear();
                     destination3Field.clear();
                     destination4Field.clear();
+
+                    //Refreshing table1 to show that the database was updated.
+
                     table1.setItems(SQLBlanks.salesTable("" + staffNumber));
+
                 } catch (Exception e1) {
+
+                    //Error occurs if the data inputted was not valid.
                     ErrorBox.display("Error","The ticket has a the wrong input type.");
+
                 }
             });
 
+
+            //This action lister calculate the total amount that the customer has to pay.
+            //This also includes the total including the discount plan that they were set.
+
             calculateMaxButton.setOnAction(e -> {
                 try {
+
+                    //If the customer email was empty (Casual customer) then the amount will be full price.
+
                     if (customerEmailField.getText().isEmpty() || ticketPriceField.getText().isEmpty()) {
                         customerPaidAmountField.setText("" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())));
                     } else {
+
+                        //This block of code tries to calculate the total depending on the type of discount plan the customer was set.
+                        //Type 1 = fixed
+                        //type 2 = flexible
+
                         try {
+
+                            //Calls a method that executes a SQL query to see what type the discount is.
+
                             if (SQLCustomers.getDiscountType2(customerEmailField.getText()).equals("1")){
+
+                                //Calculation
+
                                 Double calculate = (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())) * (1 - (Double.parseDouble(SQLBlanks.getFixedDiscount(customerEmailField.getText())) / 100));
+
+                                //Filling the textfield with full price + discount.
+
                                 customerPaidAmountField.setText("" + calculate);
                             } else if (SQLCustomers.getDiscountType2(customerEmailField.getText()).equals("2")) {
+
+                                //Calculation
+
                                 Double calculate = (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())) * (1 - (Double.parseDouble(SQLBlanks.getFlexibleDiscount(customerEmailField.getText(), "" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())))) / 100));
+
+                                //Filling the textfield with full price + discount.
+
                                 customerPaidAmountField.setText("" + calculate);
                             }
                         } catch (Exception nullpointer) {
+
+                            //Just in case.
+
                             customerPaidAmountField.setText("" + (Double.parseDouble(ticketPriceField.getText()) + Double.parseDouble(taxField.getText())));
                         }
                     }
@@ -374,27 +540,49 @@ public class SalesPage {
                 }
             });
 
+
+            //Adding an action listener to allow the user to void blanks
+            //Blanks can no longer be sold once voided.
+
             voidButton.setOnAction(e -> {
                 try {
+
+                    //Executes a SQL query that voids the blank.
+
                     SQLBlanks.voidBlank(ticketNumberField.getText(),typeField.getText());
+
+                    //Refreshes table1 to show that the database has updated.
+
                     table1.setItems(SQLBlanks.salesTable("" + staffNumber));
+
+                    //Success Popup.
+
                     ErrorBox.display("Success","The ticket has successfully been voided");
+
+                    //Clear boxes for quality of life.
+
                     ticketNumberField.clear();
                     ticketPriceField.clear();
                     taxField.clear();
-                    exchangeRateField.clear();
                     customerEmailField.clear();
                     customerPaidAmountField.clear();
                     creditCardField.clear();
+
+
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             });
+
+            //Creating BorderPane.
+
             BorderPane borderPane = new BorderPane();
             borderPane.setTop(vBox);
             borderPane.setCenter(grid);
             borderPane.setBottom(hBoxButton);
+
             Scene scene = new Scene(borderPane);
+
             window.setScene(scene);
             window.show();
         } catch (Exception e) {

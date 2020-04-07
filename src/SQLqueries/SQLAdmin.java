@@ -16,7 +16,9 @@ import static SQLqueries.SQL.getConnection;
 
 public class SQLAdmin {
 
-    public static void createFlexDiscBand(String blanktype, String quantity) throws Exception {
+    //This method add blanks to stocks.
+
+    public static void addBlanksToStocks(String blanktype, String quantity) throws Exception {
         try {
             Connection con = getConnection();
 
@@ -61,6 +63,8 @@ public class SQLAdmin {
         }
     }
 
+    //This method returns a table of data which contains staff details.
+
     public static ObservableList<Data2> getStaffDetails() throws Exception {
         try {
             Connection con = getConnection();
@@ -82,6 +86,8 @@ public class SQLAdmin {
             return null;
         }
     }
+
+    //This method allows the user to add staff to the database.
 
     public static void addStaff(String firstname,String surname,String username,String password,String role,String email) throws Exception {
         try {
@@ -108,6 +114,8 @@ public class SQLAdmin {
         }
     }
 
+    //This method updates the staff's details using SQL.
+
     public static void editStaff(String id,String firstname,String surname,String email) throws Exception {
         try {
             Connection con = getConnection();
@@ -118,6 +126,8 @@ public class SQLAdmin {
         } catch (Exception e) {
         }
     }
+
+    //This method fetches data from the database and returns a string.
 
     public static String getStaffUsername(String username) throws Exception {
         try {
@@ -135,6 +145,8 @@ public class SQLAdmin {
         }
     }
 
+    //This method deletes stocks from the database.
+
     public static void removeStocks(String blanktype,String from, String to) throws Exception {
         try {
             Connection con = getConnection();
@@ -148,13 +160,16 @@ public class SQLAdmin {
         }
     }
 
+
+    //This method allows the user to search for specific blanks.
+
     public static ObservableList<Data2> getSearchStocks(String blanktype, String ticketnumber) throws Exception {
         try {
             Connection con = getConnection();
             ObservableList<Data2> table = FXCollections.observableArrayList();
             PreparedStatement statement = con.prepareStatement("SELECT blanktype,null, ticketnumber,ticketnumber,idstaff,receivedDate FROM atsdb.blanks WHERE blanktype = "+ blanktype +" AND status != 'sold';");
             if (!ticketnumber.equals("")) {
-                statement = con.prepareStatement("SELECT blanktype,null, ticketnumber,ticketnumber,idstaff,receivedDate FROM atsdb.blanks WHERE blanktype = "+ blanktype +" AND ticketnumber = "+ ticketnumber +" AND status != 'sold';");
+                statement = con.prepareStatement("SELECT blanktype,null, ticketnumber,ticketnumber,idstaff,receivedDate FROM atsdb.blanks WHERE blanktype = "+ blanktype +" AND ticketnumber = "+ ticketnumber +";");
             }
             ResultSet result = statement.executeQuery();
             while (result.next()) {
@@ -169,6 +184,25 @@ public class SQLAdmin {
             }
             con.close();
             return table;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    //This method returns a string.
+    //The method returns the status of the blank in the blank table.
+
+    public static String getStatus(String blanktype, String ticketnumber) throws Exception {
+        try {
+            Connection con = getConnection();
+            ObservableList<Data2> table = FXCollections.observableArrayList();
+            PreparedStatement statement = con.prepareStatement("SELECT status FROM atsdb.blanks WHERE blanktype = "+ blanktype +" AND ticketnumber = "+ ticketnumber +";");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                return result.getString(1);
+            }
+            con.close();
+            return null;
         } catch (Exception e) {
             return null;
         }
